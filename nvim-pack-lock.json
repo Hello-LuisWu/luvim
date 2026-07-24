@@ -33,6 +33,10 @@
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
+    "fzf-lua": {
+      "rev": "511651f198068ef5841ee1635ade58daa2486ef7",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
     "gruvbox.nvim": {
       "rev": "154eb5ff5b96d0641307113fa385eaf0d36d9796",
       "src": "https://www.github.com/ellisonleao/gruvbox.nvim"

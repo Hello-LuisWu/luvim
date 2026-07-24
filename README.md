@@ -68,34 +68,39 @@ git clone --depth 1 https://github.com/Hello-LuisWu/nvim-pack-config $env:LOCALA
 nvim 主目录文件树
 
 ```sh
-.
-├── init.lua
-├── lua
-│   ├── config
-│   │   ├── autocmd.lua
-│   │   ├── keymap.lua
-│   │   ├── lsp.lua
-│   │   ├── option.lua
-│   │   └── pack.lua
-│   ├── plugins
-│   │   ├── align.lua
-│   │   ├── alpha.lua
-│   │   ├── autopairs.lua
-│   │   ├── blink.lua
-│   │   ├── comment.lua
-│   │   ├── flash.lua
-│   │   ├── mason.lua
-│   │   ├── md.lua
-│   │   ├── neotree.lua
-│   │   ├── surround.lua
-│   │   ├── telescope.lua
-│   │   ├── todo-comments.lua
-│   │   ├── ufo.lua
-│   │   └── wk.lua
-│   └── utils
-│       └── loader.lua
-├── m.md
-└── nvim-pack-lock.json
+ .
+├──  init.lua
+├──  lua
+│   ├──  config
+│   │   ├──  autocmd.lua
+│   │   ├──  keymap.lua
+│   │   ├──  option.lua
+│   │   └──  pack.lua
+│   ├──  plugins
+│   │   ├──  align.lua
+│   │   ├──  alpha.lua
+│   │   ├──  autopairs.lua
+│   │   ├──  blink.lua
+│   │   ├──  colorizer.lua
+│   │   ├──  comment.lua
+│   │   ├──  flash.lua
+│   │   ├──  fzf.lua
+│   │   ├──  lazygit.lua
+│   │   ├──  lsp.lua
+│   │   ├──  lualine.lua
+│   │   ├──  md-autolist.lua
+│   │   ├──  md-preview.lua
+│   │   ├──  md-table-mode.lua
+│   │   ├──  neotree.lua
+│   │   ├──  surround.lua
+│   │   ├──  todo-comments.lua
+│   │   ├──  treesitter.lua
+│   │   └──  wk.lua
+│   └──  utils
+│       └──  loader.lua
+├──  nvim-pack-lock.json
+├── 󰂺 README.md
+└──  telescope.lua
 ```
 
 ## 🚀 启动与首次初始化

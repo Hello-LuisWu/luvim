@@ -12,14 +12,15 @@
 
 - 💚[neovim](https://neovim.io/doc/install/): >= 0.12
 - 🐙 [Git](https://git-scm.com/install/): 版本 >= 2.19.0（支持部分克隆）
-- 🔍 [**ripgrep (rg)**](https://github.com/BurntSushi/ripgrep):  快速文本搜索工具，Telescope 模糊搜索依赖
-- 🌳 [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md):  treesitter 所需依赖
+- 🔍[**ripgrep (rg)**](https://github.com/BurntSushi/ripgrep):  被 fzf-lua 等插件用于 `live_grep` 全局内容搜索。
+- 🌳 [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md):  Tree-sitter 命令行工具,用于生成、调试和管理语法解析器, nvim-treesitter 部分功能可能需要。
     - 🗜️ **gcc**：编译 C 插件时使用（如 Treesitter）
-- [pyright](https://github.com/microsoft/pyright): python 的语言服务器. 安装: `npm i -g pyright`
-- clangd: c/c++ 语言服务器
-    - clang: c/c++ 编译器, clangd所需依赖. arch安装: `sudo pacman -S clang`
-- 🧵 [Node.js](https://nodejs.org/zh-cn/download): 安装 LSP/格式化工具（如 tsserver、prettier、markdown-preview）
-- 🌀 [Nerd Font](https://www.nerdfonts.com/#home):（可选）v3.0 或更高版本, **Nerd Font**  是内置图标的编程字体，用于美化终端和编辑器界面。
+    - 🦀[cargo](https://github.com/Hello-LuisWu/cargo-config): tree-sitter-cli 推荐通过 Cargo 安装
+- 🐍 [pyright](https://github.com/microsoft/pyright): python 的语言服务器. 安装: `npm i -g pyright`
+- ⚙️ clangd: c/c++ 语言服务器
+    - 🛠️ clang: c/c++ 编译器, clangd所需依赖. arch安装: `sudo pacman -S clang`
+- 🧵[Node.js](https://nodejs.org/zh-cn/download): 安装 LSP/格式化工具（如 tsserver、prettier、markdown-preview）
+- 🌀[Nerd Font](https://www.nerdfonts.com/#home):（可选）v3.0 或更高版本, **Nerd Font**  是内置图标的编程字体，用于美化终端和编辑器界面。
 - 🛠 **make**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
 - 🌿 [lazygit](https://github.com/jesseduffield/lazygit) （可选）: git 管理工具
 - 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）

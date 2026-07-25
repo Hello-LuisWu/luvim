@@ -1,9 +1,72 @@
-vim.api.nvim_create_autocmd("UIEnter", {
-    group = vim.api.nvim_create_augroup("SetupLaztgit", { clear = true }),
-    once = true,
-    callback = function()
-        vim.pack.add({
-            'https://github.com/kdheepak/lazygit.nvim',
-        })
+local loaded = false
+local function setup_LazyGit()
+    if loaded then
+        return require('lazygit')
+    end
+    loaded = true
+
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    vim.pack.add({
+        'https://github.com/kdheepak/lazygit.nvim',
+        "https://github.com/nvim-lua/plenary.nvim",
+
+    })
+
+    vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+    vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+    vim.g.lazygit_floating_window_border_chars = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' } -- customize lazygit popup window border characters
+    vim.g.lazygit_floating_window_use_plenary = 1 -- use plenary.nvim to manage floating window if available
+    vim.g.lazygit_use_neovim_remote = 1 -- fallback to 0 if neovim-remote is not installed
+
+    vim.g.lazygit_use_custom_config_file_path = 0 -- config file path is evaluated if this value is 1
+    vim.g.lazygit_config_file_path = '' -- custom config file path
+
+    vim.g.lazygit_on_exit_callback = nil -- optional function callback when exiting lazygit (useful for example to refresh some UI elements after lazy git has made some changes)
+
+
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------
+end
+
+local function lazygit_cmd(cmd)
+    setup_LazyGit()
+
+    vim.schedule(function()
+        vim.cmd(cmd)
+    end)
+end
+
+vim.keymap.set(
+    "n",
+    "<leader>gg",
+    function()
+        lazygit_cmd("LazyGit")
     end,
-})
+    {
+        desc = "打开 LazyGit"
+    }
+)
+
+
+vim.keymap.set(
+    "n",
+    "<leader>gG",
+    function()
+        lazygit_cmd("LazyGitCurrentFile")
+    end,
+    {
+        desc = "当前文件 LazyGit"
+    }
+)
+
+
+vim.keymap.set(
+    "n",
+    "<leader>gf",
+    function()
+        lazygit_cmd("LazyGitFilter")
+    end,
+    {
+        desc = "查看项目提交"
+    }
+)

@@ -1,3 +1,5 @@
+-- NOTE: p: 字符搜索跳转
+
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup("SetupFlash", { clear = true }),
     once = true,

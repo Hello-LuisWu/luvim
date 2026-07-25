@@ -1,3 +1,5 @@
+-- NOTE: p: 自动补全
+
 vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
     group = vim.api.nvim_create_augroup("setupBlinkCmp", { clear = true }),
     once = true,

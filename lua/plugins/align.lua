@@ -1,3 +1,5 @@
+-- NOTE: p: 符号对齐
+
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup("SetupMiniAlign", { clear = true }),
     once = true,
@@ -8,8 +10,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
         require("mini.align").setup({
             -- Module mappings. Use `''` (empty string) to disable one.
             mappings = {
-                start = '<leader>j',
-                start_with_preview = 'gA',
+                start = '<leader>a',
+                start_with_preview = '<leader>A',
             },
 
             -- Modifiers changing alignment steps and/or options

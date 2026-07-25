@@ -1,3 +1,5 @@
+-- NOTE: p: 成对符号补齐
+
 vim.api.nvim_create_autocmd({ "insertenter", }, {
     group = vim.api.nvim_create_augroup("SetupAutopairs", { clear = true }),
     once = true,
@@ -9,4 +11,3 @@ vim.api.nvim_create_autocmd({ "insertenter", }, {
     end,
 
 })
-

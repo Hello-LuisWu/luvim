@@ -1,3 +1,5 @@
+-- NOTE: p: 注释
+
 vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
     group = vim.api.nvim_create_augroup("setupComment", { clear = true }),
     once = true,
@@ -25,9 +27,9 @@ vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
                 block = "<leader>\\", -- NORMAL/VISUAL 模式：操作符模式块注释（默认：gb + 文本对象）
             },
             extra = {
-                above = "<leader>gk", -- 在当前行上方插入注释并进入 INSERT 模式
-                below = "<leader>gj", -- 在当前行下方插入注释并进入 INSERT 模式
-                eol = "<leader>ga",   -- 在行尾插入注释并进入 INSERT 模式
+                above = "<leader>ck", -- 在当前行上方插入注释并进入 INSERT 模式
+                below = "<leader>cj", -- 在当前行下方插入注释并进入 INSERT 模式
+                eol = "<leader>ca",   -- 在行尾插入注释并进入 INSERT 模式
             },
 
             -- 映射启用配置

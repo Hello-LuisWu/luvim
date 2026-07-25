@@ -13,8 +13,8 @@ vim.api.nvim_create_autocmd("UIEnter", {
         local tree = require("neo-tree")
         map({ "n", "v" }, "<leader>e", "<cmd>Neotree toggle reveal source=filesystem<cr>",
             { desc = "文件浏览器", noremap = true, silent = true })
-        map("n", "<c-e>", "<cmd>Neotree toggle reveal float buffers<cr>")
-        map("n", "<c-e>", "<cmd>Neotree toggle reveal float git_status<cr>")
+        map("n", "<c-e>", "<cmd>Neotree toggle reveal float git_status<cr>",
+            { desc = "git", noremap = true, silent = true })
 
         tree.setup({
             window = {

@@ -1,3 +1,5 @@
+-- NOTE: p: 首页
+
 vim.pack.add({
     "https://github.com/goolord/alpha-nvim",
 })

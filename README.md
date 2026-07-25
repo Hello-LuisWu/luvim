@@ -24,6 +24,7 @@
 - 🛠 **make**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
 - 🌿 [lazygit](https://github.com/jesseduffield/lazygit) （可选）: git 管理工具
 - 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）
+- pngpaste (仅macOS): img-clip 插件需要。安装: `brew install pngpaste`
 
 ## 🧹 清除旧配置（重装建议）
 
@@ -70,6 +71,7 @@ nvim 主目录文件树
 ```sh
  .
 ├──  init.lua
+├──  keymaps.md
 ├──  lua
 │   ├──  config
 │   │   ├──  autocmd.lua
@@ -81,6 +83,7 @@ nvim 主目录文件树
 │   │   ├──  alpha.lua
 │   │   ├──  autopairs.lua
 │   │   ├──  blink.lua
+│   │   ├──  bufferline.lua
 │   │   ├──  colorizer.lua
 │   │   ├──  comment.lua
 │   │   ├──  flash.lua
@@ -89,6 +92,7 @@ nvim 主目录文件树
 │   │   ├──  lsp.lua
 │   │   ├──  lualine.lua
 │   │   ├──  md-autolist.lua
+│   │   ├──  md-img-clip.lua
 │   │   ├──  md-preview.lua
 │   │   ├──  md-table-mode.lua
 │   │   ├──  neotree.lua

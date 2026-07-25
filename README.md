@@ -24,7 +24,7 @@
 - 🛠 **make**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
 - 🌿 [lazygit](https://github.com/jesseduffield/lazygit) （可选）: git 管理工具
 - 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）
-- pngpaste (仅macOS): img-clip 插件需要。安装: `brew install pngpaste`
+- 🏞️ pngpaste (仅macOS): [img-clip](https://github.com/HakonHarnes/img-clip.nvim) 插件需要。安装: `brew install pngpaste`; linux 另有工具安装！
 
 ## 🧹 清除旧配置（重装建议）
 

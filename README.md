@@ -43,12 +43,12 @@ sudo pacman -S neovim
 ### Ubuntu
 
 ```sh
-# apt
+# instsll using apt
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 sudo apt install neovim
 
-# snap
+# Or use snap for installation
 sudo snap install nvim --classic
 ```
 

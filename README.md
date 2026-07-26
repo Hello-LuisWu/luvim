@@ -1,4 +1,4 @@
-# nvim-pack-config
+# 🔖 nvim-pack-config
 
 # 🧠 nvim-config User Guide
 

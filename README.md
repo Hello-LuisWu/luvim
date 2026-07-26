@@ -21,12 +21,12 @@
     - 🛠️ clang: c/c++ 编译器, clangd所需依赖. arch安装: `sudo pacman -S clang`
 - 🧵[Node.js](https://nodejs.org/zh-cn/download): 安装 LSP/格式化工具（如 tsserver、prettier、markdown-preview）
 - 🌀[Nerd Font](https://www.nerdfonts.com/#home):（可选）v3.0 或更高版本, **Nerd Font**  是内置图标的编程字体，用于美化终端和编辑器界面。
-- 🛠 **make**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
+- 🔩 **make**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
 - 🌿 [lazygit](https://github.com/jesseduffield/lazygit) （可选）: git 管理工具
 - 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）
 - 🏞️ pngpaste (仅macOS): [img-clip](https://github.com/HakonHarnes/img-clip.nvim) 插件需要。安装: `brew install pngpaste`; linux 另有工具安装！
 
-## install neovim
+## 🔨 install neovim
 
 ### Homebrew on macOS or Linux:
 
@@ -141,10 +141,10 @@ nvim 主目录文件树
 nvim
 ```
 
-> **注意：** 首次启动 Neovim 时，需要从 [GitHub](https://www/github.com) 下载并克隆插件到本地; treesitter 也要从 GitHub 下载语法解析器。请确认当前网络可以正常访问 GitHub；如果无法访问，请先配置代理后再启动 Neovim，否则插件将无法正常安装和运行。
+> ⚠️ **注意：** 首次启动 Neovim 时，需要从 [GitHub](https://www/github.com) 下载并克隆插件到本地; treesitter 也要从 GitHub 下载语法解析器。请确认当前网络可以正常访问 GitHub；如果无法访问，请先配置代理后再启动 Neovim，否则插件将无法正常安装和运行。
 
 如果报错，请根据提示排除，检查网络问题，或手动安装缺失依赖。
 
-> 你可以在这里查看所有的快捷键映射：👉 [keymaps](https://github.com/Hello-LuisWu/nvim-pack-config/blob/main/keymaps.md)
+> 你可以在这里查看所有的快捷键映射: ⌨️ [keymaps](https://github.com/Hello-LuisWu/nvim-pack-config/blob/main/keymaps.md)
 
-欢迎提交 [issue](https://github.com/Hello-LuisWu/nvim-config/issues) 或联系作者优化配置：[Luis Wu](https://www.github.com/Hello-LuisWu/nvim-config) 
+🤓 欢迎提交 [issue](https://github.com/Hello-LuisWu/nvim-config/issues) 或联系作者优化配置：[Luis Wu](https://www.github.com/Hello-LuisWu/nvim-config) 

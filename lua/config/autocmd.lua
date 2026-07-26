@@ -1,22 +1,22 @@
 -- 禁用 mini.indentscope 的文件类型列表
 local disable_ft = {
-  "help",
-  "dashboard",
-  "neo-tree",
-  "Trouble",
-  "lazy",
-  "mason",
-  "notify",
-  "toggleterm",
-  "lspinfo",
-  "txt",
+    "help",
+    "dashboard",
+    "neo-tree",
+    "Trouble",
+    "lazy",
+    "mason",
+    "notify",
+    "toggleterm",
+    "lspinfo",
+    "txt",
 }
 -- 创建自动命令，在指定文件类型中禁用 mini.indentscope
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = disable_ft,
-  callback = function()
-    vim.b.miniindentscope_disable = true
-  end,
+    pattern = disable_ft,
+    callback = function()
+        vim.b.miniindentscope_disable = true
+    end,
 })
 
 -- md 禁用补全
@@ -70,8 +70,17 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.wrap = true          -- 自动折行
         vim.opt_local.spell = true         -- 启用拼写检查
         vim.opt_local.spelllang = { "en" } -- 设置拼写检查语言
-        vim.opt_local.conceallevel = 1
-        vim.opt_local.concealcursor = "nvc"
+        vim.opt_local.conceallevel = 2
+        -- 0	不隐藏任何字符	                            **粗体**
+        -- 1	隐藏字符，但显示替代符号,默认用空格替换	    **粗体** → ▸粗体（取决于插件）
+        -- 2	隐藏字符，并隐藏替代符号	                **粗体** → 粗体
+        -- 3	隐藏字符，并隐藏所有可隐藏标记	            **粗体** → 粗体（最彻底）
+
+        vim.opt_local.concealcursor = ""
+        -- n Normal	隐藏
+        -- v Visual	隐藏
+        -- c Command-line	隐藏
+        -- i Insert	不隐藏
     end,
 })
 

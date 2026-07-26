@@ -26,6 +26,32 @@
 - 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）
 - 🏞️ pngpaste (仅macOS): [img-clip](https://github.com/HakonHarnes/img-clip.nvim) 插件需要。安装: `brew install pngpaste`; linux 另有工具安装！
 
+## install neovim
+
+### Homebrew on macOS or Linux:
+
+```sh
+brew install neovim
+```
+
+### Arch(manjaro)
+
+```sh
+sudo pacman -S neovim
+```
+
+### Ubuntu
+
+```sh
+# apt
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt update
+sudo apt install neovim
+
+# snap
+sudo snap install nvim --classic
+```
+
 ## 🧹 清除旧配置（重装建议）
 
 如需重新安装配置，先清除旧版本相关目录：

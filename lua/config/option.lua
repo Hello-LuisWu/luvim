@@ -41,6 +41,11 @@ opt.showmatch = true              -- 匹配括号高亮
 opt.matchtime = 2                 -- 匹配括号高亮持续时间（十分之一秒）
 opt.pumheight = 10                -- 弹出菜单最多显示10行
 opt.cmdheight = 0                 -- 命令行高为1
+
+
+require("vim._core.ui2").enable({ enable = true }) -- 解决 cmdheight = 0, 移动 3 行代码失败的问题
+-- require("vim._core.ui2").enable({})
+
 opt.showcmd = false               -- 显示输入的命令
 --[[ opt.list = true
 opt.lcs = "eol:↴" ]]

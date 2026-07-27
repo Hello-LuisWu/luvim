@@ -92,11 +92,11 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
                             local emoji = clock_emoji[emoji_index]
 
                             return string.format(
-                                "%d/%d %s时 周%s",
+                                "%d/%d %s%s时 周%s",
                                 -- time.year,
                                 time.month,
                                 time.day,
-                                -- emoji,
+                                emoji,
                                 shichen,
                                 weekday_map[time.wday]
                             )

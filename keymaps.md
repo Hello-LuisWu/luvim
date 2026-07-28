@@ -196,6 +196,8 @@
 | `<leader>ck` | all  | 光标上方新增注释行，自动切插入模式   | extra.above    |
 | `<leader>cj` | all  | 光标下方新增注释行，自动切插入模式   | extra.below    |
 | `<leader>ca` | all  | 在当前行末尾添加注释，自动切插入模式 | extra.eol      |
+| `<leader>si` | n    | 插入注释签名信息                     | 。。。         |
+| `<leader>su` | n    | 更新注释签名日期                     | 。。。         |
 
 ## lsp
 

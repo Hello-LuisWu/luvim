@@ -18,11 +18,12 @@
     - 🗜️ **gcc**：编译 C 插件时使用（如 Treesitter）
     - 🦀[cargo](https://github.com/Hello-LuisWu/cargo-config): tree-sitter-cli 推荐通过 Cargo 安装
 - 🐍 [pyright](https://github.com/microsoft/pyright): python 的语言服务器. 安装: `npm i -g pyright`
+- 🧰 [cl](https://visualstudio.microsoft.com/zh-hans/downloads/?utm_source=chatgpt.com#remote-tools-for-visual-studio-2026): Windows 下 treesitter 语法解析器编译依赖
 - ⚙️ clangd: c/c++ 语言服务器
-    - 🛠️ clang: c/c++ 编译器, clangd所需依赖. arch安装: `sudo pacman -S clang`
+    - 🛠️ [clang](https://releases.llvm.org/): c/c++ 编译器, clangd所需依赖. arch安装: `sudo pacman -S clang`
 - 🧵 [Node.js](https://nodejs.org/zh-cn/download): 安装 LSP/格式化工具（如 tsserver、prettier、markdown-preview）
 - 🌀 [Nerd Font](https://www.nerdfonts.com/#home):（可选）v3.0 或更高版本, **Nerd Font**  是内置图标的编程字体，用于美化终端和编辑器界面。
-- 🔩 **make**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
+- 🔩 **[make](https://www.gnu.org/software/make/)**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
 - 🌿 [lazygit](https://github.com/jesseduffield/lazygit) （可选）: git 管理工具
 - 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）
 - 🏞️ [pngpaste](https://github.com/jcsalterego/pngpaste) (仅macOS): 被 [img-clip](https://github.com/HakonHarnes/img-clip.nvim) 插件用于图片粘贴。安装: `brew install pngpaste`; linux 另有工具安装！

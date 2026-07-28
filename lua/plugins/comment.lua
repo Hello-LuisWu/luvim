@@ -1,10 +1,11 @@
 -- ------------------------------------------------------------------------------
 -- Author   : Luis Wu
 -- Editor   : Neovim
--- Date     : 2026-07-28 22:10
+-- Date     : 2026-07-29 02:11
 -- Position : /Users/luis/.config/nvim/lua/plugins/comment.lua
 -- System   : Darwin 25.2.0
 -- ------------------------------------------------------------------------------
+
 -- NOTE: p: 注释
 
 vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {

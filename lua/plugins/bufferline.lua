@@ -110,27 +110,25 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 
                     return true
                 end,
-
-
                 -- 文件树偏移
                 offsets = {
 
                     {
                         filetype = "NvimTree",
-                        text = "File Explorer",
+                        text = "文件管理器",
                         text_align = "center",
                         separator = true,
                     },
 
                     {
                         filetype = "neo-tree",
-                        text = "File Explorer",
+                        text = "文件管理器",
+                        -- text = "File Explorer",
                         text_align = "center",
                         separator = true,
                     },
 
                 },
-
 
                 -- 选择模式
                 pick = {
@@ -141,11 +139,9 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
             }
         })
 
-
         vim.keymap.set("n", "<leader><Tab>c", "<cmd>bdelete<CR>", { desc = "关闭当前 buffer", })
 
         vim.keymap.set("n", "<leader><Tab>C", "<cmd>bdelete!<CR>", { desc = "强制关闭当前 buffer", })
-
 
         -- 关闭左右 buffer
         vim.keymap.set("n", "<leader><Tab>]", "<cmd>BufferLineCloseRight<CR>", { desc = "关闭右侧所有 buffer", })

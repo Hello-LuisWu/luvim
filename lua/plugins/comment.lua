@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
             vim.notify("⚠ 未找到 Date 行", vim.log.levels.WARN)
         end
         -- ⌨️ 快捷键（推荐使用 <leader>si / <leader>sd）
-        vim.keymap.set("n", "<leader>si", insert_signature, { desc = "插入签名信息" })
-        vim.keymap.set("n", "<leader>sd", update_signature_date, { desc = "更新签名日期" })
+        vim.keymap.set("n", "<leader>zi", insert_signature, { desc = "插入签名信息" })
+        vim.keymap.set("n", "<leader>zu", update_signature_date, { desc = "更新签名日期" })
     end,
 })

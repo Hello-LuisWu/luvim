@@ -1,5 +1,4 @@
 -- NOTE: p: 自动补全
-
 vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
     group = vim.api.nvim_create_augroup("setupBlinkCmp", { clear = true }),
     once = true,
@@ -9,6 +8,7 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
                 src = "https://github.com/saghen/blink.cmp",
                 version = vim.version.range('1'),
             },
+            "https://github.com/Kaiser-Yang/blink-cmp-dictionary"
         })
 
         require("blink.cmp").setup({
@@ -55,10 +55,26 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
                 },
             },
             sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer',
+                default = { 'lsp', 'path', 'snippets', 'buffer', 'dictionary'
                     -- 'ripgrep'
                 },
                 providers = {
+                    dictionary = {
+                        module = 'blink-cmp-dictionary',
+                        name = 'Dict',
+                        -- 💡 Performance impact of min_keyword_length:
+                        -- - In fallback mode: No impact on performance regardless of value
+                        -- - With fzf: Higher values may improve performance
+                        -- - With other commands (rg/grep): Higher values significantly improve performance
+                        min_keyword_length = 1,
+                        -- options for blink-cmp-dictionary
+                        opts = {
+                            -- put your dictionary files here
+                            -- dictionary_files = {}
+                            force_fallback = true,
+                        }
+                    },
+
                     -- ripgrep = {
                     --     score_offset = 1,
                     --     module = "blink-ripgrep",

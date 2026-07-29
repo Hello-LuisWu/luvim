@@ -12,6 +12,10 @@
       "rev": "339499695d3be8c44aefef1d2516464758957004",
       "src": "https://github.com/gaoDean/autolist.nvim"
     },
+    "blink-cmp-dictionary": {
+      "rev": "898a958cece34da20524d04ebc032a92a9565643",
+      "src": "https://github.com/Kaiser-Yang/blink-cmp-dictionary"
+    },
     "blink-emoji.nvim": {
       "rev": "dff709139ad5389fb55ebab026e75278a12b325a",
       "src": "https://www.github.com/moyiz/blink-emoji.nvim"

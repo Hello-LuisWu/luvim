@@ -147,6 +147,6 @@ nvim
 
 如果报错，请根据提示排除，检查网络问题，或手动安装缺失依赖。
 
-> 你可以在这里查看所有的快捷键映射: ⌨️ [keymaps](https://github.com/Hello-LuisWu/nvim-pack-config/blob/main/keymaps.md)
+> 你可以在这里查看所有的快捷键映射: ⌨️ [keymaps](https://github.com/Hello-LuisWu/luvim/blob/main/keymaps.md)
 
-🤓 欢迎提交 [issue](https://github.com/Hello-LuisWu/nvim-config/issues) 或联系作者优化配置：[Luis Wu](https://www.github.com/Hello-LuisWu/nvim-config) 
+🤓 欢迎提交 [issue](https://github.com/Hello-LuisWu/luvim/issues/new) 或联系作者优化配置：[Luis Wu](https://github.com/Hello-LuisWu) 

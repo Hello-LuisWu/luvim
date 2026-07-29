@@ -39,7 +39,7 @@ opt.breakindent = true            -- 折行后的行保持缩进
 opt.scrolloff = 3                 -- 上下滚动时光标离窗口上下边界 3 行
 opt.sidescrolloff = 8             -- 左右移动时,光标离左右窗口边界保持88个字符的距离
 opt.whichwrap = "b,s,<,>,[,],h,l" -- 左右键可以已到下一行或者上一行
-                                  -- opt.colorcolumn = "100"   -- 右边添加参考线
+-- opt.colorcolumn = "100"   -- 右边添加参考线
 opt.showmatch = true              -- 匹配括号高亮
 opt.matchtime = 2                 -- 匹配括号高亮持续时间（十分之一秒）
 opt.pumheight = 10                -- 弹出菜单最多显示10行
@@ -49,59 +49,59 @@ opt.cmdheight = 0                 -- 命令行高为1
 require("vim._core.ui2").enable({ enable = true }) -- 解决 cmdheight = 0, 移动 3 行代码失败的问题
 -- require("vim._core.ui2").enable({})
 
-opt.showcmd = false               -- 显示输入的命令
+opt.showcmd = false -- 显示输入的命令
 --[[ opt.list = true
 opt.lcs = "eol:↴" ]]
 opt.fillchars = {
-    horiz = "━",     -- 水平分割线（上下窗口分隔）
-    horizup = "┻",   -- 水平分割线顶部（仅 Neovim 0.10+）
+    horiz = "━", -- 水平分割线（上下窗口分隔）
+    horizup = "┻", -- 水平分割线顶部（仅 Neovim 0.10+）
     horizdown = "┳", -- 下部分水平分割线
-    vert = "┃",      -- 垂直分割线
-    vertleft = "┫",  -- 左边垂直分割线
+    vert = "┃", -- 垂直分割线
+    vertleft = "┫", -- 左边垂直分割线
     vertright = "┣", -- 右边垂直分割线
     verthoriz = "╋", -- 交叉分割线
     foldopen = "",
     foldclose = "",
-    fold = "━",      -- 折叠的填充字符（默认：.）
-    foldsep = " ",   -- 折叠间的分隔符    msgsep = "‾", -- 消息分隔线
-    eob = " ",       -- 文件末尾空白行的提示符（默认是 "~"）
-    stl = " ",       -- 状态栏左侧填充
-    diff = "⣿",      -- `diff` 模式下的填充字符
-    stlnc = " ",     -- 非当前窗口状态栏填充
+    fold = "━", -- 折叠的填充字符（默认：.）
+    foldsep = " ", -- 折叠间的分隔符    msgsep = "‾", -- 消息分隔线
+    eob = " ", -- 文件末尾空白行的提示符（默认是 "~"）
+    stl = " ", -- 状态栏左侧填充
+    diff = "⣿", -- `diff` 模式下的填充字符
+    stlnc = " ", -- 非当前窗口状态栏填充
 }
 opt.laststatus = 2 -- 显示状态行，值为 0 不显示，值为 1 当有多个窗口才显示，值为2 永久显示
 vim.api.nvim_create_autocmd({ "BufEnter", "BufModifiedSet" }, {
-  group = vim.api.nvim_create_augroup("CustomStatusline", { clear = true }),
-  callback = function()
-    local statusline = ""
+    group = vim.api.nvim_create_augroup("CustomStatusline", { clear = true }),
+    callback = function()
+        local statusline = ""
 
-    -- ========== 左侧：文件名部分 ==========
-    local filename = vim.fn.expand("%:t") -- 获取当前文件名
-    if filename == "" then
-      filename = "[No Name]" -- 空缓冲区兜底
-    end
+        -- ========== 左侧：文件名部分 ==========
+        local filename = vim.fn.expand("%:t") -- 获取当前文件名
+        if filename == "" then
+            filename = "[No Name]"        -- 空缓冲区兜底
+        end
 
-    -- 文件标记：[+]已修改 / [-]只读
-    local flag = ""
-    if vim.bo.modified then
-      flag = "[+]"
-    elseif vim.bo.readonly then
-      flag = "[-]"
-    end
+        -- 文件标记：[+]已修改 / [-]只读
+        local flag = ""
+        if vim.bo.modified then
+            flag = "[+]"
+        elseif vim.bo.readonly then
+            flag = "[-]"
+        end
 
-    statusline = statusline .. " %t " .. flag -- %f = 完整相对路径，%t只文件名可用%t
+        statusline = statusline .. " %t " .. flag -- %f = 完整相对路径，%t只文件名可用%t
 
-    -- ========== 填充分隔：左右自动撑开 ==========
-    statusline = statusline .. "%="
+        -- ========== 填充分隔：左右自动撑开 ==========
+        statusline = statusline .. "%="
 
-    -- ========== 右侧：fileformat + fileencoding ==========
-    local ff = vim.bo.fileformat    -- unix / dos / mac
-    local enc = vim.bo.fileencoding -- utf-8 / gbk / latin1
-    statusline = statusline .. " " .. ff .. " | " .. enc .. " "
+        -- ========== 右侧：fileformat + fileencoding ==========
+        local ff = vim.bo.fileformat -- unix / dos / mac
+        local enc = vim.bo.fileencoding -- utf-8 / gbk / latin1
+        statusline = statusline .. " " .. ff .. " | " .. enc .. " "
 
-    -- 应用状态栏
-    vim.opt.statusline = statusline
-  end,
+        -- 应用状态栏
+        vim.opt.statusline = statusline
+    end,
 })
 
 -- 创建全局函数供 tabline 调用
@@ -152,25 +152,25 @@ opt.showtabline = 2 -- 2 总是显示标签页，0 不显示，1 出现多个标
 -- 关于缩进
 -- Neovim Lua 配置中正确启用文件类型检测
 -- vim.filetype.add({ extension = { ... } })          -- 启用文件类型检测, Neovim 0.10+ 的 Lua API
-vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()" -- 启用基于语法树的缩进（由 nvim-treesitter 提供）
-opt.tabstop = 4                                    -- 一个 tab 占用 4 个空格
-opt.shiftwidth = 4                                 -- 缩进宽度为 4, 自动缩进时每级缩进的空格数
-opt.softtabstop = 4                                -- 编辑时每个 tab 键等同于 4 个空格, 按退格键时删除的“虚拟空格”数量
-opt.smarttab = true                                -- 智能使用 tabstop 和 shiftwidth
+opt.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()" -- 启用基于语法树的缩进（由 nvim-treesitter 提供）
+opt.tabstop = 4                                                     -- 一个 tab 占用 4 个空格
+opt.shiftwidth = 4                                                  -- 缩进宽度为 4, 自动缩进时每级缩进的空格数
+opt.softtabstop = 4                                                 -- 编辑时每个 tab 键等同于 4 个空格, 按退格键时删除的“虚拟空格”数量
+opt.smarttab = true                                                 -- 智能使用 tabstop 和 shiftwidth
 opt.shiftround = true
-opt.expandtab = true                               -- 使用空格替代 tab , 将 Tab 转换为空格
-opt.autoindent = true                              -- 自动继承上一行的缩进
-vim.o.smartindent = true                           -- 开启新行时使用智能自动缩进, 智能缩进（如 C 语言风格的代码块）
-opt.cindent = true                                 -- 启用C语言风格缩进
-opt.autochdir = false                              -- 自动切换当前目录为当前文件所在的目录
-opt.completeopt = "menu,menuone,noselect,noinsert" -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
-opt.wildmenu = true                                -- 自动补全不自动选中
-opt.virtualedit = "block,onemore"                  -- 光标可以定位到最后一个字的后面
-opt.confirm = true                                 -- 退出时文件没保存,会问你是否保存
-opt.backspace = { "start", "eol", "indent" }       -- 正常删除
+opt.expandtab = true                                                -- 使用空格替代 tab , 将 Tab 转换为空格
+opt.autoindent = true                                               -- 自动继承上一行的缩进
+vim.o.smartindent = true                                            -- 开启新行时使用智能自动缩进, 智能缩进（如 C 语言风格的代码块）
+opt.cindent = true                                                  -- 启用C语言风格缩进
+opt.autochdir = false                                               -- 自动切换当前目录为当前文件所在的目录
+opt.completeopt = "menu,menuone,noselect,noinsert"                  -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
+opt.wildmenu = true                                                 -- 自动补全不自动选中
+opt.virtualedit = "block,onemore"                                   -- 光标可以定位到最后一个字的后面
+opt.confirm = true                                                  -- 退出时文件没保存,会问你是否保存
+opt.backspace = { "start", "eol", "indent" }                        -- 正常删除
 -- 细化缩进规则（可选）
-vim.opt.cinkeys = "0{,0},0),:,!^F,o,O,e"           -- 触发缩进的字符
-vim.opt.cinoptions = "g0,h1,N-s"                   -- 缩进细节（如 `g0` 控制作用域声明缩进）
+vim.opt.cinkeys = "0{,0},0),:,!^F,o,O,e"                            -- 触发缩进的字符
+vim.opt.cinoptions = "g0,h1,N-s"                                    -- 缩进细节（如 `g0` 控制作用域声明缩进）
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "python", "lua" },
     callback = function()
@@ -227,10 +227,8 @@ opt.synmaxcol = 240    -- 语法高亮的最大列数，超过则跳过
 
 -- 启用代码折叠
 opt.foldenable = true                            -- 开启折叠
--- opt.foldmethod = 'expr'                          -- 指定折叠方式
--- opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- 基于表达式折叠
-vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.wo[0][0].foldmethod = 'expr'
+opt.foldmethod = 'expr'                          -- 指定折叠方式
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- 基于表达式折叠
 -- opt.foldmethod = "marker"
 opt.foldcolumn = "0"                             -- 1为在编辑器左侧显示折叠标记的列, 0 为不显示
 opt.foldlevel = 99                               -- 一次折叠的层级有多少
@@ -243,7 +241,9 @@ opt.foldlevelstart = 99                          -- 打开文件时的默认折�
 opt.shell = "/bin/zsh"               -- 设置 Neovim 使用的 shell (比如 terminal 所使用的shell)
 -- opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- 光标形状（终端需支持）
 opt.spell = false                    -- 禁止拼写支持
-opt.spelllang = { "en" }             -- 设置拼写检查语言
+opt.spelllang = { "en_us", "cjk" }          -- 设置拼写检查语言
+opt.spelloptions = "camel" -- 驼峰单词分段拼写检测（比如helloWorld拆成hello+world）
+opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 opt.wildmode = "longest:full,full"   -- 命令行补全模式
 vim.g.markdown_recommended_style = 0 -- 禁用推荐的 Markdown 风格
@@ -263,5 +263,3 @@ opt.formatoptions:append({ "r" })
 --     local hl = "DiagnosticSign" .. type
 --     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 -- end
-
-

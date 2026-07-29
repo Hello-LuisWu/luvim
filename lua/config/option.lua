@@ -23,6 +23,9 @@ opt.helplang = "cn"                    -- 帮助文件所使用的语言
 -- ----------------------------
 -- 界面与显示
 -- ----------------------------
+
+-- vim.cmd.colorscheme('gruvbox')
+vim.cmd.colorscheme('catppuccin')
 opt.numberwidth = 4               -- 行号宽度设置为4个字符
 opt.termguicolors = true          -- 启用 24                   -bit 彩色模式
 opt.cursorline = true             -- 高亮光标所在行
@@ -262,4 +265,3 @@ opt.formatoptions:append({ "r" })
 -- end
 
 
-vim.cmd.colorscheme('catppuccin')

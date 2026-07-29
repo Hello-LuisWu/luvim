@@ -19,20 +19,20 @@ vim.api.nvim_create_autocmd("UIEnter", {
         tree.setup({
             source_selector = {
                 winbar = true, -- toggle to show selector on winbar
-                statusline = false, -- toggle to show selector on statusline
+                statusline = true, -- toggle to show selector on statusline
                 show_scrolled_off_parent_node = false, -- boolean
                 sources = { -- table
                     {
                         source = "filesystem", -- string
-                        display_name = " 󰉓 Files " -- string | nil
+                        display_name = " 󰉓 F" -- string | nil
                     },
                     {
                         source = "buffers", -- string
-                        display_name = " 󰈚 Buffers " -- string | nil
+                        display_name = " 󰈚 B" -- string | nil
                     },
                     {
                         source = "git_status", -- string
-                        display_name = " 󰊢 Git " -- string | nil
+                        display_name = " 󰊢 G" -- string | nil
                     },
                 },
                 content_layout = "start", -- string

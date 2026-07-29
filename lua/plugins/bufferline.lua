@@ -115,15 +115,14 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 
                     {
                         filetype = "NvimTree",
-                        text = "文件管理器",
+                        text = "File Explorer",
                         text_align = "center",
                         separator = true,
                     },
 
                     {
                         filetype = "neo-tree",
-                        text = "文件管理器",
-                        -- text = "File Explorer",
+                        text = "File Explorer",
                         text_align = "center",
                         separator = true,
                     },

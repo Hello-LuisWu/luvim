@@ -4,13 +4,13 @@ local map = vim.keymap.set
 local ns = { noremap = true, silent = true }
 local nsf = { noremap = true, silent = false }
 
-map("n", "<leader>uf",":set fileformat=unix<CR>",{desc="格式转为 unix", noremap = true, silent = true})
-map("n", "<leader>uF",":set fileencoding=utf-8<CR>", {desc="编码转为 UTF-8", noremap = true, silent = true})
+map("n", "<leader>uf", ":set fileformat=unix<CR>", { desc = "格式转为 unix", noremap = true, silent = true })
+map("n", "<leader>uF", ":set fileencoding=utf-8<CR>", { desc = "编码转为 UTF-8", noremap = true, silent = true })
 
 -- 基础键位
 map("i", "jj", "<C-[>", ns)
-map("i", "<C-k>", "<C-[>O")
-map("i", "<C-j>", "<C-[>o")
+map("i", "<C-k>", "<C-[>O", ns)
+map("i", "<C-j>", "<C-[>o", ns)
 map("n", "<Tab>", ":", nsf)
 map("v", "p", "P", nsf)
 map("n", "-", "<C-x>", nsf)
@@ -18,7 +18,6 @@ map("n", "v[", "vi[", nsf)
 map("n", "+", "<C-a>", nsf)
 map("n", "<S-Tab>", "/", opts)
 map("n", "<BS>", ":set hlsearch!<CR>", ns)
-map("i", "\\\\", "<C-[>/<++><CR>:nohlsearch<CR>c4l", ns)
 map("n", "<leader><CR>", ":set wrap!<CR>", { desc = "换行按钮", noremap = true, silent = true })
 
 map({ "n", "x" }, "<leader>j", "J", { desc = "向下融合", noremap = true, silent = true })
@@ -44,7 +43,7 @@ map({ "n", "o", "v" }, "H", "0", ns)
 map({ "n", "o", "v" }, "J", "G", ns)
 map({ "n", "o", "v" }, "K", "gg", ns)
 
--- tab 
+-- tab
 
 -- map("n", "<leader><Tab>", "<Cmd>tabnext<CR>", { desc = "下一个标签页" })
 -- map("n", "<S-Tab>", "<Cmd>tabprevious<CR>", { desc = "上一个标签页" })
@@ -89,8 +88,47 @@ map("i", "LL", "<C-[>A", ns)
 map({ "i" }, "<C-d>", "<C-[>yypA", ns)
 map({ "n" }, "<C-d>", "<C-[>yyp", { desc = "再制", noremap = true, silent = true })
 
+map("n", "<leader>dh", function()
+    local path = vim.fn.expand("%:p")
+    local home = vim.fn.expand("~")
+    path = path:gsub("^" .. home, "~")
+    vim.fn.setreg("+", path)
+end, { desc = "复制家目录相对路径" })
+
+-- 复制当前文件相对路径
+map("n", "<leader>dP", function()
+    vim.fn.setreg("+", vim.fn.expand("%"))
+end, { desc = "复制文件相对路径" })
+
+map("n", "<leader>dp", function()
+    vim.fn.setreg("+", vim.fn.expand("%:p"))
+end, { desc = "复制文件路径" })
+
+map("n", "<leader>dw", function()
+    vim.cmd("pwd")
+end, { desc = "打印当前工作目录" })
+
+map("n", "<leader>dW", function()
+    local cwd = vim.fn.getcwd()
+    local home = vim.fn.expand("~")
+    if cwd:sub(1, #home) == home then
+        cwd = "~" .. cwd:sub(#home + 1)
+    end
+    print(cwd)
+end, { desc = "打印当前工作目录" })
+
+map("n", "<leader>dn", function()
+    vim.fn.setreg("+", vim.fn.expand("%:t"))
+end, { desc = "复制文件名" })
+
+map("n", "<leader>dd", function()
+    vim.cmd("cd " .. vim.fn.expand("%:p:h"))
+    vim.cmd("pwd")
+end, { desc = "切换文件目录为工作目录" })
+
 -- 在 normal 模式配置快捷键
-map('n', '<Leader>ha', ":%s/\\<<C-r><C-w>\\>//gc<Left><Left><Left>", { desc = "全局替换当前单词（带确认）", noremap = true, silent = true }) -- \%V 用于匹配可视选区
+map('n', '<Leader>ha', ":%s/\\<<C-r><C-w>\\>//gc<Left><Left><Left>",
+    { desc = "全局替换当前单词（带确认）", noremap = true, silent = true }) -- \%V 用于匹配可视选区
 map('n', '<Leader>hj', ':%s/<C-r><C-w>/', { desc = "全局替换当前单词（所有行）", noremap = true, silent = true })
 map('n', '<Leader>hJ', ':%s//gc<left><left><left>', { desc = "手输全局替换（带确认）", noremap = true, silent = true }) --
 map('n', '<Leader>hh', ':s/<C-r><C-w>//<left>', { desc = "替换当前单词（仅所选）", noremap = true, silent = true }) --
@@ -105,7 +143,8 @@ map('v', '<Leader>hH', '"hy:%s/<C-r>h//gc<left><left><left>',
 -- map('n', '<Leader>hj', ':%s/\\%V', { desc = "带确认的逐项替换" , noremap = true, silent = true }) -- \%V 用于匹配可视选区
 
 -- --
-map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]], { desc = "查找高亮当前单词", noremap = true, silent = true })
+map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]],
+    { desc = "查找高亮当前单词", noremap = true, silent = true })
 
 -- 13. 透明背景切换（适配你的高亮配置）
 map("n", "<leader>tt", ":lua ToggleTransparency()<CR>", ns)
@@ -160,9 +199,6 @@ map("n", "<S-Right>", ":vertical resize +5<CR>", { desc = "向右调整窗口宽
 map("n", "<S-Up>", ":resize -5<CR>", { desc = "向上调整窗口高度", noremap = true, silent = true })
 map("n", "<S-Down>", ":resize +5<CR>", { desc = "向下调整窗口高度", noremap = true, silent = true })
 
-map("i", "<C-j>", "<C-[>o", ns)
-map("i", "<C-f>", "<C-[>O", ns)
-
 map("n", "U", "<C-r>", ns)
 
 -- markdown 相关映射
@@ -171,10 +207,7 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         local map = vim.keymap.set
         local opt = { noremap = true, silent = true }
-
         map("i", "\\\\", "<ESC>/<++><CR>:nohls<CR>c4l", { desc = '清除标记', noremap = true, silent = true }) -- jkej
-
-        map("i", "<C-CR>", "<Esc>0yf o<Esc>p0<C-a>$a", opt) -- 斜体
         -- map("i", "---", "<Enter>---<Enter><br/><Enter><Enter>", opt) -- 分割线
         map("i", "BB", "**** <++><Esc>6hi", opt) -- 加粗
         map("i", "DD", "****** <++><Esc>7hi", opt) -- 加粗并斜体
@@ -206,5 +239,3 @@ vim.api.nvim_create_autocmd("FileType", {
         map("i", "$$", "####<Space>", opt)
     end,
 })
-
-

@@ -86,10 +86,10 @@ Move-Item $env:LOCALAPPDATA\nvim-data $env:LOCALAPPDATA\nvim-data.bak
 
 ```sh
 # macOS/Linux
-git clone --depth 1 https://github.com/Hello-LuisWu/nvim-pack-config ~/.config/nvim
+git clone --depth 1 https://github.com/Hello-LuisWu/luvim ~/.config/nvim
 
 # Windows
-git clone --depth 1 https://github.com/Hello-LuisWu/nvim-pack-config $env:LOCALAPPDATA\nvim
+git clone --depth 1 https://github.com/Hello-LuisWu/luvim $env:LOCALAPPDATA\nvim
 ```
 
 ## 🗃️ Files

@@ -8,8 +8,9 @@ opt.mouse = "a"       -- 启用鼠标, nvim 默认值为开启
 opt.modifiable = true -- 确保缓冲区可修改
 
 -- 共享系统剪贴板
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
--- opt.clipboard = "unnamedplus"
+vim.schedule(function()
+    opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
+end)
 
 -- 编码设置
 opt.encoding = "utf-8"                 -- 设置 Neovim 内部编码, Neovim 0.9+ 已废弃。
@@ -43,15 +44,55 @@ opt.whichwrap = "b,s,<,>,[,],h,l" -- 左右键可以已到下一行或者上一�
 opt.showmatch = true              -- 匹配括号高亮
 opt.matchtime = 2                 -- 匹配括号高亮持续时间（十分之一秒）
 opt.pumheight = 10                -- 弹出菜单最多显示10行
-opt.cmdheight = 0                 -- 命令行高为1
+opt.cmdheight = 0                 -- 命令行高度
 
+-- 解决 cmdheight = 0, 移动 3 行代码失败的问题
+require("vim._core.ui2").enable({
+    enable = true,
+    msg = { -- 与消息模块（message module）相关的配置选项。
 
-require("vim._core.ui2").enable({ enable = true }) -- 解决 cmdheight = 0, 移动 3 行代码失败的问题
--- require("vim._core.ui2").enable({})
+        ---@type 'cmd'|'msg'
+        ---默认消息显示目标：
+        ---'cmd' 表示显示在命令行区域；
+        ---'msg' 表示显示在独立的临时消息窗口中。
+        targets = 'cmd', -- 默认消息显示位置，当前设置为命令行区域。
+
+        ---@type string|table<string, 'cmd'|'msg'|'pager'>
+        ---默认消息目标，或者通过 table 根据消息类型和触发条件映射不同显示目标。
+        ---例如：
+        ---{
+        ---  search_count = 'msg',
+        ---  confirm = 'pager',
+        ---}
+        ---可以让不同类型消息显示在不同位置。
+
+        cmd = {          -- 与命令行窗口（cmdline window）中的消息相关的配置。
+
+            height = 0.5 -- 命令行区域展开显示消息时的最大高度，占编辑器高度的 50%。
+        },
+
+        dialog = {        -- 与对话框窗口（dialog window）相关的配置。
+
+            height = 0.5, -- 对话框窗口的最大高度，占编辑器高度的 50%。
+        },
+
+        msg = {             -- 与消息窗口（message window）相关的配置。
+
+            height = 0.5,   -- 消息窗口最大高度，占编辑器高度的 50%。
+
+            timeout = 4000, -- 消息显示时间，单位为毫秒（4000ms = 4秒）。
+        },
+
+        pager = {       -- 与分页消息窗口（pager window）相关的配置。
+
+            height = 1, -- 分页窗口最大高度，占编辑器高度的 100%。
+        },
+    },
+})
 
 opt.showcmd = false -- 显示输入的命令
---[[ opt.list = true
-opt.lcs = "eol:↴" ]]
+opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 opt.fillchars = {
     horiz = "━", -- 水平分割线（上下窗口分隔）
     horizup = "┻", -- 水平分割线顶部（仅 Neovim 0.10+）
@@ -78,7 +119,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufModifiedSet" }, {
         -- ========== 左侧：文件名部分 ==========
         local filename = vim.fn.expand("%:t") -- 获取当前文件名
         if filename == "" then
-            filename = "[No Name]"        -- 空缓冲区兜底
+            filename = "[No Name]"            -- 空缓冲区兜底
         end
 
         -- 文件标记：[+]已修改 / [-]只读
@@ -95,7 +136,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufModifiedSet" }, {
         statusline = statusline .. "%="
 
         -- ========== 右侧：fileformat + fileencoding ==========
-        local ff = vim.bo.fileformat -- unix / dos / mac
+        local ff = vim.bo.fileformat    -- unix / dos / mac
         local enc = vim.bo.fileencoding -- utf-8 / gbk / latin1
         statusline = statusline .. " " .. ff .. " | " .. enc .. " "
 
@@ -153,24 +194,24 @@ opt.showtabline = 2 -- 2 总是显示标签页，0 不显示，1 出现多个标
 -- Neovim Lua 配置中正确启用文件类型检测
 -- vim.filetype.add({ extension = { ... } })          -- 启用文件类型检测, Neovim 0.10+ 的 Lua API
 opt.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()" -- 启用基于语法树的缩进（由 nvim-treesitter 提供）
-opt.tabstop = 4                                                     -- 一个 tab 占用 4 个空格
-opt.shiftwidth = 4                                                  -- 缩进宽度为 4, 自动缩进时每级缩进的空格数
-opt.softtabstop = 4                                                 -- 编辑时每个 tab 键等同于 4 个空格, 按退格键时删除的“虚拟空格”数量
-opt.smarttab = true                                                 -- 智能使用 tabstop 和 shiftwidth
+opt.tabstop = 4                                                  -- 一个 tab 占用 4 个空格
+opt.shiftwidth = 4                                               -- 缩进宽度为 4, 自动缩进时每级缩进的空格数
+opt.softtabstop = 4                                              -- 编辑时每个 tab 键等同于 4 个空格, 按退格键时删除的“虚拟空格”数量
+opt.smarttab = true                                              -- 智能使用 tabstop 和 shiftwidth
 opt.shiftround = true
-opt.expandtab = true                                                -- 使用空格替代 tab , 将 Tab 转换为空格
-opt.autoindent = true                                               -- 自动继承上一行的缩进
-vim.o.smartindent = true                                            -- 开启新行时使用智能自动缩进, 智能缩进（如 C 语言风格的代码块）
-opt.cindent = true                                                  -- 启用C语言风格缩进
-opt.autochdir = false                                               -- 自动切换当前目录为当前文件所在的目录
-opt.completeopt = "menu,menuone,noselect,noinsert"                  -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
-opt.wildmenu = true                                                 -- 自动补全不自动选中
-opt.virtualedit = "block,onemore"                                   -- 光标可以定位到最后一个字的后面
-opt.confirm = true                                                  -- 退出时文件没保存,会问你是否保存
-opt.backspace = { "start", "eol", "indent" }                        -- 正常删除
+opt.expandtab = true                                             -- 使用空格替代 tab , 将 Tab 转换为空格
+opt.autoindent = true                                            -- 自动继承上一行的缩进
+vim.o.smartindent = true                                         -- 开启新行时使用智能自动缩进, 智能缩进（如 C 语言风格的代码块）
+opt.cindent = true                                               -- 启用C语言风格缩进
+opt.autochdir = false                                            -- 自动切换当前目录为当前文件所在的目录
+opt.completeopt = "menu,menuone,noselect,noinsert"               -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
+opt.wildmenu = true                                              -- 自动补全不自动选中
+opt.virtualedit = "block,onemore"                                -- 光标可以定位到最后一个字的后面
+opt.confirm = true                                               -- 退出时文件没保存,会问你是否保存
+opt.backspace = { "start", "eol", "indent" }                     -- 正常删除
 -- 细化缩进规则（可选）
-vim.opt.cinkeys = "0{,0},0),:,!^F,o,O,e"                            -- 触发缩进的字符
-vim.opt.cinoptions = "g0,h1,N-s"                                    -- 缩进细节（如 `g0` 控制作用域声明缩进）
+vim.opt.cinkeys = "0{,0},0),:,!^F,o,O,e"                         -- 触发缩进的字符
+vim.opt.cinoptions = "g0,h1,N-s"                                 -- 缩进细节（如 `g0` 控制作用域声明缩进）
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "python", "lua" },
     callback = function()
@@ -220,8 +261,8 @@ opt.equalalways = false  -- 不自动调整窗口大小相等（若需启用设�
 -- ----------------------------
 -- 性能优化
 -- ----------------------------
-opt.updatetime = 300   -- 光标移动后 300ms 更新状态
-opt.timeoutlen = 500   -- 快捷键映射等待超时时间
+opt.updatetime = 300   -- 等待用户停止输入后，触发某些事件的时间间隔。
+opt.timeoutlen = 300   -- 快捷键映射等待超时时间
 opt.lazyredraw = false -- 执行宏或未映射的快捷键时减少重绘（提升性能）,开启可能会导致插件报错
 opt.synmaxcol = 240    -- 语法高亮的最大列数，超过则跳过
 
@@ -238,11 +279,11 @@ opt.foldlevelstart = 99                          -- 打开文件时的默认折�
 -- ----------------------------
 -- 其他杂项
 -- ----------------------------
-opt.shell = "/bin/zsh"               -- 设置 Neovim 使用的 shell (比如 terminal 所使用的shell)
+opt.shell = "/bin/zsh"             -- 执行外部命令时使用的 Shell,如: :terminal  :!ls :!git status
 -- opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- 光标形状（终端需支持）
-opt.spell = false                    -- 禁止拼写支持
-opt.spelllang = { --[[ "en_us", ]] "cjk" }          -- 设置拼写检查语言
-opt.spelloptions = "camel" -- 驼峰单词分段拼写检测（比如helloWorld拆成hello+world）
+opt.spell = false                  -- 禁止拼写支持
+opt.spelllang = { "en_us", "cjk" } -- 设置拼写检查语言
+opt.spelloptions = "camel"         -- 驼峰单词分段拼写检测（比如helloWorld拆成hello+world）
 opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 opt.wildmode = "longest:full,full"   -- 命令行补全模式

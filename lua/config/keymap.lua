@@ -27,6 +27,19 @@ map("n", "<BS>", ":set hlsearch!<CR>", ns)
 map("n", "<leader><CR>", ":set wrap!<CR>", { desc = "换行按钮", noremap = true, silent = true })
 map({ "n", "x" }, "<leader>j", "J", { desc = "向下融合", noremap = true, silent = true })
 
+map("n", "<C-t>", function()
+    vim.cmd("botright split | terminal")
+    vim.cmd("resize 10")
+    vim.cmd("startinsert")
+end, {
+    desc = "Open terminal",
+})
+
+vim.keymap.set("t", "<C-t>", "<C-\\><C-n>", {
+    desc = "Exit terminal mode",
+})
+
+
 map({ "n", "v" }, "gF", "gg=G", { desc = "自动缩进", noremap = true, silent = true })
 
 map({ "n", "v" }, "<leader>ss", "<cmd>set spell!<CR>", { desc = "开启/关闭拼写", noremap = true, silent = true })
@@ -142,7 +155,8 @@ map('n', '<Leader>hh', ':s/', { desc = "全局替换当前单词（所有行）"
 map('v', '\\\\', '"hy:s/<C-r>h//<left>', { desc = "全局替换全部选中文本", noremap = true }) --
 map('v', '<Leader>hH', '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "全局替换全部选中文本（带确认）", noremap = true })
 
-map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]], { desc = "查找高亮当前单词", noremap = true })
+map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]],
+    { desc = "查找高亮当前单词", noremap = true })
 
 -- 13. 透明背景切换（适配你的高亮配置）
 map("n", "<leader>tt", ":lua ToggleTransparency()<CR>", ns)
@@ -152,20 +166,26 @@ function ToggleTransparency()
     hl(0, "NormalNC", { bg = "NONE" })
 end
 
+map({ "n", "v", "x" }, "<leader>uu", "gu", { desc = "转换小写", noremap = true, silent = true })
+map({ "n", "v", "x" }, "<leader>uU", "gU", { desc = "转换大写", noremap = true, silent = true })
+map({ "n", "v", "x" }, "<leader>ut", "~", { desc = "大小写转换", noremap = true, silent = true })
+
 -- 窗口间的跳转
 map("n", "<C-h>", "<C-w>h", ns)
 map("n", "<C-j>", "<C-w>j", ns)
 map("n", "<C-k>", "<C-w>k", ns)
 map("n", "<C-l>", "<C-w>l", ns)
 
-map("n", "<leader>wc", "<cmd>close<CR>", { desc = "关闭窗口", noremap = true, silent = true })
-map("n", "<leader>wo", "<cmd>only<CR>", { desc = "关闭其他窗口", noremap = true, silent = true })
-map("n", "<leader>ws", "<cmd>vsplit<CR>", { desc = "垂直分屏", noremap = true, silent = true })
-map("n", "<leader>wS", "<cmd>split<CR>", { desc = "水平分屏", noremap = true, silent = true })
+-- 窗口移动
 map("n", "<leader>wh", "<C-w>H", { desc = "将窗口移到最左边", noremap = true, silent = true })
 map("n", "<leader>wl", "<C-w>L", { desc = "将窗口移到最右边", noremap = true, silent = true })
 map("n", "<leader>wk", "<C-w>K", { desc = "将窗口移到最上边", noremap = true, silent = true })
 map("n", "<leader>wj", "<C-w>J", { desc = "将窗口移到最下边", noremap = true, silent = true })
+
+map("n", "<leader>wc", "<cmd>close<CR>", { desc = "关闭窗口", noremap = true, silent = true })
+map("n", "<leader>wo", "<cmd>only<CR>", { desc = "关闭其他窗口", noremap = true, silent = true })
+map("n", "<leader>ws", "<cmd>vsplit<CR>", { desc = "垂直分屏", noremap = true, silent = true })
+map("n", "<leader>wS", "<cmd>split<CR>", { desc = "水平分屏", noremap = true, silent = true })
 map("n", "<leader>wd", "<C-w>=", { desc = "窗口等宽高", noremap = true, silent = true })
 map("n", "<leader>wn", "<C-w>n", { desc = "新建空白窗口", noremap = true, silent = true })
 -- map("n", "<leader>wc", "<cmd>cd %:p:h<CR><cmd>echo getcwd()<CR>", { desc = "进入当前文件所在目录", noremap = true, silent = true })

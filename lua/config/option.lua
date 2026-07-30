@@ -241,7 +241,7 @@ opt.foldlevelstart = 99                          -- 打开文件时的默认折�
 opt.shell = "/bin/zsh"               -- 设置 Neovim 使用的 shell (比如 terminal 所使用的shell)
 -- opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- 光标形状（终端需支持）
 opt.spell = false                    -- 禁止拼写支持
-opt.spelllang = { "en_us", "cjk" }          -- 设置拼写检查语言
+opt.spelllang = { --[[ "en_us", ]] "cjk" }          -- 设置拼写检查语言
 opt.spelloptions = "camel" -- 驼峰单词分段拼写检测（比如helloWorld拆成hello+world）
 opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 

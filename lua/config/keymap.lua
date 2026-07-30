@@ -170,6 +170,10 @@ map({ "n", "v", "x" }, "<leader>uu", "gu", { desc = "转换小写", noremap = tr
 map({ "n", "v", "x" }, "<leader>uU", "gU", { desc = "转换大写", noremap = true, silent = true })
 map({ "n", "v", "x" }, "<leader>ut", "~", { desc = "大小写转换", noremap = true, silent = true })
 
+map({ "n", "v", "x" }, "gu", "<Nop>", {desc = "no", noremap =true, silent =true})
+map({ "n", "v", "x" }, "gU", "<Nop>", {desc = "no", noremap=true,silent=true})
+map({ "n", "v", "x" }, "~", "<Nop>", {desc = "no", noremap=true,silent=true})
+
 -- 窗口间的跳转
 map("n", "<C-h>", "<C-w>h", ns)
 map("n", "<C-j>", "<C-w>j", ns)

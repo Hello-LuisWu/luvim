@@ -11,256 +11,81 @@ vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
 
         require("nvim-surround").setup({
             surrounds = {
-                ["("] = {
-                    add = { "( ", " )" },
-                    find = function()
-                        return M.get_selection({ motion = "a(" })
-                    end,
-                    delete = "^(. ?)().-( ?.)()$",
-                    label = "( ... )",
+                ["i"] = {
+                    add = {
+                        "*",
+                        "*"
+                    }
                 },
-                [")"] = {
-                    add = { "(", ")" },
-                    find = function()
-                        return M.get_selection({ motion = "a)" })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = "(...)",
+                ["c"] = {
+                    add = {
+                        "**",
+                        "**"
+                    }
                 },
-                ["{"] = {
-                    add = { "{ ", " }" },
-                    find = function()
-                        return M.get_selection({ motion = "a{" })
-                    end,
-                    delete = "^(. ?)().-( ?.)()$",
-                    label = "{ ... }",
-                },
-                ["}"] = {
-                    add = { "{", "}" },
-                    find = function()
-                        return M.get_selection({ motion = "a}" })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = "{...}",
-                },
-                ["<"] = {
-                    add = { "< ", " >" },
-                    find = function()
-                        return M.get_selection({ motion = "a<" })
-                    end,
-                    delete = "^(. ?)().-( ?.)()$",
-                    label = "< ... >",
-                },
-                [">"] = {
-                    add = { "<", ">" },
-                    find = function()
-                        return M.get_selection({ motion = "a>" })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = "<...>",
-                },
-                ["["] = {
-                    add = { "[ ", " ]" },
-                    find = function()
-                        return M.get_selection({ motion = "a[" })
-                    end,
-                    delete = "^(. ?)().-( ?.)()$",
-                    label = "[ ... ]",
-                },
-                ["]"] = {
-                    add = { "[", "]" },
-                    find = function()
-                        return M.get_selection({ motion = "a]" })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = "[...]",
-                },
-                ["'"] = {
-                    add = { "'", "'" },
-                    find = function()
-                        return M.get_selection({ motion = "a'" })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = "'...'",
-                },
-                ['"'] = {
-                    add = { '"', '"' },
-                    find = function()
-                        return M.get_selection({ motion = 'a"' })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = '"..."',
-                },
-                ["`"] = {
-                    add = { "`", "`" },
-                    find = function()
-                        return M.get_selection({ motion = "a`" })
-                    end,
-                    delete = "^(.)().-(.)()$",
-                    label = "`...`",
-                },
-                ["i"] = { -- TODO: Add find/delete/change functions
-                    add = function()
-                        local left_delimiter = M.get_input("Enter the left delimiter: ")
-                        local right_delimiter = left_delimiter and M.get_input("Enter the right delimiter: ")
-                        if right_delimiter then
-                            return { { left_delimiter }, { right_delimiter } }
-                        end
-                    end,
-                    find = function() end,
-                    delete = function() end,
-                    label = "?...?",
-                },
-                ["t"] = {
-                    add = function()
-                        local user_input = M.get_input("Enter the HTML tag: ")
-                        if user_input then
-                            local element = user_input:match("^<?([^%s>]*)")
-                            local attributes = user_input:match("^<?[^%s>]*%s+(.-)>?$")
-
-                            local open = attributes and element .. " " .. attributes or element
-                            local close = element
-
-                            return { { "<" .. open .. ">" }, { "</" .. close .. ">" } }
-                        end
-                    end,
-                    find = function()
-                        return M.get_selection({ motion = "at" })
-                    end,
-                    delete = "^(%b<>)().-(%b<>)()$",
-                    change = {
-                        target = "^<([^%s<>]*)().-([^/]*)()>$",
-                        replacement = function()
-                            local user_input = M.get_input("Enter the HTML tag: ")
-                            if user_input then
-                                local element = user_input:match("^<?([^%s>]*)")
-                                local attributes = user_input:match("^<?[^%s>]*%s+(.-)>?$")
-
-                                local open = attributes and element .. " " .. attributes or element
-                                local close = element
-
-                                return { { open }, { close } }
-                            end
-                        end,
-                    },
-                    label = "<tag>...</tag>",
-                },
-                ["T"] = {
-                    add = function()
-                        local user_input = M.get_input("Enter the HTML tag: ")
-                        if user_input then
-                            local element = user_input:match("^<?([^%s>]*)")
-                            local attributes = user_input:match("^<?[^%s>]*%s+(.-)>?$")
-
-                            local open = attributes and element .. " " .. attributes or element
-                            local close = element
-
-                            return { { "<" .. open .. ">" }, { "</" .. close .. ">" } }
-                        end
-                    end,
-                    find = function()
-                        return M.get_selection({ motion = "at" })
-                    end,
-                    delete = "^(%b<>)().-(%b<>)()$",
-                    change = {
-                        target = "^<([^>]*)().-([^/]*)()>$",
-                        replacement = function()
-                            local user_input = M.get_input("Enter the HTML tag: ")
-                            if user_input then
-                                local element = user_input:match("^<?([^%s>]*)")
-                                local attributes = user_input:match("^<?[^%s>]*%s+(.-)>?$")
-
-                                local open = attributes and element .. " " .. attributes or element
-                                local close = element
-
-                                return { { open }, { close } }
-                            end
-                        end,
-                    },
-                    label = "<tag>...</tag>",
-                },
-                ["f"] = {
-                    add = function()
-                        local result = M.get_input("Enter the function name: ")
-                        if result then
-                            return { { result .. "(" }, { ")" } }
-                        end
-                    end,
-                    find = function()
-                        local selection = M.get_selection({
-                            query = {
-                                capture = "@call.outer",
-                                type = "textobjects",
-                            },
-                        })
-
-                        -- We prioritize TreeSitter-based selections if they exist, otherwise fallback on pattern-based search
-                        if selection then
-                            return selection
-                        end
-                        return M.get_selection({ pattern = "[^=%s%(%){}]+%b()" })
-                    end,
-                    delete = "^(.-%()().-(%))()$",
-                    change = {
-                        target = "^.-([%w_]+)()%(.-%)()()$",
-                        replacement = function()
-                            local result = M.get_input("Enter the function name: ")
-                            if result then
-                                return { { result }, { "" } }
-                            end
-                        end,
-                    },
-                    label = "function(...)",
-                },
-                invalid_key_behavior = {
-                    -- By default, we ignore control characters for adding/finding because they are more likely typos than
-                    -- intentional. We choose NOT to for deletion, as users could have redefined the find key to something like
-                    -- ‘.-’. In this case we should still trim a character from each side, instead of early returning nil.
-                    add = function(char)
-                        if not char or char:find("%c") then
-                            return nil
-                        end
-                        return { { char }, { char } }
-                    end,
-                    find = function(char)
-                        if not char or char:find("%c") then
-                            return nil
-                        end
-                        return M.get_selection({
-                            pattern = vim.pesc(char) .. ".-" .. vim.pesc(char),
-                        })
-                    end,
-                    delete = function(char)
-                        if not char then
-                            return nil
-                        end
-                        return M.get_selections({
-                            char = char,
-                            pattern = "^(.)().-(.)()$",
-                        })
-                    end,
+                ["s"] = {
+                    add = {
+                        "***",
+                        "***"
+                    }
                 },
             },
-            aliases = {
-                ["a"] = ">",
-                ["b"] = ")",
-                ["B"] = "}",
-                ["r"] = "]",
-                ["q"] = { '"', "'", "`" },
-                ["s"] = { "}", "]", ")", ">", '"', "'", "`" },
-            },
-            highlight = {
-                duration = 0,
-            },
-            move_cursor = "begin",
-            indent_lines = function(start, stop)
-                local b = vim.bo
-                -- Only re-indent the selection if a formatter is set up already
-                if start < stop and (b.equalprg ~= "" or b.indentexpr ~= "" or b.cindent or b.smartindent or b.lisp) then
-                    vim.cmd(string.format("silent normal! %dG=%dG", start, stop))
-                    require("nvim-surround.cache").set_callback("")
-                end
-            end,
+        })
+
+        vim.keymap.set("o", "[", "iw[")
+        vim.keymap.set("o", "]", "iw[")
+        vim.keymap.set("o", "<", "iw<")
+        vim.keymap.set("o", ">", "iw<")
+        vim.keymap.set("o", "(", "iw(")
+        vim.keymap.set("o", ")", "iw(")
+        vim.keymap.set("o", "{", "iw{")
+        vim.keymap.set("o", "}", "iw{")
+        vim.keymap.set("o", "'", "iw'")
+        vim.keymap.set('o', '"', 'iw"')
+
+        local map = vim.keymap.set
+
+        -- Normal 模式 添加
+        map("n", "<leader>ka", "<Plug>(nvim-surround-normal)", {
+            desc = "根据动作范围添加包围符号",
+        })
+
+        map("n", "<leader>kA", "<Plug>(nvim-surround-normal-cur)", {
+            desc = "给当前行添加包围符号",
+        })
+
+        map("n", "<leader>kl", "<Plug>(nvim-surround-normal-line)", {
+            desc = "根据动作范围添加包围符号，并换行显示",
+        })
+
+        map("n", "<leader>kL", "<Plug>(nvim-surround-normal-cur-line)", {
+            desc = "给当前行添加包围符号，并换行显示",
+        })
+
+
+        -- Visual 模式 添加
+        map("x", "<leader>ka", "<Plug>(nvim-surround-visual)", {
+            desc = "给选中文本添加包围符号",
+        })
+
+        map("x", "<leader>kl", "<Plug>(nvim-surround-visual-line)", {
+            desc = "给选中文本添加包围符号，并换行显示",
+        })
+
+
+        -- 删除
+        map("n", "<leader>kd", "<Plug>(nvim-surround-delete)", {
+            desc = "删除包围符号",
+        })
+
+
+        -- 修改
+        map("n", "<leader>kc", "<Plug>(nvim-surround-change)", {
+            desc = "修改包围符号",
+        })
+
+        map("n", "<leader>kC", "<Plug>(nvim-surround-change-line)", {
+            desc = "修改包围符号，并换行显示",
         })
     end,
 })

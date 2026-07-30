@@ -256,7 +256,7 @@
 | `gwr`  | n    | 移除工作区目录                  | `vim.lsp.buf.remove_workspace_folder`  |
 | `gwl`  | n    | 打印当前全部工作区路径          | `vim.lsp.buf.list_workspace_folders()` |
 
-## ⚡ flash
+## ✨ flash
 
 | 快捷键  | 模式        | 功能说明                           | 映射命令                               |
 |---------|-------------|------------------------------------|----------------------------------------|
@@ -273,3 +273,27 @@
 | `<leader>gg` | n    | 打开LazyGit主界面                   | 执行函数调用 `lazygit_cmd("LazyGit")`            |
 | `<leader>gG` | n    | 打开LazyGit并定位当前文件           | 执行函数调用 `lazygit_cmd("LazyGitCurrentFile")` |
 | `<leader>gf` | n    | 打开LazyGit筛选查看项目所有提交记录 | 执行函数调用 `lazygit_cmd("LazyGitFilter")`      |
+
+## 🫧 surround
+
+| 快捷键       | 模式 | 功能说明                             | 映射命令                                |
+|--------------|------|--------------------------------------|-----------------------------------------|
+| `<leader>ka` | N    | 根据动作范围添加包围符号             | `<Plug>(nvim-surround-normal)`          |
+| `<leader>kA` | N    | 给当前行添加包围符号                 | `<Plug>(nvim-surround-normal-cur)`      |
+| `<leader>kl` | N    | 根据动作范围添加包围符号，并换行显示 | `<Plug>(nvim-surround-normal-line)`     |
+| `<leader>kL` | N    | 给当前行添加包围符号，并换行显示     | `<Plug>(nvim-surround-normal-cur-line)` |
+| `<leader>ka` | V/x  | 给选中文本添加包围符号               | `<Plug>(nvim-surround-visual)`          |
+| `<leader>kl` | V/x  | 给选中文本添加包围符号，并换行显示   | `<Plug>(nvim-surround-visual-line)`     |
+| `<leader>kd` | N    | 删除包围符号                         | `<Plug>(nvim-surround-delete)`          |
+| `<leader>kc` | N    | 修改包围符号                         | `<Plug>(nvim-surround-change)`          |
+| `<leader>kC` | N    | 修改包围符号，并换行显示             | `<Plug>(nvim-surround-change-line)`     |
+| `[`          | o    | 选中单词，以`[`为边界范围            | `iw[`                                   |
+| `]`          | o    | 选中单词，以`[`为边界范围            | `iw[`                                   |
+| `<`          | o    | 选中单词，以`<`为边界范围            | `iw<`                                   |
+| `>`          | o    | 选中单词，以`<`为边界范围            | `iw<`                                   |
+| `(`          | o    | 选中单词，以`(`为边界范围            | `iw(`                                   |
+| `)`          | o    | 选中单词，以`(`为边界范围            | `iw(`                                   |
+| `{`          | o    | 选中单词，以`{`为边界范围            | `iw{`                                   |
+| `}`          | o    | 选中单词，以`{`为边界范围            | `iw{`                                   |
+| `'`          | o    | 选中单词，以单引号为边界范围         | `iw'`                                   |
+| `"`          | o    | 选中单词，以双引号为边界范围         | `iw"`                                   |

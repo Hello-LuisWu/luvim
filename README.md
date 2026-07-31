@@ -1,12 +1,8 @@
 # 🔖 nvim-pack-config
 
-# 🧠 nvim-config User Guide
-
 **高性能·模块化·开箱即用**:基于 neovim pack 原生插件管理器, 适用于开发者的 Neovim 配置，支持 LSP、自动补全、代码格式化、语法高亮、美化 UI 等功能。
 
 ---
- 
-*ii*
 
 ## 🧰 所需外部依赖软件
 

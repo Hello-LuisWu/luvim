@@ -29,6 +29,6 @@ vim.api.nvim_create_autocmd("FileType", {
             },
 
         })
-        vim.keymap.set("n", "<leader>mp", "<cmd>PasteImage<cr>", { desc = "粘贴图片", noremap = true, silent = true })
+        vim.keymap.set("n", "<leader>mi", "<cmd>PasteImage<cr>", { desc = "粘贴图片", noremap = true, silent = true })
     end
 })

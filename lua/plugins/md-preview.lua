@@ -1,5 +1,5 @@
-vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("SetupMp", { clear = true }),
+vim.api.nvim_create_autocmd("filetype", {
+    group = vim.api.nvim_create_augroup("setupmp", { clear = true }),
     pattern = "markdown",
     callback = function()
         vim.g.mkdp_filetypes = { "markdown" }
@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
             gh("iamcco/markdown-preview.nvim"),
         })
 
-        vim.keymap.set("n", "<leader>md", "<cmd>MarkdownPreviewToggle<CR>",
+        vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>",
             { desc = "预览 MD", noremap = true, silent = true })
     end,
 })

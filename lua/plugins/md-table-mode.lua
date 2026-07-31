@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("FileType", {
     once = true,
     callback = function()
         vim.pack.add({
-            { src = "https://github.com/Kicamon/markdown-table-mode.nvim" },
+            gh("Kicamon/markdown-table-mode.nvim")
         })
 
         require('markdown-table-mode').setup({

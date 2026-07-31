@@ -8,12 +8,10 @@ vim.api.nvim_create_autocmd("FileType", {
         { clear = true }
     ),
 
-
     pattern = {
         "markdown",
         "text",
     },
-
 
     callback = function()
 
@@ -21,22 +19,17 @@ vim.api.nvim_create_autocmd("FileType", {
             return
         end
 
-
         vim.pack.add({
-            "https://github.com/gaoDean/autolist.nvim",
+            gh("gaoDean/autolist.nvim")
         })
-
 
         vim.cmd.packadd("autolist.nvim")
 
-
         require("autolist").setup({})
-
 
         local opts = {
             buffer = true,
         }
-
 
         vim.keymap.set(
             "i",
@@ -45,14 +38,12 @@ vim.api.nvim_create_autocmd("FileType", {
             opts
         )
 
-
         vim.keymap.set(
             "i",
             "<S-Tab>",
             "<cmd>AutolistShiftTab<cr>",
             opts
         )
-
 
         vim.keymap.set(
             "i",
@@ -61,14 +52,12 @@ vim.api.nvim_create_autocmd("FileType", {
             opts
         )
 
-
         vim.keymap.set(
             "n",
             "o",
             "o<cmd>AutolistNewBullet<cr>",
             opts
         )
-
 
         vim.keymap.set(
             "n",
@@ -77,7 +66,6 @@ vim.api.nvim_create_autocmd("FileType", {
             opts
         )
 
-
         vim.keymap.set(
             "n",
             "<CR>",
@@ -85,14 +73,12 @@ vim.api.nvim_create_autocmd("FileType", {
             opts
         )
 
-
         vim.keymap.set(
             "n",
             "<C-r>",
             "<cmd>AutolistRecalculate<cr>",
             opts
         )
-
 
         vim.keymap.set(
             "n",
@@ -104,7 +90,6 @@ vim.api.nvim_create_autocmd("FileType", {
             }
         )
 
-
         vim.keymap.set(
             "n",
             "<leader>cp",
@@ -114,7 +99,6 @@ vim.api.nvim_create_autocmd("FileType", {
                 expr = true,
             }
         )
-
 
         vim.keymap.set(
             "n",
@@ -130,7 +114,6 @@ vim.api.nvim_create_autocmd("FileType", {
             "<<<cmd>AutolistRecalculate<cr>",
             opts
         )
-
 
         loaded = true
 

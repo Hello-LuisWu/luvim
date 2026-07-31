@@ -1,7 +1,7 @@
 -- NOTE: p: 首页
 
 vim.pack.add({
-    "https://github.com/goolord/alpha-nvim",
+    gh("goolord/alpha-nvim"),
 })
 
 -- 获取 Lazy.nvim 启动时间

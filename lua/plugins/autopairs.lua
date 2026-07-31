@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd({ "insertenter", }, {
     once = true,
     callback = function()
         vim.pack.add({
-            "https://github.com/windwp/nvim-autopairs"
+            gh("windwp/nvim-autopairs"),
         })
         require("nvim-autopairs").setup({})
     end,

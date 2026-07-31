@@ -1,7 +1,7 @@
 vim.pack.add({
-    'https://github.com/neovim/nvim-lspconfig',
-    "https://www.github.com/mason-org/mason-lspconfig.nvim",
-    "https://www.github.com/mason-org/mason.nvim"
+    gh("neovim/nvim-lspconfig"),
+    gh("mason-org/mason.nvim"),
+    gh("mason-org/mason-lspconfig.nvim")
 })
 
 local ms = require("mason")

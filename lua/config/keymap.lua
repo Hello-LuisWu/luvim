@@ -35,10 +35,7 @@ end, {
     desc = "Open terminal",
 })
 
-vim.keymap.set("t", "<C-t>", "<C-\\><C-n>", {
-    desc = "Exit terminal mode",
-})
-
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 map({ "n", "v" }, "gF", "gg=G", { desc = "自动缩进", noremap = true, silent = true })
 
@@ -46,7 +43,7 @@ map({ "n", "v" }, "<leader>ss", "<cmd>set spell!<CR>", { desc = "开启/关闭�
 map({ "n", "v" }, "<leader>s]", "]s", { desc = "下一个拼写错误", noremap = true, silent = true })
 map({ "n", "v" }, "<leader>s[", "[s", { desc = "上一个拼写错误", noremap = true, silent = true })
 map({ "n", "v" }, "<leader>sa", "zg", { desc = "将单词添加到词典", noremap = true, silent = true })
-map({ "n", "v" }, "<leader>sc", "zw", { desc = "将单词移出词典", noremap = true, silent = true })
+map({ "n", "v" }, "<leader>sd", "zw", { desc = "将单词移出词典", noremap = true, silent = true })
 map({ "n", "v" }, "<leader>su", "zu", { desc = "撤销 zg/zw", noremap = true, silent = true })
 
 

@@ -1,18 +1,14 @@
 -- NOTE: p: 显示色彩
-
 local loaded = false
 local function setup_colorizer()
     if loaded then
         return
     end
-
-    -- #ff33ff
     loaded = true
-
 
     -- vim.pack
     vim.pack.add({
-        "https://github.com/catgoose/nvim-colorizer.lua"
+        gh("catgoose/nvim-colorizer.lua"),
     })
     require("colorizer").setup({
         filetypes = { "*" },  -- filetypes to highlight, "*" for all

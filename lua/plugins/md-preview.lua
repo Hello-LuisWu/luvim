@@ -6,9 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.cmd.packadd("markdown-preview.nvim")
 
         vim.pack.add({
-            {
-                src = "https://github.com/iamcco/markdown-preview.nvim",
-            },
+            gh("iamcco/markdown-preview.nvim"),
         })
 
         vim.keymap.set("n", "<leader>md", "<cmd>MarkdownPreviewToggle<CR>",

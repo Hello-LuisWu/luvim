@@ -5,52 +5,46 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     once = true,
     callback = function()
         vim.pack.add({
-            'https://github.com/akinsho/bufferline.nvim',
+            gh("akinsho/bufferline.nvim"),
         })
 
         require("bufferline").setup({
             options = {
-
                 -- buffer 模式
                 mode = "buffers",
-
                 -- 样式
                 style_preset = require("bufferline").style_preset.default,
-
                 -- 显示编号
                 numbers = "ordinal",
-
+                -- numbers = "none",
                 -- 左键切换
                 left_mouse_command = "buffer %d",
-
                 -- 中键关闭
                 middle_mouse_command = "bdelete! %d",
-
                 -- 右键关闭
                 right_mouse_command = "bdelete! %d",
-
                 -- 当前 buffer 标记
                 indicator = {
                     icon = "▎",
                     style = "icon",
                 },
-
                 -- 图标
                 buffer_close_icon = "󰅖",
                 close_icon = "",
                 modified_icon = "●",
-
                 -- buffer 名称长度
-                max_name_length = 30,
+                max_name_length = 15,
                 max_prefix_length = 20,
 
+                diagnostics = false,
+
                 -- 显示文件图标
-                show_buffer_icons = true,
+                show_buffer_icons = false,
 
                 -- 显示关闭按钮
-                show_buffer_close_icons = true,
+                show_buffer_close_icons = false,
 
-                show_close_icon = true,
+                show_close_icon = false,
 
                 -- tab 分割样式
                 separator_style = "slant",
@@ -66,24 +60,6 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
                         "close"
                     },
                 },
-
-                -- LSP诊断
-                diagnostics = "nvim_lsp",
-
-                diagnostics_update_in_insert = false,
-
-                diagnostics_indicator = function(
-                    count,
-                    level,
-                    diagnostics_dict,
-                    context
-                )
-                    local icon = level:match("error")
-                        and " "
-                        or " "
-
-                    return icon .. count
-                end,
 
                 -- 自动排序
                 sort_by = "insert_after_current",

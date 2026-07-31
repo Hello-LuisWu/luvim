@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
     callback = function()
         vim.pack.add({
             {
-                src = 'https://github.com/nvim-neo-tree/neo-tree.nvim',
+                src = gh("nvim-neo-tree/neo-tree.nvim"),
                 version = vim.version.range('3')
             }
         })

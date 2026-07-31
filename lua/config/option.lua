@@ -2,6 +2,7 @@ local opt = vim.opt
 -- ----------------------------
 -- 基础设置
 -- ----------------------------
+vim.g.have_nerd_font = false
 -- opt.mouse = "r"           -- 禁用鼠标, nvim 默认值为 a
 opt.mousemodel = "extend"
 opt.mouse = "a"       -- 启用鼠标, nvim 默认值为开启
@@ -15,7 +16,7 @@ end)
 -- 编码设置
 opt.encoding = "utf-8"                 -- 设置 Neovim 内部编码, Neovim 0.9+ 已废弃。
 opt.fileencoding = "utf-8"             -- 自动检测文件编码的顺序
-opt.fileencodings = "utf-8,gbk,latin1" -- 自动检测文件编码的顺序
+-- opt.fileencodings = "utf-8,gbk,latin1" -- 自动检测文件编码的顺序
 opt.fileformats = "unix,dos,mac"       -- 文件格式支持，优先次序从左到右
 opt.fileformat = "unix"                -- 文件格式支持，优先次序从左到右
 vim.scriptencoding = "utf-8"           --脚本文件所使用的编码
@@ -60,10 +61,10 @@ require("vim._core.ui2").enable({
         ---@type string|table<string, 'cmd'|'msg'|'pager'>
         ---默认消息目标，或者通过 table 根据消息类型和触发条件映射不同显示目标。
         ---例如：
-        ---{
-        ---  search_count = 'msg',
-        ---  confirm = 'pager',
-        ---}
+        -- {
+        --   search_count = 'msg',
+        --   aconfirm = 'msg',
+        -- },
         ---可以让不同类型消息显示在不同位置。
 
         cmd = {          -- 与命令行窗口（cmdline window）中的消息相关的配置。

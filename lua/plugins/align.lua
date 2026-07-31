@@ -5,7 +5,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     once = true,
     callback = function()
         vim.pack.add({
-            { src = 'https://github.com/nvim-mini/mini.align', version = 'stable' },
+            {
+                src = gh("nvim-mini/mini.align"),
+                version = 'stable',
+            },
         })
         require("mini.align").setup({
             -- Module mappings. Use `''` (empty string) to disable one.

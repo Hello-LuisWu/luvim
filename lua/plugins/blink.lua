@@ -5,12 +5,10 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
     callback = function()
         vim.pack.add({
             {
-                src = "https://github.com/saghen/blink.cmp",
+                src = gh("saghen/blink.cmp"),
                 version = vim.version.range('1'),
             },
-            "https://github.com/Kaiser-Yang/blink-cmp-dictionary"
         })
-
         require("blink.cmp").setup({
             appearance = {
                 highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
@@ -55,62 +53,10 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
                 },
             },
             sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer', 'dictionary'
+                default = { 'lsp', 'path', 'snippets', 'buffer'
                     -- 'ripgrep'
                 },
                 providers = {
-                    dictionary = {
-                        module = 'blink-cmp-dictionary',
-                        name = 'Dict',
-                        -- 💡 Performance impact of min_keyword_length:
-                        -- - In fallback mode: No impact on performance regardless of value
-                        -- - With fzf: Higher values may improve performance
-                        -- - With other commands (rg/grep): Higher values significantly improve performance
-                        min_keyword_length = 1,
-                        -- options for blink-cmp-dictionary
-                        opts = {
-                            -- put your dictionary files here
-                            -- dictionary_files = {}
-                            force_fallback = true,
-                        }
-                    },
-
-                    -- ripgrep = {
-                    --     score_offset = 1,
-                    --     module = "blink-ripgrep",
-                    --     name = "Ripgrep",
-                    --     ---@module "blink-ripgrep"
-                    --     ---@type blink-ripgrep.Options
-                    --     opts = {
-                    --         prefix_min_len = 3,
-                    --         context_size = 5,
-                    --         max_filesize = "1M",
-                    --         project_root_marker = ".git",
-                    --         project_root_fallback = true,
-                    --         search_casing = "--ignore-case",
-                    --         additional_rg_options = {},
-                    --         fallback_to_regex_highlighting = true,
-                    --         ignore_paths = {},
-                    --         additional_paths = {},
-                    --         toggles = {
-                    --         },
-                    --         future_features = {
-                    --             backend = {
-                    --                 use = "ripgrep",
-                    --                 customize_icon_highlight = true,
-                    --             },
-                    --         },
-                    --         debug = false,
-                    --     },
-                    --     transform_items = function(_, items)
-                    --         for _, item in ipairs(items) do
-                    --             item.labelDetails = {
-                    --                 description = "(rg)",
-                    --             }
-                    --         end
-                    --         return items
-                    --     end,
-                    -- },
                     buffer = {
                         score_offset = 2
                     },

@@ -8,7 +8,7 @@ local function setup_LazyGit()
     -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     vim.pack.add({
-        'https://github.com/kdheepak/lazygit.nvim',
+        gh("kdheepak/lazygit.nvim")
     })
 
     vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window

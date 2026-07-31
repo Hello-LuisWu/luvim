@@ -1,7 +1,7 @@
 -- ------------------------------------------------------------------------------
 -- Author   : Luis Wu
 -- Editor   : Neovim
--- Date     : 2026-07-29 02:11
+-- Date     : 2026-07-31 16:49
 -- Position : /Users/luis/.config/nvim/lua/plugins/comment.lua
 -- System   : Darwin 25.2.0
 -- ------------------------------------------------------------------------------
@@ -13,12 +13,12 @@ vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
     once = true,
     callback = function()
         vim.pack.add({
-            "https://github.com/numToStr/Comment.nvim",
+            gh("numToStr/Comment.nvim"),
         })
 
         local comment = require("Comment")
-        -- 配置 comment.nvim
 
+        -- 配置 comment.nvim
         comment.setup({
             -- 基础配置
             padding = true, -- 在注释符号和内容之间添加空格（例如 "// 内容" vs "//内容"）

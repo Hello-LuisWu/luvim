@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     once = true,
     callback = function()
         vim.pack.add({
-            "https://github.com/folke/flash.nvim"
+            gh("folke/flash.nvim"),
         })
 
         vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end)

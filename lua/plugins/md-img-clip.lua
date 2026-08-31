@@ -1,14 +1,13 @@
+vim.pack.add({
+    "https://github.com/HakonHarnes/img-clip.nvim"
+})
+
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("SetupImgClip", { clear = true }),
     pattern = {
         "markdown",
     },
     callback = function()
-        vim.pack.add({
-            gh("HakonHarnes/img-clip.nvim")
-        })
-
-
         require("img-clip").setup({
 
             -- 默认配置

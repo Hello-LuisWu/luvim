@@ -1,4 +1,10 @@
 -- NOTE: p: 显示色彩
+
+-- vim.pack
+vim.pack.add({
+    "https://github.com/catgoose/nvim-colorizer.lua",
+})
+
 local loaded = false
 local function setup_colorizer()
     if loaded then
@@ -6,10 +12,6 @@ local function setup_colorizer()
     end
     loaded = true
 
-    -- vim.pack
-    vim.pack.add({
-        gh("catgoose/nvim-colorizer.lua"),
-    })
     require("colorizer").setup({
         filetypes = { "*" },  -- filetypes to highlight, "*" for all
         buftypes = {},        -- buftypes to highlight

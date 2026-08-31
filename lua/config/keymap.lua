@@ -12,6 +12,9 @@ local map = vim.keymap.set
 local ns = { noremap = true, silent = true }
 local nsf = { noremap = true, silent = false }
 
+map("i", "<c-enter>", "<C-[>o")
+map("i", "<S-enter>", "<C-[>o")
+
 map("n", "<leader>uf", ":set fileformat=unix<CR>", { desc = "格式转为 unix", noremap = true, silent = true })
 map("n", "<leader>uF", ":set fileencoding=utf-8<CR>", { desc = "编码转为 UTF-8", noremap = true, silent = true })
 

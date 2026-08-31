@@ -1,5 +1,5 @@
 vim.pack.add({
-    gh("ibhagwan/fzf-lua"),
+    "https://github.com/ibhagwan/fzf-lua",
 })
 
 local fzf = require("fzf-lua")

@@ -1,13 +1,11 @@
 -- NOTE: p: buffer 标签页
-
+vim.pack.add({
+    "https://github.com/akinsho/bufferline.nvim",
+})
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup("SetupBuffweline", { clear = true }),
     once = true,
     callback = function()
-        vim.pack.add({
-            gh("akinsho/bufferline.nvim"),
-        })
-
         require("bufferline").setup({
             options = {
                 -- buffer 模式

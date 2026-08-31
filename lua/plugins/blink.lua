@@ -1,14 +1,14 @@
 -- NOTE: p: 自动补全
+vim.pack.add({
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        version = vim.version.range('1'),
+    },
+})
 vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
     group = vim.api.nvim_create_augroup("setupBlinkCmp", { clear = true }),
     once = true,
     callback = function()
-        vim.pack.add({
-            {
-                src = gh("saghen/blink.cmp"),
-                version = vim.version.range('1'),
-            },
-        })
         require("blink.cmp").setup({
             appearance = {
                 highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
@@ -19,38 +19,6 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
                 -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
                 -- Adjusts spacing to ensure icons are aligned
                 nerd_font_variant = 'mono',
-                kind_icons = {
-                    Text = '󰉿 ',
-                    Method = '󰊕 ',
-                    Function = '󰊕 ',
-                    Constructor = '󰒓 ',
-
-                    Field = '󰜢 ',
-                    Variable = '󰆦 ',
-                    Property = '󰖷 ',
-
-                    Class = '󱡠 ',
-                    Interface = '󱡠 ',
-                    Struct = '󱡠 ',
-                    Module = '󰅩 ',
-
-                    Unit = '󰪚 ',
-                    Value = '󰦨 ',
-                    Enum = '󰦨 ',
-                    EnumMember = '󰦨 ',
-
-                    Keyword = '󰻾 ',
-                    Constant = '󰏿 ',
-
-                    Snippet = '󱄽 ',
-                    Color = '󰏘 ',
-                    File = '󰈔 ',
-                    Reference = '󰬲 ',
-                    Folder = '󰉋 ',
-                    Event = '󱐋 ',
-                    Operator = '󰪚 ',
-                    TypeParameter = '󰬛 ',
-                },
             },
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer'
@@ -58,13 +26,13 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
                 },
                 providers = {
                     buffer = {
-                        score_offset = 2
+                        score_offset = 1
                     },
                     path = {
-                        score_offset = 5
+                        score_offset = 2
                     },
                     lsp = {
-                        score_offset = 4
+                        score_offset = 0
                     },
                     cmdline = {
                         module = 'blink.cmp.sources.cmdline',
@@ -89,9 +57,10 @@ vim.api.nvim_create_autocmd({ "insertenter", "cmdlineenter" }, {
             keymap = {
                 preset = 'none',
                 -- preset = "none",
-                ["<C-\\>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<C-\\>"] = { "show", "accept" },
+                -- ["<C-\\>"] = { "show", "show_documentation", "hide_documentation" },
                 -- fallback命令将运行下一个非闪烁键盘映射(回车键的默认换行等操作需要)
-                ["<CR>"] = { "accept", "fallback" },                          -- 更改成'select_and_accept'会选择第一项插入
+                -- ["<CR>"] = { "accept", "fallback" },                          -- 更改成'select_and_accept'会选择第一项插入
                 ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
                 ["<Tab>"] = { "select_next", "snippet_forward", "fallback" }, -- 同时存在补全列表和snippet时，补全列表选择优先级更高
 

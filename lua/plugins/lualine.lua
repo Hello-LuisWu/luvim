@@ -1,11 +1,11 @@
+vim.pack.add({
+    "https://github.com/nvim-lualine/lualine.nvim"
+})
+
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup("SetupLualine", { clear = true }),
     once = true,
     callback = function()
-        vim.pack.add({
-            gh("nvim-lualine/lualine.nvim")
-        })
-
         require('lualine').setup {
             options = {
                 icons_enabled = true,

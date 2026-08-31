@@ -1,19 +1,14 @@
+vim.pack.add({
+    "https://github.com/MeanderingProgrammer/render-markdown.nvim"
+})
 local loaded = false
-
-
 local function load_RenderMd()
     if loaded then
         return
     end
-
     loaded = true
-
-    vim.pack.add({
-        gh("MeanderingProgrammer/render-markdown.nvim")
-    })
     vim.keymap.set("n", "<leader>md", "<cmd>RenderMarkdown toggle<CR>",
         { desc = "nvim 内部预览 md", noremap = true, silent = true })
-
     require('render-markdown').setup({
         heading = {
             -- Useful context to have when evaluating values.

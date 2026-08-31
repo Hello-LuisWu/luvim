@@ -1,3 +1,11 @@
+vim.pack.add({
+    {
+        src = "https://github.com/echasnovski/mini.indentscope",
+        version = "stable"
+    },
+    "https://github.com/lukas-reineke/indent-blankline.nvim"
+})
+
 local loader = false
 
 
@@ -9,13 +17,6 @@ local function load_indentscope()
     loaded = true
 
 
-    vim.pack.add({
-        {
-            src = gh("echasnovski/mini.indentscope"),
-            version = "stable"
-        },
-        gh("lukas-reineke/indent-blankline.nvim")
-    })
     local highlight = {
         "RainbowRed",
         -- "RainbowYellow",

@@ -1,5 +1,8 @@
-local loaded = false
+vim.pack.add({
+    "https://github.com/gaoDean/autolist.nvim"
+})
 
+local loaded = false
 
 vim.api.nvim_create_autocmd("FileType", {
 
@@ -14,14 +17,10 @@ vim.api.nvim_create_autocmd("FileType", {
     },
 
     callback = function()
-
         if loaded then
             return
         end
 
-        vim.pack.add({
-            gh("gaoDean/autolist.nvim")
-        })
 
         vim.cmd.packadd("autolist.nvim")
 
@@ -116,6 +115,5 @@ vim.api.nvim_create_autocmd("FileType", {
         )
 
         loaded = true
-
     end,
 })

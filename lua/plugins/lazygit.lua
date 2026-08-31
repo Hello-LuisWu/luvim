@@ -1,3 +1,7 @@
+    vim.pack.add({
+        "https://github.com/kdheepak/lazygit.nvim"
+    })
+
 local loaded = false
 local function setup_LazyGit()
     if loaded then
@@ -6,10 +10,6 @@ local function setup_LazyGit()
     loaded = true
 
     -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    vim.pack.add({
-        gh("kdheepak/lazygit.nvim")
-    })
 
     vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
     vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window

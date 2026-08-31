@@ -1,6 +1,6 @@
 
 vim.pack.add({
-    gh("folke/which-key.nvim"),
+    "https://github.com/folke/which-key.nvim"
 })
 
 local wk = require("which-key")

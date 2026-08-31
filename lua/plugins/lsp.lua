@@ -1,7 +1,7 @@
 vim.pack.add({
-    gh("neovim/nvim-lspconfig"),
-    gh("mason-org/mason.nvim"),
-    gh("mason-org/mason-lspconfig.nvim")
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/mason-org/mason-lspconfig.nvim"
 })
 
 local ms = require("mason")
@@ -17,10 +17,16 @@ ms.setup({
     }
 })
 
+ vim.lsp.config.bashls = {
+  cmd = { 'bash-language-server', 'start' },
+  filetypes = { 'bash', 'sh' }
+}
+
 vim.lsp.enable({
     'pyright',
     'lua_ls',
-    'clangd'
+    'clangd',
+    'bashls'
 })
 
 -- 诊断信息的图标

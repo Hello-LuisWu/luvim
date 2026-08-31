@@ -1,14 +1,14 @@
+vim.pack.add({
+    {
+        src = "https://github.com/nvim-neo-tree/neo-tree.nvim",
+        version = vim.version.range('3')
+    }
+})
+
 vim.api.nvim_create_autocmd("UIEnter", {
     group = vim.api.nvim_create_augroup("SetupNeotree", { clear = true }),
     once = true,
     callback = function()
-        vim.pack.add({
-            {
-                src = gh("nvim-neo-tree/neo-tree.nvim"),
-                version = vim.version.range('3')
-            }
-        })
-
         local map = vim.keymap.set
         local tree = require("neo-tree")
         map({ "n", "v" }, "<leader>e", "<cmd>Neotree toggle reveal source=filesystem<cr>",

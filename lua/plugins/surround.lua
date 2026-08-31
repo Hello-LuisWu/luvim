@@ -1,14 +1,14 @@
+vim.pack.add({
+    {
+        src = "https://github.com/kylechui/nvim-surround",
+        version = vim.version.range("4.x") -- Use for stability; omit to use `main` branch for the latest features
+    },
+})
+
 vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
     group = vim.api.nvim_create_augroup("setupSurround", { clear = true }),
     once = true,
     callback = function()
-        vim.pack.add({
-            {
-                src = gh("kylechui/nvim-surround"),
-                version = vim.version.range("4.x"), -- Use for stability; omit to use `main` branch for the latest features
-            },
-        })
-
         require("nvim-surround").setup({
             surrounds = {
                 ["i"] = {
@@ -51,13 +51,13 @@ vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
         })
 
         vim.keymap.set("o", "[", "iw[")
-        vim.keymap.set("o", "]", "iw[")
+        vim.keymap.set("o", "]", "iw]")
         vim.keymap.set("o", "<", "iw<")
-        vim.keymap.set("o", ">", "iw<")
+        vim.keymap.set("o", ">", "iw>")
         vim.keymap.set("o", "(", "iw(")
-        vim.keymap.set("o", ")", "iw(")
+        vim.keymap.set("o", ")", "iw)")
         vim.keymap.set("o", "{", "iw{")
-        vim.keymap.set("o", "}", "iw{")
+        vim.keymap.set("o", "}", "iw}")
         vim.keymap.set("o", "'", "iw'")
         vim.keymap.set('o', '"', 'iw"')
 

@@ -12,16 +12,16 @@
 --     end,
 -- })
 
+vim.pack.add({
+    "https://github.com/folke/todo-comments.nvim"
+})
+
 local loaded = false
 local function setup_TodoComments()
     if loaded then
         return
     end
     loaded = true
-
-    vim.pack.add({
-        gh("folke/todo-comments.nvim")
-    })
 
     vim.keymap.set("n", "]t", function()
         require("todo-comments").jump_next()

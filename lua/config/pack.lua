@@ -1,11 +1,9 @@
-_G.gh = function(repo)
-    return "https://github.com/" .. repo
-end
-vim.opt.packpath:append("")
+vim.opt.packpath:append("~/.vim")
 vim.pack.add({
-    gh("rafamadriz/friendly-snippets"),
-    gh("ellisonleao/gruvbox.nvim"),
-    gh("nvim-lua/plenary.nvim"),
-    gh("MunifTanjim/nui.nvim"),
-    gh("nvim-tree/nvim-web-devicons"),
+    "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/ellisonleao/gruvbox.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/MunifTanjim/nui.nvim",
+    "https://github.com/nvim-tree/nvim-web-devicons"
 })
+

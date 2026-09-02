@@ -1,3 +1,5 @@
+[[toc]]
+
 # 🔖 nvim-pack-config
 
 **高性能·模块化·开箱即用**:基于 neovim pack 原生插件管理器, 适用于开发者的 Neovim 配置，支持 LSP、自动补全、代码格式化、语法高亮、美化 UI 等功能。
@@ -8,27 +10,36 @@
 
 以下是使用本配置前需要在系统中安装的软件：
 
-- 💚 [neovim](https://neovim.io/doc/install/): >= 0.12
-- 🐙 [Git](https://git-scm.com/install/): 版本 >= 2.19.0（支持部分克隆）
-- 🔎 [fzf](https://github.com/junegunn/fzf): 被 fzf-lua 用于文件搜索
-- 🔍 [**ripgrep (rg)**](https://github.com/BurntSushi/ripgrep):  被 fzf-lua 等插件用于 `live_grep` 全局内容搜索。
-- 🌳 [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md):  Tree-sitter 命令行工具,用于生成、调试和管理语法解析器, nvim-treesitter 部分功能可能需要。
-    - 🗜️ **gcc**：编译 C 插件时使用（如 Treesitter）
-    - 🦀[cargo](https://github.com/Hello-LuisWu/cargo-config): tree-sitter-cli 推荐通过 Cargo 安装
-- 🐍 [pyright](https://github.com/microsoft/pyright): python 的语言服务器. 安装: `npm i -g pyright`
-- 🧰 [cl](https://visualstudio.microsoft.com/zh-hans/downloads/?utm_source=chatgpt.com#remote-tools-for-visual-studio-2026): Windows 下 treesitter 语法解析器编译依赖
-- ⚙️ clangd: c/c++ 语言服务器
-    - 🛠️ [clang](https://releases.llvm.org/): c/c++ 编译器, clangd所需依赖. arch安装: `sudo pacman -S clang`
-- 🧵 [Node.js](https://nodejs.org/zh-cn/download): 安装 LSP/格式化工具（如 tsserver、prettier、markdown-preview）
-- 🌀 [Nerd Font](https://www.nerdfonts.com/#home):（可选）v3.0 或更高版本, **Nerd Font**  是内置图标的编程字体，用于美化终端和编辑器界面。
-- 🔩 **[make](https://www.gnu.org/software/make/)**: 某些插件需要构建步骤（如 `telescope-fzf-native`）
-- 🌿 [lazygit](https://github.com/jesseduffield/lazygit) （可选）: git 管理工具
-- 🌐 [curl](https://curl.se/download.html): 用于blink.cmp （补全引擎）
-- 🏞️ [pngpaste](https://github.com/jcsalterego/pngpaste) (仅macOS): 被 [img-clip](https://github.com/HakonHarnes/img-clip.nvim) 插件用于图片粘贴。安装: `brew install pngpaste`; linux 另有工具安装！
+- 💚 [Neovim](https://neovim.io/doc/install/): >= 0.12.3; nvim 是整个配置的核心软件
+- 🐙 [Git](https://git-scm.com/install/): >= 2.19.0; 下载和更新插件
+- 🔎 [fzf](https://github.com/junegunn/fzf): 被 [fzf-lua](https://github.com/ibhagwan/fzf-lua) 用于文件搜索
+- 🔖 [ripgrep (rg)](https://github.com/BurntSushi/ripgrep):  被 fzf-lua 用于全局内容搜索。
+- 🌳 [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md): 生成、调试和管理语法解析器。
+- 🗜️ [gcc](https://github.com/Hello-LuisWu/DataBank/blob/main/01-%E8%AE%A1%E7%AE%97%E6%9C%BA/tools/gcc/gcc-install.md)：编译部分 C 的插件（如 Treesitter 语法解析器编译依赖）
+- 🛠️ [cl](https://visualstudio.microsoft.com/zh-hans/downloads/?utm_source=chatgpt.com#remote-tools-for-visual-studio-2026): Windows 下编译 C 的插件
+- 🔩 [make](https://www.gnu.org/software/make/): 某些插件需要构建步骤
+- 🧵 [Node](https://nodejs.org/zh-cn/download): 安装 LSP/格式化/markdown 等与 js 相关的工具
+- 🌐 [curl](https://curl.se/download.html): 用于 blink.cmp 等插件下载/请求资源
+- 🏞️ [pngpaste](https://github.com/jcsalterego/pngpaste) (macOS): 被 [img-clip](https://github.com/HakonHarnes/img-clip.nvim) 插件用于图片粘贴。
+    - Linux: [xclip](https://github.com/astrand/xclip) (x11) or  [wl-clipboard](https://github.com/bugaevc/wl-clipboard) (Wayland)
+    - Windows: 没有要求
+- 🌀 [Nerd Font](https://www.nerdfonts.com/#home): 有图标的编程字体，用于美化界面。
+
+### 额外知识补充
+
+Neovim 内置 Tree-sitter 负责“运行/调用已经存在的语法解析器（Parser）”；tree-sitter-cli 主要负责“生成、编译、测试和调试语法解析器”。
+
+查看有哪些 Parser:
+
+- 查看当前已安装的 Parser: `lua print(vim.inspect(vim.api.nvim_get_runtime_file("parser/*.so", true)))`
+    - 简洁查看: `:lua for _, v in ipairs(vim.api.nvim_get_runtime_file("parser/*.so", true)) do print(v) end`
+- 查看当前文件使用的 Parser: `:InspectTree`
+- 查看 Parser 是否正常: `:checkhealth vim.treesitter`
+
 
 ## 🔨 install neovim
 
-### Homebrew on macOS or Linux:
+### Homebrew on macOS or Linux
 
 ```sh
 brew install neovim

@@ -1,14 +1,34 @@
-vim.pack.add({
-    {
-        src = "https://github.com/kylechui/nvim-surround",
-        version = vim.version.range("4.x") -- Use for stability; omit to use `main` branch for the latest features
-    },
-})
+local group = vim.api.nvim_create_augroup("setupSurround", { clear = true })
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    group = group,
+    -- once = true,
+    callback = function(args)
+        local buf = args.buf
 
-vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
-    group = vim.api.nvim_create_augroup("setupSurround", { clear = true }),
-    once = true,
-    callback = function()
+        -- 只处理普通、可写文件
+        if vim.bo[buf].buftype ~= ""
+            or not vim.bo[buf].modifiable
+            or vim.bo[buf].readonly
+        then
+            return
+        end
+
+        -- 已加载则跳过
+        if package.loaded["nvim-surround"] then
+            vim.api.nvim_del_augroup_by_id(group)
+            return
+        end
+
+
+
+
+        vim.pack.add({
+            {
+                src = "https://github.com/kylechui/nvim-surround",
+                version = vim.version.range("4.x") -- Use for stability; omit to use `main` branch for the latest features
+            },
+        })
+
         require("nvim-surround").setup({
             surrounds = {
                 ["i"] = {
@@ -105,5 +125,7 @@ vim.api.nvim_create_autocmd({ 'bufreadpre', 'bufnewfile' }, {
         map("n", "<leader>kC", "<Plug>(nvim-surround-change-line)", {
             desc = "修改包围符号，并换行显示",
         })
+
+        vim.api.nvim_del_augroup_by_id(group)
     end,
 })

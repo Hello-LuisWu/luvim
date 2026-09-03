@@ -172,3 +172,11 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.textwidth = 88 -- PEP8 推荐行长度
     end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "zsh",
+    callback = function()
+        vim.bo.commentstring = "# %s"
+    end,
+})
+

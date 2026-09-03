@@ -1,11 +1,38 @@
 -- NOTE: p: buffer 标签页
-vim.pack.add({
-    "https://github.com/akinsho/bufferline.nvim",
+
+-- 创建一个自动命令组
+-- 使用固定名称可以避免重复创建自动命令时产生多个相同配置
+local group = vim.api.nvim_create_augroup("setupBufferline", {
+    clear = true, -- 创建时清除该组中之前存在的自动命令
 })
-vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup("SetupBuffweline", { clear = true }),
-    once = true,
-    callback = function()
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    group = group,
+    -- once = true,
+    callback = function(args)
+        local buf = args.buf
+
+        -- 只处理普通、可写文件
+        if vim.bo[buf].buftype ~= ""
+            or not vim.bo[buf].modifiable
+            or vim.bo[buf].readonly
+        then
+            return
+        end
+
+        -- 已加载则跳过
+        if package.loaded["bufferline"] then
+            vim.api.nvim_del_augroup_by_id(group)
+            return
+        end
+
+        ---------------------------------------------------------------------
+        -- 内容区:
+
+        vim.pack.add({
+            "https://github.com/akinsho/bufferline.nvim",
+        })
+
         require("bufferline").setup({
             options = {
                 -- buffer 模式
@@ -154,5 +181,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
         vim.keymap.set("n", "<leader><Tab>$", "<cmd>BufferLineGoToBuffer -1<CR>", {
             desc = "切换到最后一个 buffer",
         })
+
+        -- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
+        vim.api.nvim_del_augroup_by_id(group)
     end,
 })

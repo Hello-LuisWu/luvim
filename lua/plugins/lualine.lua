@@ -1,12 +1,25 @@
-vim.pack.add({
-    "https://github.com/nvim-lualine/lualine.nvim"
-})
+local group = vim.api.nvim_create_augroup("SetupLualine", { clear = true })
 
-vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup("SetupLualine", { clear = true }),
-    once = true,
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    group = group,
+    -- once = true,
     callback = function()
-        require('lualine').setup {
+        -- 已加载则跳过
+        if package.loaded["lualine"] then
+            vim.api.nvim_del_augroup_by_id(group)
+            return
+        end
+
+        -- NOTE: 不区分只读文件
+
+        ---------------------------------------------------------------------
+        -- 内容区:
+
+        vim.pack.add({
+            "https://github.com/nvim-lualine/lualine.nvim"
+        })
+
+        require('lualine').setup({
             options = {
                 icons_enabled = true,
                 theme = 'auto',
@@ -145,6 +158,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
             winbar = {},
             inactive_winbar = {},
             extensions = {}
-        }
+        })
+
+        vim.api.nvim_del_augroup_by_id(group)
     end,
 })

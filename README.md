@@ -1,26 +1,25 @@
 # 目录
-- [🔖 nvim-pack-config](#🔖-nvim-pack-config)
-  - [🧰 所需外部依赖软件](#🧰-所需外部依赖软件)
-    - [额外知识补充](#额外知识补充)
-  - [🔨 install neovim](#🔨-install-neovim)
+- [nvim-pack-config](#nvim-pack-config)
+  - [所需外部依赖软件](#所需外部依赖软件)
+  - [install neovim](#install-neovim)
     - [macOS](#macos)
-    - [Arch(manjaro)](#arch(manjaro))
+    - [Arch](#arch)
     - [Ubuntu](#ubuntu)
     - [Windows](#windows)
-  - [🧹 清除旧配置（重装建议）](#🧹-清除旧配置（重装建议）)
-    - [macOS/Linux 备份旧配置](#macos/linux-备份旧配置)
+  - [清除旧配置（重装建议）](#清除旧配置（重装建议）)
+    - [Unix 备份旧配置](#unix-备份旧配置)
     - [Windows 备份旧配置](#windows-备份旧配置)
-  - [⛓️‍💥 克隆配置文件](#⛓️‍💥-克隆配置文件)
-  - [🗃️ Files](#🗃️-files)
-  - [🚀 启动与首次初始化](#🚀-启动与首次初始化)
+  - [克隆配置文件](#克隆配置文件)
+  - [Nvim config files](#nvim-config-files)
+  - [启动与首次初始化](#启动与首次初始化)
 
-# 🔖 nvim-pack-config
+# nvim-pack-config
 
 **高性能·模块化·开箱即用**:基于 neovim pack 原生插件管理器, 适用于开发者的 Neovim 配置，支持 LSP、自动补全、代码格式化、语法高亮、美化 UI 等功能。
 
 ---
 
-## 🧰 所需外部依赖软件
+## 所需外部依赖软件
 
 以下是使用本配置前需要在系统中安装的软件：
 
@@ -39,7 +38,7 @@
     - Windows: 没有要求
 - 🌀 [Nerd Font](https://www.nerdfonts.com/#home): 有图标的编程字体，用于美化界面。
 
-### 额外知识补充
+额外知识补充:
 
 Neovim 内置 Tree-sitter 负责“运行/调用已经存在的语法解析器（Parser）”；tree-sitter-cli 主要负责“生成、编译、测试和调试语法解析器”。
 
@@ -51,15 +50,15 @@ Neovim 内置 Tree-sitter 负责“运行/调用已经存在的语法解析器�
 - 查看 Parser 是否正常: `:checkhealth vim.treesitter`
 
 
-## 🔨 install neovim
+## install neovim
 
-### macOS 
+### macOS
 
 ```sh
 brew install neovim
 ```
 
-### Arch(manjaro)
+### Arch
 
 ```sh
 sudo pacman -S neovim
@@ -81,11 +80,11 @@ sudo snap install nvim --classic
 
 
 
-## 🧹 清除旧配置（重装建议）
+## 清除旧配置（重装建议）
 
 如需重新安装配置，先清除旧版本相关目录：
 
-### macOS/Linux 备份旧配置
+### Unix 备份旧配置
 
 ```sh
 mv ~/.config/nvim{,.bak}
@@ -111,7 +110,7 @@ Move-Item $env:LOCALAPPDATA\nvim $env:LOCALAPPDATA\nvim.bak
 Move-Item $env:LOCALAPPDATA\nvim-data $env:LOCALAPPDATA\nvim-data.bak
 ```
 
-## ⛓️‍💥 克隆配置文件
+## 克隆配置文件
 
 ```sh
 # macOS/Linux
@@ -121,17 +120,19 @@ git clone --depth 1 https://github.com/Hello-LuisWu/luvim ~/.config/nvim
 git clone --depth 1 https://github.com/Hello-LuisWu/luvim $env:LOCALAPPDATA\nvim
 ```
 
-## 🗃️ Files
+## Nvim config files
 
 nvim 主目录文件树
 
 ```sh
  .
+├── 󰊢 .gitignore
 ├──  init.lua
 ├──  keymaps.md
 ├──  lua
 │   ├──  config
 │   │   ├──  autocmd.lua
+│   │   ├──  commands.lua
 │   │   ├──  keymap.lua
 │   │   ├──  option.lua
 │   │   └──  pack.lua
@@ -145,26 +146,33 @@ nvim 主目录文件树
 │   │   ├──  comment.lua
 │   │   ├──  flash.lua
 │   │   ├──  fzf.lua
+│   │   ├──  indentscope.lua
 │   │   ├──  lazygit.lua
 │   │   ├──  lsp.lua
 │   │   ├──  lualine.lua
 │   │   ├──  md-autolist.lua
 │   │   ├──  md-img-clip.lua
 │   │   ├──  md-preview.lua
+│   │   ├──  md-render-markdown.lua
 │   │   ├──  md-table-mode.lua
+│   │   ├──  md-toc.lua
 │   │   ├──  neotree.lua
 │   │   ├──  surround.lua
-│   │   ├──  todo-comments.lua
 │   │   ├──  treesitter.lua
 │   │   └──  wk.lua
 │   └──  utils
 │       └──  loader.lua
 ├──  nvim-pack-lock.json
+├──  rainbow-delimiters.lua
 ├── 󰂺 README.md
+├──  spell
+│   ├──  .gitkeep
+│   ├──  en.utf-8.add
+│   └──  en.utf-8.add.spl
 └──  telescope.lua
 ```
 
-## 🚀 启动与首次初始化
+## 启动与首次初始化
 
 第一次运行：
 

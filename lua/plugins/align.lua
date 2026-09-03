@@ -1,11 +1,35 @@
--- NOTE: p: 符号对齐
-vim.pack.add({
-    { src = "https://github.com/nvim-mini/mini.align", version = 'stable', },
-})
-vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup("SetupMiniAlign", { clear = true }),
-    once = true,
-    callback = function()
+-- NOTE: 符号对齐
+
+-- 创建一个自动命令组
+-- 使用固定名称可以避免重复创建自动命令时产生多个相同配置
+local group = vim.api.nvim_create_augroup("setupAlign", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    group = group,
+    -- once = true,
+    callback = function(args)
+        local buf = args.buf
+
+        -- 防止重复加载
+        if package.loaded["mini.align"] then
+            vim.api.nvim_del_augroup_by_id(group)
+            return
+        end
+
+        -- 只处理普通、可写文件
+        if vim.bo[buf].buftype ~= ""
+            or not vim.bo[buf].modifiable
+            or vim.bo[buf].readonly
+        then
+            return
+        end
+
+        ---------------------------------------------------------------------
+        -- 内容区:
+        vim.pack.add({
+            { src = "https://github.com/nvim-mini/mini.align", version = 'stable', },
+        })
+
         require("mini.align").setup({
             -- Module mappings. Use `''` (empty string) to disable one.
             mappings = {
@@ -77,5 +101,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
             silent = false, -- false 表示显示提示信息，便于学习
 
         })
+
+        --------------------------------------------------------------------------------------------
+        -- 优化点 3：加载成功后立即清除当前自动命令组
+        -- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
+        vim.api.nvim_del_augroup_by_id(group)
     end,
 })

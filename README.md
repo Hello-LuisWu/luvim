@@ -1,4 +1,18 @@
-[[toc]]
+# 目录
+- [🔖 nvim-pack-config](#🔖-nvim-pack-config)
+  - [🧰 所需外部依赖软件](#🧰-所需外部依赖软件)
+    - [额外知识补充](#额外知识补充)
+  - [🔨 install neovim](#🔨-install-neovim)
+    - [macOS](#macos)
+    - [Arch(manjaro)](#arch(manjaro))
+    - [Ubuntu](#ubuntu)
+    - [Windows](#windows)
+  - [🧹 清除旧配置（重装建议）](#🧹-清除旧配置（重装建议）)
+    - [macOS/Linux 备份旧配置](#macos/linux-备份旧配置)
+    - [Windows 备份旧配置](#windows-备份旧配置)
+  - [⛓️‍💥 克隆配置文件](#⛓️‍💥-克隆配置文件)
+  - [🗃️ Files](#🗃️-files)
+  - [🚀 启动与首次初始化](#🚀-启动与首次初始化)
 
 # 🔖 nvim-pack-config
 
@@ -39,7 +53,7 @@ Neovim 内置 Tree-sitter 负责“运行/调用已经存在的语法解析器�
 
 ## 🔨 install neovim
 
-### Homebrew on macOS or Linux
+### macOS 
 
 ```sh
 brew install neovim
@@ -63,25 +77,24 @@ sudo apt install neovim
 sudo snap install nvim --classic
 ```
 
+### Windows
+
+
+
 ## 🧹 清除旧配置（重装建议）
 
 如需重新安装配置，先清除旧版本相关目录：
 
+### macOS/Linux 备份旧配置
+
 ```sh
-# macOS/Linux
-## 备份旧配置
 mv ~/.config/nvim{,.bak}
 mv ~/.local/share/nvim{,.bak}
 mv ~/.local/state/nvim{,.bak}
 mv ~/.cache/nvim{,.bak}
-## 或者删除旧配置
+
+## 或者直接删除目录
 rm -rf ~/.config/nvim/ ~/.local/share/nvim/ ~/.local/state/nvim/ ~/.cache/nvim/
-
-
-# Windows
-## 备份旧配置
-Move-Item $env:LOCALAPPDATA\nvim $env:LOCALAPPDATA\nvim.bak
-Move-Item $env:LOCALAPPDATA\nvim-data $env:LOCALAPPDATA\nvim-data.bak
 ```
 
 将删除以下目录(macOS/Linux)：
@@ -90,6 +103,13 @@ Move-Item $env:LOCALAPPDATA\nvim-data $env:LOCALAPPDATA\nvim-data.bak
 - `~/.local/share/nvim/`：插件安装目录
 - `~/.local/state/nvim/`：状态信息目录
 - `~/.cache/nvim/`：缓存目录
+
+### Windows 备份旧配置
+
+```sh
+Move-Item $env:LOCALAPPDATA\nvim $env:LOCALAPPDATA\nvim.bak
+Move-Item $env:LOCALAPPDATA\nvim-data $env:LOCALAPPDATA\nvim-data.bak
+```
 
 ## ⛓️‍💥 克隆配置文件
 

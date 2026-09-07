@@ -83,6 +83,15 @@ map({ "v", "x" }, "<C-j>", ":m '>+1<CR>gv=gv", ns)
 map({ "v", "x" }, "<C-k>", ":m '<-2<CR>gv=gv", ns)
 -- map({ "v", "x" }, "<leader><leader>", "<C-[>", opt)
 
+vim.keymap.set("n", "<leader>i", function()
+    local size = vim.bo.shiftwidth == 2 and 4 or 2
+    vim.bo.shiftwidth = size
+    vim.bo.tabstop = size
+    vim.bo.softtabstop = size
+end, {
+    desc = "临时切换缩进 2/4"
+})
+
 map("v", "<", "<gv", ns)
 map("v", ">", ">gv", ns)
 map("v", "<S-tab>", "<gv", ns)
@@ -90,12 +99,14 @@ map("v", "<tab>", ">gv", ns)
 map("v", "<C-h>", "<gv", ns)
 map("v", "<C-l>", ">gv", ns)
 
--- map({ "i", "n", "v" }, "<Left>", "<Nop>", opt)
--- map({ "i", "n", "v" }, "<Right>", "<Nop>", opt)
--- map({ "i", "n", "v" }, "<Up>", "<Nop>", opt)
--- map({ "i", "n", "v" }, "<Down>", "<Nop>", opt)
--- map("i", "<Esc>", "<Nop>", opt)
--- map({ "n", "v" }, "q:", "<Nop>", opt)
+map({ "i", "n", "v" }, "<Left>", "<Nop>", ns)
+map({ "i", "n", "v" }, "<Right>", "<Nop>", ns)
+map({ "i", "n", "v" }, "<Up>", "<Nop>", ns)
+map({ "i", "n", "v" }, "<Down>", "<Nop>", ns)
+map("i", "<Esc>", "<Nop>", ns)
+map({ "n", "v" }, "q:", "<Nop>", { desc = "Disable command-line window", noremap = true })
+map({ "n", "v" }, "q", "<Nop>", { desc = "Disable command-line window", noremap = true })
+map({ "n", "v" }, "Q", "q", { noremap = true })
 
 map("n", "j", "gj", ns)
 map("n", "k", "gk", ns)
@@ -170,9 +181,9 @@ map({ "n", "v", "x" }, "<leader>uu", "gu", { desc = "转换小写", noremap = tr
 map({ "n", "v", "x" }, "<leader>uU", "gU", { desc = "转换大写", noremap = true, silent = true })
 map({ "n", "v", "x" }, "<leader>ut", "~", { desc = "大小写转换", noremap = true, silent = true })
 
-map({ "n", "v", "x" }, "gu", "<Nop>", {desc = "no", noremap =true, silent =true})
-map({ "n", "v", "x" }, "gU", "<Nop>", {desc = "no", noremap=true,silent=true})
-map({ "n", "v", "x" }, "~", "<Nop>", {desc = "no", noremap=true,silent=true})
+map({ "n", "v", "x" }, "gu", "<Nop>", { desc = "no", noremap = true, silent = true })
+map({ "n", "v", "x" }, "gU", "<Nop>", { desc = "no", noremap = true, silent = true })
+map({ "n", "v", "x" }, "~", "<Nop>", { desc = "no", noremap = true, silent = true })
 
 -- 窗口间的跳转
 map("n", "<C-h>", "<C-w>h", ns)
@@ -213,7 +224,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function()
         local map = vim.keymap.set
-        local opt = { noremap = true, silent = true }
+        local opt = { noremap = true }
         map("i", "\\\\", "<ESC>/<++><CR>:nohls<CR>c4l", { desc = '清除标记', noremap = true, silent = true }) -- jkej
         -- map("i", "---", "<Enter>---<Enter><br/><Enter><Enter>", opt) -- 分割线
         map("i", "BB", "**** <++><Esc>6hi", opt) -- 加粗

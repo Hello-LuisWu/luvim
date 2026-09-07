@@ -22,13 +22,13 @@ local logo = [[
 -- Dashboard 配置
 dashboard.section.header.val = vim.split(logo, "\n")
 dashboard.section.buttons.val = {
-    dashboard.button("o", "  历史文件", ":lua require('fzf-lua').oldfiles()<CR>"),
-    dashboard.button("f", "󰈞  查找文件", ":lua require('fzf-lua').files()<CR>"),
-    dashboard.button("e", "  新建文件", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("g", "  查找文本", ":lua require('fzf-lua').live_grep()<CR>"),
-    dashboard.button("l", "  设置面板", ":e $MYVIMRC<CR>"),
-    dashboard.button("c", "  配置文件", ":lua require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })<CR>"),
-    dashboard.button("q", "󰅚  退出 NVIM", ":qa<CR>"),
+    dashboard.button("o", "   历史文件", ":lua require('fzf-lua').oldfiles()<CR>"),
+    dashboard.button("f", "󰈞   查找文件", ":lua require('fzf-lua').files()<CR>"),
+    dashboard.button("e", "   新建文件", ":ene <BAR> startinsert <CR>"),
+    dashboard.button("g", "   查找文本", ":lua require('fzf-lua').live_grep()<CR>"),
+    dashboard.button("l", "   设置面板", ":e $MYVIMRC<CR>"),
+    dashboard.button("c", "   配置文件", ":lua require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })<CR>"),
+    dashboard.button("q", "󰅚   退出 NVIM", ":qa<CR>"),
 
     -- dashboard.button("o", "  历史文件", ":lua require('telescope.builtin').oldfiles() <CR>"),
     -- dashboard.button("f", "󰈞  查找文件", ":lua require('telescope.builtin').find_files() <CR>"),

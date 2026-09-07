@@ -183,10 +183,10 @@
 
 ## 🌳 neotree
 
-| 快捷键      | 模式 | 功能说明                            | 映射命令                                           |
-|-------------|------|-------------------------------------|----------------------------------------------------|
-| `<leader>e` | n、v | 开关Neo-tree，定位当前文件，        | `<cmd>Neotree toggle reveal source=filesystem<cr>` |
-| `<c-e>`     | n    | 悬浮窗打开Neo-tree，展示Git变更状态 | `<cmd>Neotree toggle reveal float git_status<cr>`  |
+| 快捷键  | 模式 | 功能说明                            | 映射命令                                           |
+|---------|------|-------------------------------------|----------------------------------------------------|
+| `\`     | n、v | 开关Neo-tree，定位当前文件，        | `<cmd>Neotree toggle reveal source=filesystem<cr>` |
+| `<c-e>` | n    | 悬浮窗打开Neo-tree，展示Git变更状态 | `<cmd>Neotree toggle reveal float git_status<cr>`  |
 
 ## 🔍 fzf-lua
 

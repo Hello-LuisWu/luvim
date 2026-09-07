@@ -1,5 +1,5 @@
 local group = vim.api.nvim_create_augroup("SetupNeotree", { clear = true })
-vim.api.nvim_create_autocmd("UIEnter", {
+vim.api.nvim_create_autocmd("VimEnter", {
     group = group,
     callback = function()
         -- 已加载则跳过
@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 
         local map = vim.keymap.set
         local tree = require("neo-tree")
-        map({ "n", "v" }, "<leader>e", "<cmd>Neotree toggle reveal source=filesystem<cr>",
+        map({ "n", "v" }, "\\", "<cmd>Neotree toggle reveal source=filesystem<cr>",
             { desc = "文件浏览器", noremap = true, silent = true })
         map("n", "<c-e>", "<cmd>Neotree toggle reveal float git_status<cr>",
             { desc = "git", noremap = true, silent = true })

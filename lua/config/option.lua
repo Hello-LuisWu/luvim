@@ -14,19 +14,21 @@ vim.schedule(function()
 end)
 
 -- 编码设置
-opt.encoding = "utf-8"                 -- 设置 Neovim 内部编码, Neovim 0.9+ 已废弃。
-opt.fileencoding = "utf-8"             -- 自动检测文件编码的顺序
+opt.encoding = "utf-8"           -- 设置 Neovim 内部编码, Neovim 0.9+ 已废弃。
+opt.fileencoding = "utf-8"       -- 自动检测文件编码的顺序
 -- opt.fileencodings = "utf-8,gbk,latin1" -- 自动检测文件编码的顺序
-opt.fileformats = "unix,dos,mac"       -- 文件格式支持，优先次序从左到右
-opt.fileformat = "unix"                -- 文件格式支持，优先次序从左到右
-vim.scriptencoding = "utf-8"           --脚本文件所使用的编码
-opt.helplang = "cn"                    -- 帮助文件所使用的语言
+opt.fileformats = "unix,dos,mac" -- 文件格式支持，优先次序从左到右
+opt.fileformat = "unix"          -- 文件格式支持，优先次序从左到右
+vim.scriptencoding = "utf-8"     --脚本文件所使用的编码
+opt.helplang = "cn"              -- 帮助文件所使用的语言
 
 -- ----------------------------
 -- 界面与显示
 -- ----------------------------
 
 -- vim.cmd.colorscheme('catppuccin')
+opt.relativenumber = true
+opt.number = true
 opt.numberwidth = 4               -- 行号宽度设置为4个字符
 opt.termguicolors = true          -- 启用 24                   -bit 彩色模式
 opt.cursorline = true             -- 高亮光标所在行
@@ -90,6 +92,7 @@ require("vim._core.ui2").enable({
     },
 })
 
+
 opt.showcmd = false -- 显示输入的命令
 opt.list = true
 opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
@@ -103,7 +106,7 @@ opt.fillchars = {
     verthoriz = "╋", -- 交叉分割线
     foldopen = "",
     foldclose = "",
-    fold = "━", -- 折叠的填充字符（默认：.）
+    fold = " ", -- 折叠的填充字符（默认：.）
     foldsep = " ", -- 折叠间的分隔符    msgsep = "‾", -- 消息分隔线
     eob = " ", -- 文件末尾空白行的提示符（默认是 "~"）
     stl = " ", -- 状态栏左侧填充
@@ -193,25 +196,26 @@ opt.showtabline = 2 -- 2 总是显示标签页，0 不显示，1 出现多个标
 -- 关于缩进
 -- Neovim Lua 配置中正确启用文件类型检测
 -- vim.filetype.add({ extension = { ... } })          -- 启用文件类型检测, Neovim 0.10+ 的 Lua API
-opt.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()" -- 启用基于语法树的缩进（由 nvim-treesitter 提供）
-opt.tabstop = 4                                                  -- 一个 tab 占用 4 个空格
-opt.shiftwidth = 4                                               -- 缩进宽度为 4, 自动缩进时每级缩进的空格数
-opt.softtabstop = 4                                              -- 编辑时每个 tab 键等同于 4 个空格, 按退格键时删除的“虚拟空格”数量
-opt.smarttab = true                                              -- 智能使用 tabstop 和 shiftwidth
+opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- 启用基于语法树的缩进（由 nvim-treesitter 提供）
+local itn = 4                                                  -- 缩进宽度
+opt.tabstop = itn                                              -- 统一控制 Tab、自动缩进以及软 Tab 占几个空格
+opt.shiftwidth = itn                                           -- >>、<< 以及自动缩进都会按照这个值进行
+opt.softtabstop = itn                                          -- 插入模式下按 Tab/Backspace 时使用的缩进宽度, 设为 0 时会使用 shiftwidth
+opt.smarttab = true                                            -- 智能使用 tabstop 和 shiftwidth
 opt.shiftround = true
-opt.expandtab = true                                             -- 使用空格替代 tab , 将 Tab 转换为空格
-opt.autoindent = true                                            -- 自动继承上一行的缩进
-vim.o.smartindent = true                                         -- 开启新行时使用智能自动缩进, 智能缩进（如 C 语言风格的代码块）
-opt.cindent = true                                               -- 启用C语言风格缩进
-opt.autochdir = false                                            -- 自动切换当前目录为当前文件所在的目录
-opt.completeopt = "menu,menuone,noselect,noinsert"               -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
-opt.wildmenu = true                                              -- 自动补全不自动选中
-opt.virtualedit = "block,onemore"                                -- 光标可以定位到最后一个字的后面
-opt.confirm = true                                               -- 退出时文件没保存,会问你是否保存
-opt.backspace = { "start", "eol", "indent" }                     -- 正常删除
+opt.expandtab = true                                           -- 使用空格替代 tab , 将 Tab 转换为空格
+opt.autoindent = true                                          -- 自动继承上一行的缩进
+vim.o.smartindent = true                                       -- 开启新行时使用智能自动缩进, 智能缩进（如 C 语言风格的代码块）
+opt.cindent = true                                             -- 启用C语言风格缩进
+opt.autochdir = false                                          -- 自动切换当前目录为当前文件所在的目录
+opt.completeopt = "menu,menuone,noselect,noinsert"             -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
+opt.wildmenu = true                                            -- 自动补全不自动选中
+opt.virtualedit = "block,onemore"                              -- 光标可以定位到最后一个字的后面
+opt.confirm = true                                             -- 退出时文件没保存,会问你是否保存
+opt.backspace = { "start", "eol", "indent" }                   -- 正常删除
 -- 细化缩进规则（可选）
-vim.opt.cinkeys = "0{,0},0),:,!^F,o,O,e"                         -- 触发缩进的字符
-vim.opt.cinoptions = "g0,h1,N-s"                                 -- 缩进细节（如 `g0` 控制作用域声明缩进）
+vim.opt.cinkeys = "0{,0},0),:,!^F,o,O,e"                       -- 触发缩进的字符
+vim.opt.cinoptions = "g0,h1,N-s"                               -- 缩进细节（如 `g0` 控制作用域声明缩进）
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "python", "lua" },
     callback = function()
@@ -269,7 +273,7 @@ opt.synmaxcol = 240    -- 语法高亮的最大列数，超过则跳过
 -- 启用代码折叠
 opt.foldenable = true                            -- 开启折叠
 opt.foldmethod = 'expr'                          -- 指定折叠方式
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- 基于表达式折叠
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- 基于 treesitter 的折叠
 -- opt.foldmethod = "marker"
 opt.foldcolumn = "0"                             -- 1为在编辑器左侧显示折叠标记的列, 0 为不显示
 opt.foldlevel = 99                               -- 一次折叠的层级有多少
@@ -297,10 +301,3 @@ opt.background = "dark"
 opt.path:append({ "**" })
 opt.wildignore:append({ "*/node_modules/*" })
 opt.formatoptions:append({ "r" })
-
--- 边栏诊断图标配置
--- local signs = { Error = "✘", Warn = "", Hint = "⚑", Info = "»" }
--- for type, icon in pairs(signs) do
---     local hl = "DiagnosticSign" .. type
---     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
--- end

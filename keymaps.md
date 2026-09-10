@@ -58,16 +58,20 @@
 
 | 快捷键       | 模式 | 功能说明       | 映射命令            |
 |--------------|------|----------------|---------------------|
-| `<leader>tn` | n    | 新建标签页     | `<Cmd>tabnew<CR>`   |
-| `<leader>tc` | n    | 关闭当前标签页 | `<Cmd>tabclose<CR>` |
+| `tn` | n    | 新建标签页     | `<Cmd>tabnew<CR>`   |
+| `tc` | n    | 关闭当前标签页 | `<Cmd>tabclose<CR>` |
+| `to` | n    | 关闭其他标签 | `<Cmd>tabonly<CR>` |
+| `tt` | n    | 切换到下一个标签 | `<Cmd>tabnext<CR>` |
+| `TT` | n    | 切换到上一个标签 | `<Cmd>tabprevious<CR>` |
 
 ## 📦 Buffer
 
-| 快捷键       | 模式 | 功能说明         | 映射命令         |
-|--------------|------|------------------|------------------|
-| `<C-Tab>`    | n    | 切换下一个Buffer | `:bnext<CR>`     |
-| `<leader>bh` | n    | 切换上一个Buffer | `:bprevious<CR>` |
-| `<leader>bq` | n    | 关闭当前Buffer   | `:bd<CR>`        |
+| 快捷键       | 模式 | 功能说明           | 映射命令         |
+|--------------|------|--------------------|------------------|
+| `<leader>bn` | n    | 切换下一个Buffer   | `:bnext<CR>`     |
+| `<leader>bp` | n    | 切换上一个Buffer   | `:bprevious<CR>` |
+| `<leader>bd` | n    | 关闭当前Buffer     | `:bd<CR>`        |
+| `<leader>bw` | n    | 彻底删除当前Buffer | `:bd<CR>`        |
 
 ## ↔️ 缩进
 
@@ -110,10 +114,10 @@
 | `<leader>wj` | n    | 当前窗口移动到最底部             | `<C-w>J`                  |
 | `<leader>wd` | n    | 所有分屏均分尺寸                 | `<C-w>=`                  |
 | `<leader>wn` | n    | 新建空白分屏窗口                 | `<C-w>n`                  |
-| `<S-Left>`   | n    | 窗口宽度减少5列                  | `:vertical resize -5<CR>` |
-| `<S-Right>`  | n    | 窗口宽度增加5列                  | `:vertical resize +5<CR>` |
-| `<S-Up>`     | n    | 窗口高度减少5行                  | `:resize -5<CR>`          |
-| `<S-Down>`   | n    | 窗口高度增加5行                  | `:resize +5<CR>`          |
+| `<C-a>`   | n    | 窗口宽度减少5列                  | `:vertical resize -5<CR>` |
+| `<C-d>`  | n    | 窗口宽度增加5列                  | `:vertical resize +5<CR>` |
+| `<C-w>`     | n    | 窗口高度减少5行                  | `:resize -5<CR>`          |
+| `<C-s>`   | n    | 窗口高度增加5行                  | `:resize +5<CR>`          |
 
 ## 🔄 替换
 
@@ -123,7 +127,7 @@
 | `<Leader>ha` | n    | 全文件无确认批量替换光标单词         | `:%s/\\<<C-r><C-w>\\>//g<Left><Left>`                            |
 | `<Leader>hH` | n    | 仅当前行替换光标单词                 | `:s/\\<<C-r><C-w>\\>//<left>`                                    |
 | `<Leader>hh` | n    | 唤起全局替换命令行，自行填写替换内容 | `:s/`                                                            |
-| `\\\\`       | v    | 替换选中区域文本（当前行）           | `"hy:s/<C-r>h//<left>`                                           |
+| `\\\\`       | v    | 替换选中区域文本                     | `"hy:s/<C-r>h//<left>`                                           |
 | `<Leader>hH` | v    | 全文件替换选中文字，需要逐个确认     | `"hy:%s/<C-r>h//gc<left><left><left>`                            |
 | `<Leader>hw` | n    | 搜索当前光标单词并开启搜索高亮       | `[[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]]` |
 
@@ -132,6 +136,12 @@
 | 快捷键 | 模式 | 功能   | 映射 |
 |--------|------|--------|------|
 | `Q`    | n    | 录制宏 | `q`  |
+
+## 显示文件信息
+
+| 快捷键 | 模式 | 功能                    | 映射 |
+|--------|------|-------------------------|------|
+| `\`    | n    | 显示文件编码 格式等信息 | ...  |
 
 ## 📖 markdown 
 
@@ -185,7 +195,7 @@
 
 | 快捷键  | 模式 | 功能说明                            | 映射命令                                           |
 |---------|------|-------------------------------------|----------------------------------------------------|
-| `\`     | n、v | 开关Neo-tree，定位当前文件，        | `<cmd>Neotree toggle reveal source=filesystem<cr>` |
+| `<leader>e`     | n、v | 开关Neo-tree，定位当前文件，        | `<cmd>Neotree toggle reveal source=filesystem<cr>` |
 | `<c-e>` | n    | 悬浮窗打开Neo-tree，展示Git变更状态 | `<cmd>Neotree toggle reveal float git_status<cr>`  |
 
 ## 🔍 fzf-lua
@@ -224,12 +234,23 @@
 | `<leader><Tab>p`   | n    | 固定/取消固定当前buffer      | `<cmd>BufferLineTogglePin<CR>`     |
 | `<leader><Tab>B`   | n    | 按键选择关闭buffer           | `<cmd>BufferLinePickClose<CR>`     |
 | `<leader><Tab>b`   | n    | 按键选择跳转buffer           | `<cmd>BufferLinePick<CR>`          |
-| `<leader><Tab>h`   | n    | 切换上一个buffer             | `<cmd>BufferLineCyclePrev<CR>`     |
-| `<leader><Tab>l`   | n    | 切换下一个buffer             | `<cmd>BufferLineCycleNext<CR>`     |
+| `<C-a>`         | n    | 切换上一个buffer             | `<cmd>BufferLineCyclePrev<CR>`     |
+| `<C-d>`        | n    | 切换下一个buffer             | `<cmd>BufferLineCycleNext<CR>`     |
 | `<leader><Tab>L`   | n    | buffer标签右移               | `<cmd>BufferLineMoveNext<CR>`      |
 | `<leader><Tab>H`   | n    | buffer标签左移               | `<cmd>BufferLineMovePrev<CR>`      |
 | `<leader><Tab>1~9` | n    | 跳转至第1~9号buffer          | `<cmd>BufferLineGoToBuffer x<CR>`  |
 | `<leader><Tab>$`   | n    | 跳转最后一个buffer           | `<cmd>BufferLineGoToBuffer -1<CR>` |
+
+## cokeline
+
+| 快捷键        | 模式 | 功能说明                | 映射命令                       |
+|---------------|------|-------------------------|--------------------------------|
+| `<C-tab>`     | n    | 切换到下一个 buffer     | `<Plug>(cokeline-focus-next)`  |
+| `<S-tan>`     | n    | 切换到上一个 buffer     | `<Plug>(cokeline-focus-prev)`  |
+| `<leader>p`   | n    | 将当前 Buffer 向左移动  | `<Plug>(cokeline-switch-prev)` |
+| `<leader>n`   | n    | 将当前 Buffer 向右移动  | `<Plug>(cokeline-switch-prev)` |
+| `<leader>1~9` | n    | 切换到第1~9 个 buffer   | ...                            |
+| `t1~9`        | n    | 移动 buffer 到第1~9位置 | ...                            |
 
 ## ✅ todo-comments
 

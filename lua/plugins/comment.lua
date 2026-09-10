@@ -29,7 +29,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         ---------------------------------------------------------------------
         -- 内容区:
 
-
         -- 只处理可修改、非只读的 Buffer
         vim.pack.add({
             "https://github.com/numToStr/Comment.nvim",

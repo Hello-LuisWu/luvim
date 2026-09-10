@@ -29,7 +29,13 @@ vim.api.nvim_create_autocmd('VimEnter', {
                 vim.keymap.set({ "o", "x" }, "R", function() require("flash").treesitter_search() end)
                 vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end)
 
-                require("flash").setup()
+                require("flash").setup({
+                    modes = {
+                        char = {
+                            jump_labels = false
+                        }
+                    }
+                })
             end,
         })
 

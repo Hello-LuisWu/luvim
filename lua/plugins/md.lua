@@ -1,3 +1,34 @@
+-- vim.pack.add({
+--     "https://github.com/MeanderingProgrammer/render-markdown.nvim"
+-- })
+
+-- local render_md_loaded = false
+
+-- local function load_render_md()
+--     if render_md_loaded then
+--         return
+--     end
+
+--     vim.pack.add({
+--         "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+--     })
+
+--     require("render-markdown").setup({
+--         enabled = true,
+--     })
+
+--     render_md_loaded = true
+-- end
+
+-- vim.keymap.set("n", "<leader>md", function()
+--     load_render_md()
+--     vim.cmd("RenderMarkdown toggle")
+-- end, {
+--     buffer = true,
+--     desc = "nvim 内部预览 md",
+-- })
+
+
 local group = vim.api.nvim_create_augroup("SetupMD", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
@@ -17,21 +48,28 @@ vim.api.nvim_create_autocmd("FileType", {
             "https://github.com/HakonHarnes/img-clip.nvim",
             "https://github.com/Kicamon/markdown-table-mode.nvim",
             "https://github.com/richardbizik/nvim-toc",
-            "https://github.com/MeanderingProgrammer/render-markdown.nvim"
+            -- "https://github.com/MeanderingProgrammer/render-markdown.nvim"
         })
 
         -- ---------------------------------------------------------------------
         -- 1. render-markdown (美化渲染)
         -- ---------------------------------------------------------------------
-        require('render-markdown').setup({
-            enabled = false
-        })
-        vim.keymap.set("n", "<leader>md",
-            function()
-                -- load_RenderMd()
-                vim.cmd("RenderMarkdown toggle")
-            end,
-            { desc = "nvim 内部预览 md", noremap = true, silent = true })
+        -- require('render-markdown').setup({
+        --     enabled = false,
+        -- })
+
+        -- vim.keymap.set(
+        --     "n",
+        --     "<leader>md",
+        --     function()
+        --         -- load_RenderMd()
+        --         vim.cmd("RenderMarkdown toggle")
+        --     end,
+        --     {
+        --         desc = "nvim 内部预览 md",
+        --         noremap = true,
+        --     }
+        -- )
 
         -- ---------------------------------------------------------------------
         -- 2. nvim-toc (目录生成)

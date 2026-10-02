@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             extra = {
                 above = "<leader>ck",
                 below = "<leader>cj",
-                eol = "<leader>ca",
+                eol = "<leader>cl",
             },
 
             mappings = {
@@ -116,8 +116,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             vim.notify("⚠ 未找到 Date 行", vim.log.levels.WARN)
         end
         -- ⌨️ 快捷键（推荐使用 <leader>si / <leader>sd）
-        vim.keymap.set("n", "<leader>zi", insert_signature, { desc = "插入签名信息" })
-        vim.keymap.set("n", "<leader>zu", update_signature_date, { desc = "更新签名日期" })
+        vim.keymap.set("n", "<leader>ci", insert_signature, { desc = "插入签名信息" })
+        vim.keymap.set("n", "<leader>cu", update_signature_date, { desc = "更新签名日期" })
 
         --------------------------------------------------------------------------------------------
         -- 优化点 3：加载成功后立即清除当前自动命令组

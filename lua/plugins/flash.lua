@@ -3,15 +3,15 @@
 -- 创建一个自动命令组
 -- 使用固定名称可以避免重复创建自动命令时产生多个相同配置
 local group = vim.api.nvim_create_augroup("setupFlash", { clear = true, })
-vim.api.nvim_create_autocmd('VimEnter', {
-    group = group,
-    -- once = true,
-    callback = function()
-        -- 已加载则跳过
-        if package.loaded["flash"] then
-            vim.api.nvim_del_augroup_by_id(group)
-            return
-        end
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--     group = group,
+--     -- once = true,
+--     callback = function()
+--         -- 已加载则跳过
+--         if package.loaded["flash"] then
+--             vim.api.nvim_del_augroup_by_id(group)
+--             return
+--         end
 
         ---------------------------------------------------------------------
         -- 内容区:
@@ -41,7 +41,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
         --------------------------------------------------------------------------------------------
         -- 优化点 3：加载成功后立即清除当前自动命令组
-        -- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
-        vim.api.nvim_del_augroup_by_id(group)
-    end,
-})
+--         -- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
+--         vim.api.nvim_del_augroup_by_id(group)
+--     end,
+-- })

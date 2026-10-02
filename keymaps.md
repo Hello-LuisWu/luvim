@@ -17,13 +17,19 @@
 | `<leader>j`    | n、x | 拼接当前行与下一行       | `J`                  |
 | `gF`           | n、v | 全文件自动格式化缩进     | `gg=G`               |
 
-## 大小写转换
+## 文件设置
 
-| 快捷键       | 生效模式 | 功能说明       | 映射命令 |
-|--------------|----------|----------------|----------|
-| `<leader>uu` | N, v, x  | 转换小写       | `gu`     |
-| `<leader>uU` | N, v, x  | 转换大写       | `gU`     |
-| `<leader>ut` | N, v, x  | 大小写翻转切换 | `~`      |
+| 快捷键       | 生效模式 | 功能说明         | 映射命令                      |
+|--------------|----------|------------------|-------------------------------|
+| `<leader>uu` | n, v, x  | 转换小写         | `gu`                          |
+| `<leader>uU` | n, v, x  | 转换大写         | `gU`                          |
+| `<leader>ut` | n, v, x  | 大小写翻转切换   | `~`                           |
+| `<leader>ue` | n        | 编码转为 UTF-8   | `:set fileencoding=UTF-8<CR>` |
+| `<leader>uE` | n        | 显示文件编码     | `function()`                  |
+| `<leader>ui` | n        | 临时切换缩进 2/4 | `function()`                  |
+| `<leader>uI` | n        | 显示缩进宽度     | `function()`                  |
+| `<leader>um` | n        | 格式转为 Unix    | `:set fileformat=unix<CR>`    |
+| `<leader>uM` | n        | 显示文件格式     | `function()`                  |
 
 ## 🚀 跳转
 
@@ -66,12 +72,16 @@
 
 ## 📦 Buffer
 
-| 快捷键       | 模式 | 功能说明           | 映射命令         |
-|--------------|------|--------------------|------------------|
-| `<leader>bn` | n    | 切换下一个Buffer   | `:bnext<CR>`     |
-| `<leader>bp` | n    | 切换上一个Buffer   | `:bprevious<CR>` |
-| `<leader>bd` | n    | 关闭当前Buffer     | `:bd<CR>`        |
-| `<leader>bw` | n    | 彻底删除当前Buffer | `:bd<CR>`        |
+| 快捷键       | 模式 | 功能说明                | 映射命令         |
+|--------------|------|-------------------------|------------------|
+| `<leader>bn` | n    | 切换到下一个 Buffer     | `:bnext<CR>`     |
+| `<leader>bp` | n    | 切换到上一个 Buffer     | `:bprevious<CR>` |
+| `<leader>bf` | n    | 切换到第一个 Buffer     | `:bfirst<CR>`    |
+| `<leader>bl` | n    | 切换到最后一个 Buffer   | `:blast<CR>`     |
+| `<leader>bd` | n    | 删除当前 Buffer         | `:bdelete<CR>`   |
+| `<leader>bw` | n    | 完全删除当前 Buffer     | `:bwipeout<CR>`  |
+| `<leader>bD` | n    | 强制删除当前 Buffer     | `:bdelete!<CR>`  |
+| `<leader>bW` | n    | 强制完全删除当前 Buffer | `:bwipeout!<CR>` |
 
 ## ↔️ 缩进
 
@@ -114,22 +124,23 @@
 | `<leader>wj` | n    | 当前窗口移动到最底部             | `<C-w>J`                  |
 | `<leader>wd` | n    | 所有分屏均分尺寸                 | `<C-w>=`                  |
 | `<leader>wn` | n    | 新建空白分屏窗口                 | `<C-w>n`                  |
-| `<C-a>`   | n    | 窗口宽度减少5列                  | `:vertical resize -5<CR>` |
-| `<C-d>`  | n    | 窗口宽度增加5列                  | `:vertical resize +5<CR>` |
-| `<C-w>`     | n    | 窗口高度减少5行                  | `:resize -5<CR>`          |
-| `<C-s>`   | n    | 窗口高度增加5行                  | `:resize +5<CR>`          |
+| `<leader>wt` | n    | 窗口透明                         | `function()`                |
+| `<S-left>`   | n    | 窗口宽度减少5列                  | `:vertical resize -5<CR>` |
+| `<S-right>`  | n    | 窗口宽度增加5列                  | `:vertical resize +5<CR>` |
+| `<S-up>`     | n    | 窗口高度减少5行                  | `:resize -5<CR>`          |
+| `<S-down>`   | n    | 窗口高度增加5行                  | `:resize +5<CR>`          |
 
 ## 🔄 替换
 
 | 快捷键       | 模式 | 功能说明                             | 映射命令                                                         |
 |--------------|------|--------------------------------------|------------------------------------------------------------------|
-| `<Leader>hA` | n    | 全文件替换光标单词，每次替换手动确认 | `:%s/\\<<C-r><C-w>\\>//gc<Left><Left><Left>`                     |
-| `<Leader>ha` | n    | 全文件无确认批量替换光标单词         | `:%s/\\<<C-r><C-w>\\>//g<Left><Left>`                            |
-| `<Leader>hH` | n    | 仅当前行替换光标单词                 | `:s/\\<<C-r><C-w>\\>//<left>`                                    |
-| `<Leader>hh` | n    | 唤起全局替换命令行，自行填写替换内容 | `:s/`                                                            |
-| `\\\\`       | v    | 替换选中区域文本                     | `"hy:s/<C-r>h//<left>`                                           |
-| `<Leader>hH` | v    | 全文件替换选中文字，需要逐个确认     | `"hy:%s/<C-r>h//gc<left><left><left>`                            |
-| `<Leader>hw` | n    | 搜索当前光标单词并开启搜索高亮       | `[[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]]` |
+| `<leader>hA` | n    | 全文件替换光标单词，每次替换手动确认 | `:%s/\\<<C-r><C-w>\\>//gc<Left><Left><Left>`                     |
+| `<leader>ha` | n    | 全文件无确认批量替换光标单词         | `:%s/\\<<C-r><C-w>\\>//g<Left><Left>`                            |
+| `<leader>hH` | n    | 仅当前行替换光标单词                 | `:s/\\<<C-r><C-w>\\>//<left>`                                    |
+| `<leader>hh` | n    | 唤起全局替换命令行，自行填写替换内容 | `:s/`                                                            |
+| `<leader>hw` | n    | 搜索当前光标单词并开启搜索高亮       | `[[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]]` |
+| `<leader>hh` | v    | 替换选中区域文本                     | `"hy:s/<C-r>h//<left>`                                           |
+| `<leader>hH` | v    | 全文件替换选中文字，需要逐个确认     | `"hy:%s/<C-r>h//gc<left><left><left>`                            |
 
 ## 📀 宏录制
 
@@ -222,7 +233,7 @@
 | `<leader>A` | 全局 | 启动 mini.align 对齐，带实时预览 | mini.align start_with_preview |
 
 
-## 📚 bufferline
+## 📚 bufferline (废弃)
 
 | 快捷键             | 模式 | 功能说明                     | 映射命令                           |
 |--------------------|------|------------------------------|------------------------------------|
@@ -245,12 +256,12 @@
 
 | 快捷键        | 模式 | 功能说明                | 映射命令                       |
 |---------------|------|-------------------------|--------------------------------|
-| `<C-tab>`     | n    | 切换到下一个 buffer     | `<Plug>(cokeline-focus-next)`  |
-| `<S-tan>`     | n    | 切换到上一个 buffer     | `<Plug>(cokeline-focus-prev)`  |
+| `\`        | n    | 切换到下一个 buffer     | `<Plug>(cokeline-focus-next)`  |
+| `<Bar>`      | n    | 切换到上一个 buffer     | `<Plug>(cokeline-focus-prev)`  |
 | `<leader>p`   | n    | 将当前 Buffer 向左移动  | `<Plug>(cokeline-switch-prev)` |
 | `<leader>n`   | n    | 将当前 Buffer 向右移动  | `<Plug>(cokeline-switch-prev)` |
 | `<leader>1~9` | n    | 切换到第1~9 个 buffer   | ...                            |
-| `t1~9`        | n    | 移动 buffer 到第1~9位置 | ...                            |
+| `<leader><tab>1~9`        | n    | 移动 buffer 到第1~9位置 | ...                            |
 
 ## ✅ todo-comments
 
@@ -276,9 +287,9 @@
 | `<leader>\\` | n/v  | 搭配动作实现选中块注释               | opleader.block |
 | `<leader>ck` | all  | 光标上方新增注释行，自动切插入模式   | extra.above    |
 | `<leader>cj` | all  | 光标下方新增注释行，自动切插入模式   | extra.below    |
-| `<leader>ca` | all  | 在当前行末尾添加注释，自动切插入模式 | extra.eol      |
-| `<leader>zi` | n    | 插入注释签名信息                     | 。。。         |
-| `<leader>zu` | n    | 更新注释签名日期                     | 。。。         |
+| `<leader>cl` | all  | 在当前行末尾添加注释，自动切插入模式 | extra.eol      |
+| `<leader>ci` | n    | 插入注释签名信息                     | 。。。         |
+| `<leader>cu` | n    | 更新注释签名日期                     | 。。。         |
 
 ## 🧠 lsp
 
@@ -315,6 +326,17 @@
 | `<leader>gg` | n    | 打开LazyGit主界面                   | 执行函数调用 `lazygit_cmd("LazyGit")`            |
 | `<leader>gG` | n    | 打开LazyGit并定位当前文件           | 执行函数调用 `lazygit_cmd("LazyGitCurrentFile")` |
 | `<leader>gf` | n    | 打开LazyGit筛选查看项目所有提交记录 | 执行函数调用 `lazygit_cmd("LazyGitFilter")`      |
+
+## 🚫 Trouble
+
+| 快捷键       | 模式 | 功能说明         | 映射命令                                                 |
+|--------------|------|------------------|----------------------------------------------------------|
+| `<leader>xx` | n    | 当前 Buffer 诊断 | `:Trouble diagnostics toggle filter.buf=0<CR>`           |
+| `<leader>xX` | n    | 所有诊断列表     | `:Trouble diagnostics toggle<CR>`                        |
+| `<leader>xs` | n    | 代码符号         | `:Trouble symbols toggle focus=false<CR>`                |
+| `<leader>xl` | n    | LSP 定义、引用等 | `:Trouble lsp toggle focus=false win.position=right<CR>` |
+| `<leader>xL` | n    | 位置列表         | `:Trouble loclist toggle<CR>`                            |
+| `<leader>xQ` | n    | Quickfix 列表    | `:Trouble qflist toggle<CR>`                             |
 
 ## 🫧 surround
 

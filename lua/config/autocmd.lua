@@ -68,7 +68,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = { "markdown", "tex" },       -- 针对 Markdown 和 LaTeX 文件
     callback = function()
         vim.opt_local.wrap = true          -- 自动折行
-        vim.opt_local.spell = true         -- 启用拼写检查
+        -- vim.opt_local.spell = true         -- 启用拼写检查
         vim.opt_local.spelllang = { "en" } -- 设置拼写检查语言
         vim.opt_local.conceallevel = 2
         -- 0	不隐藏任何字符	                            **粗体**

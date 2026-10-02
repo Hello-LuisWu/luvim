@@ -191,22 +191,22 @@ map('n', '<Leader>hA', ":%s/\\<<C-r><C-w>\\>//gc<Left><Left><Left>", { desc = "�
 map('n', '<Leader>ha', ":%s/\\<<C-r><C-w>\\>//g<Left><Left>", { desc = "全部替换当前单词", noremap = true }) -- \%V 用于匹配可视选区
 map('n', '<Leader>hH', ':s/\\<<C-r><C-w>\\>//<left>', { desc = "替换当前单词", noremap = true }) --
 map('n', '<Leader>hh', ':s/', { desc = "全局替换当前单词（所有行）", noremap = true })
--- map('n', '<Leader>hJ', ':%s//gc<left><left><left>', { desc = "手输全局替换（带确认）", noremap = true }) --
+map('n', '<Leader>hJ', ':%s//gc<left><left><left>', { desc = "手输全局替换（带确认）", noremap = true }) --
 
 -- 在 visual 模式配置快捷键
-map('v', '\\\\', '"hy:s/<C-r>h//<left>', { desc = "全局替换全部选中文本", noremap = true }) --
+map('v', '<leader>hh', '"hy:s/<C-r>h//<left>', { desc = "全局替换全部选中文本", noremap = true }) --
 map('v', '<Leader>hH', '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "全局替换全部选中文本（带确认）", noremap = true })
 
 map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]],
     { desc = "查找高亮当前单词", noremap = true })
 
 -- 13. 透明背景切换（适配你的高亮配置）
--- map("n", "\\", ":lua ToggleTransparency()<CR>", ns)
--- function ToggleTransparency()
---     local hl = vim.api.nvim_set_hl
---     hl(0, "Normal", { fg = "#aaffbb", bg = "NONE" })
---     hl(0, "NormalNC", { bg = "NONE" })
--- end
+map("n", "<leader>bt", ":lua ToggleTransparency()<CR>", {noremap = true, desc = "窗口背景透明"})
+function ToggleTransparency()
+    local hl = vim.api.nvim_set_hl
+    hl(0, "Normal", { fg = "#aaffbb", bg = "NONE" })
+    hl(0, "NormalNC", { bg = "NONE" })
+end
 
 local function show_date()
     -- 中文星期映射表
@@ -258,7 +258,7 @@ local function show_date()
 end
 
 
--- map("n", "\\", function()
+-- map("n", "|", function()
 --         print(" " .. show_date())
 --     end,
 --     { desc = "显示日期", noremap = true }
@@ -315,7 +315,7 @@ map('n', '<Leader>uM', function()
 end, { desc = '显示文件格式' })
 
 -- 合并显示文件信息：格式 + 缩进 + 编码
-vim.keymap.set('n', '\\', function()
+vim.keymap.set('n', '<leader><leader>', function()
     -- 1. 文件格式
     local fileformat = vim.bo.fileformat -- "unix", "dos", "mac"
 
@@ -373,8 +373,8 @@ vim.api.nvim_create_autocmd("FileType", {
         map("i", "II", "** <++><Esc>F*i", opt) -- 斜体
         map("i", "SS", "~~~~ <++><esc>6hi", opt) -- 删除线
         map("i", "UU", "<u></u> <++><Esc>2F<i", opt) -- 下划线
-        map( -- 展开列表
-        -- ******
+         -- 展开列表
+        map(
             "i",
             "LS",
             "<details><Enter><summary></summary><Enter><++><Enter></details><Enter><Enter><++><Esc>4k$F<i",
@@ -388,9 +388,10 @@ vim.api.nvim_create_autocmd("FileType", {
             opt
         )
         -- 添加图片
-        map("i", "PP", "![](<++>) <++><Esc>F[a", opt)
+        -- map("i", "<C-i>", "![](<++>) <++><Esc>F[a", opt)
+        map("i", "<C-i>", "![Image](<++>) <++><Esc>FI", opt)
         -- 添加链接
-        map("i", "AA", "[](<++>) <++><Esc>F[a", opt)
+        map("i", "<C-a>", "[](<++>) <++><Esc>F[a", opt)
 
         -- 2-4级标题
         map("i", "@@", "##<Space>", opt)

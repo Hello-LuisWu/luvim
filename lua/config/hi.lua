@@ -164,12 +164,12 @@ local hl = vim.api.nvim_set_hl
 -- ----------------------------------------------------------------------------
 -- 基础界面与光标
 -- ----------------------------------------------------------------------------
-hl(0, "Normal", { fg = cls_gui.gray70, bg = cls_gui.black, ctermfg = cls_cterm.gray70, ctermbg = cls_cterm.black, }) -- 普通文本 
+hl(0, "Normal", { fg = cls_gui.gray70, bg = cls_gui.gray15, ctermfg = cls_cterm.gray70, ctermbg = cls_cterm.gray15, }) -- 普通文本 
 hl(0, "Cursor", { fg = cls_gui.gray_darker, bg = cls_gui.white, ctermfg = cls_cterm.gray_darker, ctermbg = cls_cterm.white, }) -- 光标下的字符 
 hl(0, "lCursor", { fg = cls_gui.gray_darker, bg = cls_gui.white, ctermfg = cls_cterm.gray_darker, ctermbg = cls_cterm.white, }) -- 语言映射时光标下的字符 
 hl(0, "CursorIM", { fg = cls_gui.gray_darker, bg = cls_gui.white, ctermfg = cls_cterm.gray_darker, ctermbg = cls_cterm.white, }) -- IME 模式下的光标 
 hl(0, "CursorColumn", { bg = cls_gui.gray_darker, ctermbg = cls_cterm.gray_darker, }) -- 光标所在的屏幕列 
-hl(0, "CursorLine", { bg = cls_gui.gray_dark, ctermbg = cls_cterm.gray_dark, }) -- 光标所在的屏幕行
+hl(0, "CursorLine", { bg = cls_gui.gray20, ctermbg = cls_cterm.gray20, }) -- 光标所在的屏幕行
 hl(0, "ColorColumn", { bg = cls_gui.gray_darker, ctermbg = cls_cterm.gray_darker, }) -- colorcolumn 
 hl(0, "Conceal", { fg = cls_gui.gray10, ctermfg = cls_cterm.gray10, }) -- 隐藏文本的占位符 
 hl(0, "EndOfBuffer", { fg = cls_gui.gray_dark, ctermfg = cls_cterm.gray_dark, }) -- 缓冲区末尾的填充行 
@@ -275,10 +275,10 @@ hl(0, "TermCursor", { fg = cls_gui.gray_darker, bg = cls_gui.white, ctermfg = cl
 -- ----------------------------------------------------------------------------
 -- 行号
 -- ----------------------------------------------------------------------------
-hl(0, "LineNr", { fg = cls_gui.gray35, bg = cls_gui.gray_darker,	ctermfg = cls_cterm.gray35, ctermbg = cls_cterm.gray_darker,	bold = true, })       -- 行号
-hl(0, "LineNrAbove", { fg = cls_gui.gray35, bg = "NONE", ctermfg = cls_cterm.gray35, ctermbg = "NONE", })                  -- 光标上方的相对行号
-hl(0, "LineNrBelow", { fg = cls_gui.gray_dark, bg = "NONE", ctermfg = cls_cterm.gray30, ctermbg = "NONE", })                  -- 光标下方的相对行号
-hl(0, "CursorLineNr", { fg = cls_gui.gray45, bg = cls_gui.gray_darker, ctermfg = cls_cterm.gray45, ctermbg = cls_cterm.gray_darker, bold = true, }) -- 光标行的行号
+hl(0, "LineNr", { fg = cls_gui.gray30, bg = "NONE",	ctermfg = cls_cterm.gray30, ctermbg = "NONE",	bold = true, })       -- 行号
+hl(0, "LineNrAbove", { fg = cls_gui.gray30, bg = "NONE", ctermfg = cls_cterm.gray30, ctermbg = "NONE", })                  -- 光标上方的相对行号
+hl(0, "linenrbelow", { fg = cls_gui.gray30, bg = "NONE", ctermfg = cls_cterm.gray30, ctermbg = "none", })                  -- 光标下方的相对行号
+hl(0, "CursorLineNr", { fg = cls_gui.gray40, bg = "NONE", ctermfg = cls_cterm.gray40, ctermbg = "NONE", bold = true, }) -- 光标行的行号
 
 -- ----------------------------------------------------------------------------
 -- 目录与快速修复
@@ -289,7 +289,7 @@ hl(0, "QuickFixLine", { bg = cls_gui.gray_darker, ctermbg = cls_cterm.gray_darke
 -- ----------------------------------------------------------------------------
 -- 拼写检查
 -- ----------------------------------------------------------------------------
-hl(0, 'SpellBad', { bg = 'NONE', fg = cls_cterm.gray40, underline = true })   -- 拼写检查器无法识别的单词
+hl(0, 'SpellBad', { bg = 'NONE', fg = cls_gui.gray40, underline = true })   -- 拼写检查器无法识别的单词
 hl(0, "SpellCap", { fg = cls_gui.darkyellow, bg = "NONE", ctermfg = cls_cterm.darkyellow, ctermbg = "NONE", underline = true, })   -- 应以大写字母开头的单词
 hl(0, "SpellLocal", { fg = cls_gui.link, bg = "NONE", ctermfg = cls_cterm.link, ctermbg = "NONE", underline = true, }) -- 在另一区域使用的单词
 hl(0, "SpellRare", { fg = cls_gui.keyword, bg = "NONE", ctermfg = cls_cterm.keyword, ctermbg = "NONE", underline = true, })  -- 很少使用的单词
@@ -297,8 +297,24 @@ hl(0, "SpellRare", { fg = cls_gui.keyword, bg = "NONE", ctermfg = cls_cterm.keyw
 -- ----------------------------------------------------------------------------
 -- 可视模式
 -- ----------------------------------------------------------------------------
-hl(0, "Visual", { fg = "NONE", bg = cls_gui.gray_dark, ctermfg = "NONE", ctermbg = cls_cterm.gray_dark, })    -- 可视模式选择
+hl(0, "Visual", { fg = "NONE", bg = cls_gui.gray25, ctermfg = "NONE", ctermbg = cls_cterm.gray25, })    -- 可视模式选择
 hl(0, "VisualNOS", { fg = "NONE", bg = cls_gui.gray_dark, ctermfg = "NONE", ctermbg = cls_cterm.gray_dark, }) -- Not Owning the Selection 时的可视模式
+
+-- ----------------------------------------------------------------------------
+-- 其他 Neovim 特有组
+-- ----------------------------------------------------------------------------
+hl(0, "Whitespace", { fg = cls_gui.gray_dark, ctermfg = cls_cterm.gray_dark, }) -- listchars 中的空白字符
+hl(0, "SnippetTabstop", { bg = cls_gui.gray_dark, ctermbg = cls_cterm.gray_dark, }) -- 片段中的制表位
+hl(0, "SnippetTabstopActive", { fg = cls_gui.gray_darker, bg = cls_gui.darkyellow, ctermfg = cls_cterm.gray_darker, ctermbg = cls_cterm.darkyellow, }) -- 片段中当前活动的制表位
+
+-- ----------------------------------------------------------------------------
+-- GUI 专用组（在 Neovim 中通常无效，仅作占位）
+-- ----------------------------------------------------------------------------
+hl(0, "TitleBar", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, })   -- 活动窗口标题栏（仅 MS-Windows GUI）
+hl(0, "TitleBarNC", { fg = cls_gui.gray, bg = cls_gui.gray_darker, ctermfg = cls_cterm.gray, ctermbg = cls_cterm.gray_darker, }) -- 非活动窗口标题栏（仅 MS-Windows GUI）
+hl(0, "Menu", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, })       -- 菜单/工具栏
+hl(0, "Scrollbar", { fg = cls_gui.gray, bg = cls_gui.gray_darker, ctermfg = cls_cterm.gray, ctermbg = cls_cterm.gray_darker, })  -- 滚动条
+hl(0, "Tooltip", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, })    -- 工具提示
 
 -- ----------------------------------------------------------------------------
 -- 用户自定义 HighLight
@@ -312,21 +328,3 @@ hl(0, "User6", { fg = cls_gui.gray, bg = "NONE", ctermfg = cls_cterm.gray, cterm
 hl(0, "User7", { fg = cls_gui.white, bg = "NONE", ctermfg = cls_cterm.white, ctermbg = "NONE", })
 hl(0, "User8", { fg = cls_gui.error, bg = "NONE", ctermfg = cls_cterm.error, ctermbg = "NONE", })
 hl(0, "User9", { fg = cls_gui.hint, bg = "NONE", ctermfg = cls_cterm.hint, ctermbg = "NONE", })
-
--- ----------------------------------------------------------------------------
--- 其他 Neovim 特有组
--- ----------------------------------------------------------------------------
-hl(0, "Whitespace", { fg = cls_gui.gray_dark, ctermfg = cls_cterm.gray_dark, })                           -- listchars 中的空白字符
-hl(0, "SnippetTabstop", { bg = cls_gui.gray_dark, ctermbg = cls_cterm.gray_dark, })                       -- 片段中的制表位
-hl(0, "SnippetTabstopActive", { fg = cls_gui.gray_darker, bg = cls_gui.darkyellow, ctermfg = cls_cterm.gray_darker, ctermbg = cls_cterm.darkyellow, }) -- 片段中当前活动的制表位
-
--- ----------------------------------------------------------------------------
--- GUI 专用组（在 Neovim 中通常无效，仅作占位）
--- ----------------------------------------------------------------------------
-hl(0, "TitleBar", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, })   -- 活动窗口标题栏（仅 MS-Windows GUI）
-hl(0, "TitleBarNC", { fg = cls_gui.gray, bg = cls_gui.gray_darker, ctermfg = cls_cterm.gray, ctermbg = cls_cterm.gray_darker, }) -- 非活动窗口标题栏（仅 MS-Windows GUI）
-hl(0, "Menu", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, })       -- 菜单/工具栏
-hl(0, "Scrollbar", { fg = cls_gui.gray, bg = cls_gui.gray_darker, ctermfg = cls_cterm.gray, ctermbg = cls_cterm.gray_darker, })  -- 滚动条
-hl(0, "Tooltip", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, })    -- 工具提示
-
-hl(0, "markdownH1", { fg = cls_gui.white, ctermfg = cls_cterm.white, bold = true, })

@@ -5,10 +5,21 @@ vim.pack.add({
 local get_hex = require('cokeline.hlgroups').get_hl_attr
 local vim = vim
 
-local function get_gui_color(group, attribute)
-	local hl = get_hl(0, { name = group, link = false, })
-	return hl[attribute]
-end
+-- vim.api.nvim_set_hl(0, "MyCokelineActive", {
+-- 	fg = "#dadada",
+-- 	bg = "#303030",
+-- 	ctermfg = 253,
+-- 	ctermbg = 240,
+-- 	bold = true,
+-- })
+
+
+-- vim.api.nvim_set_hl(0, "MyCokelineInactive", {
+-- 	fg = "#8a8a8a",
+-- 	bg = "#444444",
+-- 	ctermfg = 245,
+-- 	ctermbg = 240,
+-- })
 
 -- ------------------------------------------------------------
 -- 2. 加载插件
@@ -69,15 +80,22 @@ require("cokeline").setup({
 		-- `Normal`'s foreground color for unfocused ones.
 		---@type nil | string | fun(buffer: Buffer): string
 		-- fg = nil,
-		fg = function(buffer) -- 当前 Buffer
-			if buffer.is_focused then
-				return cls_cterm.white
-			end
-			-- 非当前 Buffer
-			return cls_cterm.gray_light
+		fg = function(buffer)
+			local hlgroups = require("cokeline.hlgroups")
+			-- 聚焦时：
+			return buffer.is_focused and hlgroups.get_hl_attr("Normal", "fg")
+				-- 未聚焦时：
+				or hlgroups.get_hl_attr("Normal", "fg")
 		end,
-		---@type nil | string | function(buffer: Buffer): string,
-		bg = nil,
+
+		bg = function(buffer)
+			local hlgroups = require("cokeline.hlgroups")
+			-- 聚焦时：
+			return buffer.is_focused and hlgroups.get_hl_attr("Normal", "bg")
+				-- 未聚焦时：
+				or hlgroups.get_hl_attr("TabLineFill", "bg")
+		end,
+
 		-- default: unset.
 		---@type nil | string | function(buffer): string,
 		sp = nil,
@@ -107,7 +125,8 @@ require("cokeline").setup({
 					return " "
 				end
 
-				return "|"
+				-- return "|"
+				return ""
 			end,
 
 			-- 使用 Normal 的前景色

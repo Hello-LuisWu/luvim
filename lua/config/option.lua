@@ -1,4 +1,5 @@
 local opt = vim.opt
+local vim = vim
 
 -- ----------------------------
 -- 界面与显示
@@ -9,7 +10,7 @@ opt.relativenumber = true         -- 相对行号
 opt.number = true                 -- 显示行号
 opt.helplang = "cn"               -- 帮助文件所使用的语言
 opt.numberwidth = 4               -- 行号宽度设置为4个字符
-opt.termguicolors = false          -- 启用 24 bit 彩色模式
+opt.termguicolors = true          -- 启用 24 bit 彩色模式
 opt.cursorline = true             -- 高亮光标所在行
 opt.cursorcolumn = false          -- 禁止高亮光标所在列
 opt.signcolumn = "yes"            -- 始终显示左侧标记列,行号前面多出一列,用于插件提示
@@ -24,9 +25,9 @@ opt.whichwrap = "b,s,<,>,[,],h,l" -- 左右键 h/l 可以跨行移动。
 opt.textwidth = 50
 -- opt.colorcolumn = "33,22,11"        -- 右边添加参考线
 opt.showmatch = true -- 匹配括号高亮
-opt.matchtime = 2    -- 匹配括号高亮持续时间（十分之一秒）
-opt.pumheight = 10   -- 弹出菜单最多显示10行
-opt.cmdheight = 1    -- 命令行高度
+opt.matchtime = 2 -- 匹配括号高亮持续时间（十分之一秒）
+opt.pumheight = 10 -- 弹出菜单最多显示10行
+opt.cmdheight = 1 -- 命令行高度
 
 opt.ruler = true -- 右下角显示光标行列位置（默认 true）
 opt.showbreak = "↳ " -- 自动换行时的行首符号
@@ -37,22 +38,31 @@ opt.report = 2 -- 修改多少行后提示
 opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- 不同模式光标形状（终端需支持）
 opt.background = "dark" -- 主题插件会自行设置
 
-vim.api.nvim_set_hl(0, "MatchParen", {
-	bg = "#fabd2f",
-	bold = true,
-	underline = true,
-})
-
 opt.showcmd = false -- 显示输入的命令
-opt.list = false    -- 显示不可见字符
-opt.listchars = {   -- 设置不可见字符的显示方式
-	tab = "| ",
-	trail = "·",
-	nbsp = "␣",
+
+-- 控制“文本里的不可见字符”。
+opt.list = false -- 显示不可见字符
+opt.listchars = { -- 设置不可见字符的显示方式
+	eol = "󰌑", -- 行尾标记
+	tab = "|-", -- tab
+	leadtab = "· ", -- 首行 tab, 必同时设置 tab，否则报错
+	space = " ", -- 普通空格显示字符
+	multispace = " ", -- 多个连续空格循环显示，覆盖 space，但单个空格除外
+	lead = " ", -- 行开头的空格
+	trail = "·", -- 行尾空格显示字符，覆盖 space / multispace
 	extends = "›", -- extends / precedes 用于提示一行内容在窗口左右还有隐藏内容。
 	precedes = "‹",
+	conceal = "-", -- conceallevel=1 时替代隐藏文本，省略为空格
+	nbsp = "␣", -- 不换行空格 0xA0 和 U+202F 的显示字符，省略为空白
 }
+
+-- 控制“Vim UI 中没有实际文本的空白区域、分隔线、折叠区域等”。
 opt.fillchars = {
+	stl = " ", -- 状态栏空白处填充, hl: StatusLine
+	stlnc = " ", -- 非当前窗口 statusline 填充, hl: StatusLineNC
+	wbr = "_", -- WinBar 窗口栏填充, hl: WinBar / WinBarNC
+
+	-- hl: WinSeparator
 	horiz = "━", -- 水平分割线（上下窗口分隔）
 	horizup = "┻", -- 水平分割线顶部（仅 Neovim 0.10+）
 	horizdown = "┳", -- 下部分水平分割线
@@ -60,15 +70,22 @@ opt.fillchars = {
 	vertleft = "┫", -- 左边垂直分割线
 	vertright = "┣", -- 右边垂直分割线
 	verthoriz = "╋", -- 交叉分割线
-	foldopen = "",
-	foldclose = "",
-	fold = " ", -- 折叠的填充字符（默认：.）
-	foldsep = " ", -- 折叠间的分隔符
-	-- msgsep = "‾", -- 消息分隔线
-	eob = " ", -- 文件末尾空白行的提示符（默认是 "~"）
-	stl = " ", -- 状态栏左侧填充
-	diff = "⣿", -- `diff` 模式下的填充字符
-	stlnc = " ", -- 非当前窗口状态栏填充
+
+	fold = " ", -- 折叠的填充字符（默认：.） hl: Folded
+	foldopen = "-", -- 已打开折叠的标记, hl: FoldColumn
+	foldclose = "+", -- 关闭折叠的标记, hl: FoldColumn
+	foldsep = ".", -- 折叠间的分隔符, hl: FoldColumn
+	foldinner = "|", -- 窄 foldcolumn 中数字折叠层级重复时替代数字, hl: FoldColumn
+
+	diff = "⣿", -- `diff` 模式下的填充字符 hl: DiffDelete
+
+	-- msgsep = "‾", -- 消息分隔线, hl: MsgSeparator
+	msgsep = "-", -- 消息分隔线, hl: MsgSeparator
+	eob = " ", -- 文件末尾空白行的提示符（默认是 "~"）, hl: EndOfBuffer
+	lastline = "@", -- display=lastline 时，最后一行被截断的标记, hl: NonText
+
+	trunc = "›", -- 补全菜单文字过长时, hl: PmenuSel 等 Popup 高亮
+	truncrl = "<", -- rightleft 模式下补全菜单截断标记, hl: 同 trunc
 }
 
 -- -- ----------------------------
@@ -108,7 +125,7 @@ opt.smoothscroll = true                            -- Neovim 0.10+ 平滑滚动
 opt.autochdir = false                              -- 自动切换当前目录为当前文件所在的目录
 opt.completeopt = "menu,menuone,noselect,noinsert" -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
 opt.wildmenu = true                                -- 命令行 Tab 补全时使用完整菜单
-opt.wildmode = "longest:full,full"                                -- 命令行补全模式
+opt.wildmode = "longest:full,full"                 -- 命令行补全模式
 opt.virtualedit = "block,onemore"                  -- 光标可以定位到最后一个字的后面
 opt.backspace = { "start", "eol", "indent" }       -- 正常删除
 -- opt.joinspaces = false -- 句号后是否自动加入两个空格。
@@ -191,7 +208,8 @@ opt.foldtext = "v:lua.foldtext()"
 -- -- ----------------------------
 -- -- 其他杂项
 -- -- ----------------------------
-opt.shell = vim.env.SHELL or "/bin/sh"                                            -- 执行外部命令时使用的 Shell,如: :terminal  :!ls :!git status
+opt.shell = vim.env.SHELL or
+	"/bin/sh"                                                     -- 执行外部命令时使用的 Shell,如: :terminal  :!ls :!git status
 vim.cmd("filetype plugin indent on")
 opt.spell = false                                                 -- 禁止拼写支持
 opt.spelllang = { "en_us", "cjk" }                                -- 设置拼写检查语言

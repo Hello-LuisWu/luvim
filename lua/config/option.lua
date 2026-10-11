@@ -58,7 +58,7 @@ opt.listchars = { -- 设置不可见字符的显示方式
 
 -- 控制“Vim UI 中没有实际文本的空白区域、分隔线、折叠区域等”。
 opt.fillchars = {
-	stl = " ", -- 状态栏空白处填充, hl: StatusLine
+	stl = "=", -- 状态栏空白处填充, hl: StatusLine
 	stlnc = " ", -- 非当前窗口 statusline 填充, hl: StatusLineNC
 	wbr = "_", -- WinBar 窗口栏填充, hl: WinBar / WinBarNC
 
@@ -151,6 +151,7 @@ opt.smartcase = true                      -- 如果包含大写字母，则进�
 opt.inccommand = "split"                  -- 实时预览替换效果（输入 :%s/foo/bar 时）
 opt.grepprg = "rg --vimgrep --smart-case" -- 使用 ripgrep 作为 :grep 的搜索工具, 要安装 ripgrep
 opt.grepformat = "%f:%l:%c:%m"            -- 解析 rg --vimgrep 的输出格式
+opt.path:append({ "**" })                 -- :find xxx  会搜索子目录。
 
 -- -- ----------------------------
 -- -- 文件与缓冲区
@@ -222,6 +223,5 @@ opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add" -- 自定义�
 -- opt.cscopequickfix = "s-,c-,d-,i-,t-,e-"
 
 
--- opt.path:append({ "**" }) -- :find xxx  会搜索子目录。
--- opt.wildignore:append({ "*/node_modules/*" }) -- 完全使用 fzf-lua / Snacks picker，则重要性下降。
+opt.wildignore:append({ "*/node_modules/*" }) -- 完全使用 fzf-lua / Snacks picker，则重要性下降。
 -- opt.formatoptions:append({ "r" })  -- 换行延续注释

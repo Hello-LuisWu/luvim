@@ -243,7 +243,7 @@ hl(0, "ComplHintMore", { fg = cls_gui.link, ctermfg = cls_cterm.link, })        
 -- ----------------------------------------------------------------------------
 -- 状态栏、标签页与窗口
 -- ----------------------------------------------------------------------------
-hl(0, "StatusLine", { fg = cls_gui.gray80, bg = cls_gui.gray30, ctermfg = cls_cterm.gray80, ctermbg = cls_cterm.gray30, bold = true, })        -- 当前窗口的状态行
+hl(0, "StatusLine", { fg = cls_gui.gray80, bg = "NONE", ctermfg = cls_cterm.gray80, ctermbg = "NONE", bold = true, })        -- 当前窗口的状态行
 hl(0, "StatusLineNC", { fg = cls_gui.darkyellow, bg = cls_gui.gray_dark, ctermfg = cls_cterm.darkyellow, ctermbg = cls_cterm.gray_dark, })                -- 非当前窗口的状态行
 hl(0, "StatusLineTerm", { fg = cls_gui.white, bg = cls_gui.gray_dark, ctermfg = cls_cterm.white, ctermbg = cls_cterm.gray_dark, bold = true, }) -- 当前终端窗口的状态行
 hl(0, "StatusLineTermNC", { fg = cls_gui.gray, bg = cls_gui.gray_darker, ctermfg = cls_cterm.gray, ctermbg = cls_cterm.gray_darker, })            -- 非当前终端窗口的状态行

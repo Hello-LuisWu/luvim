@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 		for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command", "inactive" }) do
 			tm[mode] = {}
 			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
-				tm[mode][section] = { bg = 238, fg = 250}
+				tm[mode][section] = { bg = "none", fg = 250}
 			end
 		end
 

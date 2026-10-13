@@ -83,15 +83,15 @@ require("cokeline").setup({
 		fg = function(buffer)
 			local hlgroups = require("cokeline.hlgroups")
 			-- 聚焦时：
-			return buffer.is_focused and hlgroups.get_hl_attr("Normal", "fg")
+			return buffer.is_focused and hlgroups.get_hl_attr("TabLineSel", "fg")
 				-- 未聚焦时：
-				or hlgroups.get_hl_attr("Normal", "fg")
+				or hlgroups.get_hl_attr("TabLine", "fg")
 		end,
 
 		bg = function(buffer)
 			local hlgroups = require("cokeline.hlgroups")
 			-- 聚焦时：
-			return buffer.is_focused and hlgroups.get_hl_attr("Normal", "bg")
+			return buffer.is_focused and hlgroups.get_hl_attr("TabLineSel", "bg")
 				-- 未聚焦时：
 				or hlgroups.get_hl_attr("TabLineFill", "bg")
 		end,
@@ -116,27 +116,51 @@ require("cokeline").setup({
 	},
 
 	components = {
-
-		-- ① 左侧分隔符
+		-- 左侧斜边
 		{
 			text = function(buffer)
-				-- 第一个 buffer 不显示分隔符
+				 -- 如果当前 Buffer 是第一个 Buffer
 				if buffer.index == 1 then
-					return " "
+					return ""
 				end
 
-				-- return "|"
-				return ""
+				return ""
 			end,
 
-			-- 使用 Normal 的前景色
-			fg = function()
-				return vim.api.nvim_get_hl(0, {
-					name = "Comment",
-					link = false,
-				}).fg
+			fg = function(buffer)
+				local hlgroups = require("cokeline.hlgroups")
+
+				return buffer.is_focused
+					and hlgroups.get_hl_attr("TabLineSel", "bg")
+					or hlgroups.get_hl_attr("TabLineFill", "bg")
+			end,
+
+			bg = function()
+				local hlgroups = require("cokeline.hlgroups")
+				return hlgroups.get_hl_attr("TabLineFill", "bg")
 			end,
 		},
+
+		-- -- ① 左侧分隔符
+		-- {
+		-- 	text = function(buffer)
+		-- 		-- 第一个 buffer 不显示分隔符
+		-- 		if buffer.index == 1 then
+		-- 			return " "
+		-- 		end
+
+		-- 		return "|"
+		-- 		-- return ""
+		-- 	end,
+
+		-- 	-- 使用 Normal 的前景色
+		-- 	fg = function()
+		-- 		return vim.api.nvim_get_hl(0, {
+		-- 			name = "Comment",
+		-- 			link = false,
+		-- 		}).fg
+		-- 	end,
+		-- },
 
 
 		-- ② 文件图标
@@ -192,38 +216,33 @@ require("cokeline").setup({
 			end,
 
 			-- 修改标记使用警告颜色
-			fg = function()
-				return vim.api.nvim_get_hl(0, {
-					name = "DiagnosticWarn",
-					link = false,
-				}).fg
-			end,
+			fg = vim.g.cls_gui.white,
 		},
-
-
-		-- ⑤ 关闭按钮
-		{
-			text = "",
-			-- text = " 󰅖",
-
-			-- 鼠标左键关闭 buffer
-			on_click = function(_, _, _, _, buffer)
-				buffer:delete()
-			end,
-
-			-- 关闭按钮使用 Comment 颜色
-			fg = function()
-				return vim.api.nvim_get_hl(0, {
-					name = "Comment",
-					link = false,
-				}).fg
-			end,
-		},
-
 
 		-- ⑥ 右侧空格
 		{
-			text = " ",
+			text = " "
+		},
+
+		-- 右侧斜边
+		{
+			-- text = "",
+			text = "",
+			fg = function(buffer)
+				local hlgroups = require("cokeline.hlgroups")
+				-- 聚焦时：
+				return buffer.is_focused and hlgroups.get_hl_attr("TabLineSel", "bg")
+					-- 未聚焦时：
+					or hlgroups.get_hl_attr("TabLineFill", "bg")
+			end,
+			bg = function(buffer)
+				local hlgroups = require("cokeline.hlgroups")
+				-- 聚焦时：
+				return buffer.is_focused and hlgroups.get_hl_attr("TabLineFill", "bg")
+					-- 未聚焦时：
+					or hlgroups.get_hl_attr("TabLineFill", "bg")
+			end,
+
 		},
 	},
 	-- false = 不显示 Vim Tab page

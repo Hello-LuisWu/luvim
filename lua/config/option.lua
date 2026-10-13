@@ -13,7 +13,7 @@ opt.numberwidth = 4               -- 行号宽度设置为4个字符
 opt.termguicolors = true          -- 启用 24 bit 彩色模式
 opt.cursorline = true             -- 高亮光标所在行
 opt.cursorcolumn = false          -- 禁止高亮光标所在列
-opt.signcolumn = "yes"            -- 始终显示左侧标记列,行号前面多出一列,用于插件提示
+opt.signcolumn = "no"            -- 始终显示左侧标记列,行号前面多出一列,用于插件提示
 opt.showmode = true               -- 是否在命令行显示当前模式
 opt.title = true                  -- 在终端标题栏显示当前文件名
 opt.wrap = false                  -- 不自动换行, 用 <leader>enter 切换
@@ -58,8 +58,8 @@ opt.listchars = { -- 设置不可见字符的显示方式
 
 -- 控制“Vim UI 中没有实际文本的空白区域、分隔线、折叠区域等”。
 opt.fillchars = {
-	stl = "=", -- 状态栏空白处填充, hl: StatusLine
-	stlnc = " ", -- 非当前窗口 statusline 填充, hl: StatusLineNC
+	-- stl = "=", -- 状态栏空白处填充, hl: StatusLine
+	-- stlnc = " ", -- 非当前窗口 statusline 填充, hl: StatusLineNC
 	wbr = "_", -- WinBar 窗口栏填充, hl: WinBar / WinBarNC
 
 	-- hl: WinSeparator

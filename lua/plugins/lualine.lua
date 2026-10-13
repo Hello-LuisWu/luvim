@@ -1,3 +1,5 @@
+local vim = vim
+
 local group = vim.api.nvim_create_augroup("SetupLualine", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
@@ -22,12 +24,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 			local insert_spaces = vim.bo.expandtab
 			local size = insert_spaces and vim.bo.shiftwidth or vim.bo.tabstop
 			-- 󰌒 是 Nerd Font 中的缩进图标
-			local icon = ">"
+			local icon = "tab:"
 			return icon .. size
 		end
-		-- vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE", fg = "#999999" })
-		-- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
-		-- vim.api.nvim_set_hl(0, "diagnosticsColor", { bg = "NONE", fg = "NONE" })
 
 		-- local progress = function()
 		-- 	local current_line = vim.fn.line(".")
@@ -42,7 +41,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 		for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command", "inactive" }) do
 			tm[mode] = {}
 			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
-				tm[mode][section] = { bg = "none", fg = 250}
+			-- for _, section in ipairs({ "c", "x" }) do
+				-- tm[mode][section] = { bg = "#1a1a1a", fg = vim.g.cls_gui.link }
+				tm[mode][section] = { bg = vim.g.cls.bg, fg = vim.g.cls_gui.lightpink }
 			end
 		end
 
@@ -53,7 +54,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 				-- theme = "auto",
 
 				component_separators = { left = '', right = '' },
-				section_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
 
 				disabled_filetypes = {
 					statusline = {},
@@ -70,8 +71,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 					refresh_time = 16, -- ~60fps
 					events = {
 						'WinEnter',
-
-
 						'BufEnter',
 						'BufWritePost',
 						'SessionLoadPost',
@@ -89,15 +88,21 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 					-- 'mode',
 				},
 				lualine_b = {
-					'filename',
 				},
 				lualine_c = {
+					{
+						'filename',
+
+						color = {
+							-- bg = "NOTE",
+							-- fg = "#E6E6E6",
+							gui = "bold"
+						},
+					},
 					{
 						'diagnostics',
 						symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
 						always_visible = false,
-						color = { fg = 'green' },
-
 						-- diagnostics_color = {
 						-- 	-- Same values as the general color option can be used here.
 						-- 	error = 'diagnosticsColor', -- Changes diagnostics' error color.
@@ -108,58 +113,71 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 					},
 				},
 				lualine_x = {
-					{
-						'lsp_status',
-						separator = {  right = "|"}, -- 分隔符
-						-- padding = 1,
-						-- icon = '', -- f013
-						icon = '', -- f013
-						symbols = {
-							-- Standard unicode symbols to cycle through for LSP progress:
-							-- spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
-							spinner = { '|', '/', '-', '\\', '|', '/', '-', '\\', '|', '/' },
-							-- Standard unicode symbol for when LSP is done:
-							done = "✓",
-							-- Delimiter inserted between LSP names:
-							-- separator = '|',
-						},
-						-- List of LSP names to ignore (e.g., `null-ls`):
-						ignore_lsp = { "ba" },
-						-- Display the LSP name
-						show_name = true,
-					},
+					-- {
+					-- 	'lsp_status',
+					-- 	separator = {  right = "|"}, -- 分隔符
+					-- 	-- padding = 1,
+					-- 	-- icon = '', -- f013
+					-- 	icon = '', -- f013
+					-- 	symbols = {
+					-- 		-- Standard unicode symbols to cycle through for LSP progress:
+					-- 		-- spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+					-- 		spinner = { '|', '/', '-', '\\', '|', '/', '-', '\\', '|', '/' },
+					-- 		-- Standard unicode symbol for when LSP is done:
+					-- 		done = "o",
+					-- 		-- Delimiter inserted between LSP names:
+					-- 		-- separator = '|',
+					-- 	},
+					-- 	-- List of LSP names to ignore (e.g., `null-ls`):
+					-- 	ignore_lsp = { "ba" },
+					-- 	-- Display the LSP name
+					-- 	show_name = true,
+					-- },
 
 					{
 						get_indent,
 						cond = function()
 							return vim.bo.filetype ~= ""
 						end,
-						-- padding = { left = 1, right = 1 },
+						-- padding = { left = 0, right = 1 },
 					},
 
 					{
 						'encoding',
-						-- padding = { left = 1, right = 1 },
+						-- padding = { left = 0, right = 1 },
+
+						color = {
+							-- bg = vim.g.cls_gui.link,
+							-- fg = vim.g.cls_gui.black,
+						},
 					},
 					{
 						'fileformat',
-						-- padding = { left = 1, right = 1 },
+						-- padding = { left = 0, right = 1 },
+						-- color = {
+						-- 	bg = vim.g.cls_gui.link,
+						-- 	fg = vim.g.cls_gui.black,
+						-- },
 						symbols = {
 							unix = 'unix', -- e712
 							dos = 'dos', -- e70f
 							mac = 'mac', -- e711
 						}
 					},
-					-- '%y',
 					{
 						"filetype",
-						padding = { left = 1, right = 1 },
+						-- padding = { left = 1, right = 0 },
 						icons_enabled = false,
+						-- color = {
+						-- 	bg = vim.g.cls_gui.link,
+						-- 	fg = vim.g.cls_gui.black,
+						-- },
 					},
-
 				},
 				lualine_y = {
 					-- progress,
+				},
+				lualine_z = {
 					-- {
 					-- 	function()
 					-- 		-- 中文星期映射表
@@ -211,16 +229,14 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 					-- 	end,
 					-- 	-- padding = { left = 1, right = 1 },
 					-- 	-- separator = { left = ">" , right = "<"}, -- 分隔符
-					-- 	-- color = {
-					-- 	-- 	bg = "#fe595d",
-					-- 	-- 	fg = "#111111",
-					-- 	-- 	gui = "bold",
-					-- 	-- 	-- gui = "bold,underline,italic",
-					-- 	-- }
-
+					-- 	color = {
+					-- 		-- bg = vim.g.cls_gui.lightred,
+					-- 		-- fg = vim.g.cls_gui.white,
+					-- 		-- gui = "bold",
+					-- 		gui = "italic",
+					-- 		-- gui = "bold,underline,italic",
+					-- 	}
 					-- },
-				},
-				lualine_z = {
 				}
 			},
 			inactive_sections = {

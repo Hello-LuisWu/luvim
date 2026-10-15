@@ -231,11 +231,11 @@ require("cokeline").setup({
 					return "●"
 				end
 
-				return ""
+				return " "
 			end,
 
 			-- 修改标记使用警告颜色
-			fg = vim.g.cls_gui.white,
+			fg = vim.g.cls_gui.purple,
 		},
 
 		-- ⑥ 右侧空格

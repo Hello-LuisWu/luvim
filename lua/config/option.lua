@@ -27,7 +27,7 @@ opt.textwidth = 50
 opt.showmatch = true -- 匹配括号高亮
 opt.matchtime = 2 -- 匹配括号高亮持续时间（十分之一秒）
 opt.pumheight = 10 -- 弹出菜单最多显示10行
-opt.cmdheight = 1 -- 命令行高度
+opt.cmdheight = 0 -- 命令行高度
 
 opt.ruler = true -- 右下角显示光标行列位置（默认 true）
 opt.showbreak = "↳ " -- 自动换行时的行首符号

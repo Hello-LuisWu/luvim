@@ -93,7 +93,7 @@ require("cokeline").setup({
 			-- 聚焦时：
 			return buffer.is_focused and hlgroups.get_hl_attr("TabLineSel", "bg")
 				-- 未聚焦时：
-				or hlgroups.get_hl_attr("TabLineFill", "bg")
+				or hlgroups.get_hl_attr("TabLine", "bg")
 		end,
 
 		-- default: unset.
@@ -118,28 +118,47 @@ require("cokeline").setup({
 	components = {
 		-- 左侧斜边
 		{
-			text = function(buffer)
-				 -- 如果当前 Buffer 是第一个 Buffer
-				if buffer.index == 1 then
-					return ""
-				end
-
-				return ""
-			end,
-
+			-- text = "",
+			text = "",
 			fg = function(buffer)
 				local hlgroups = require("cokeline.hlgroups")
-
-				return buffer.is_focused
-					and hlgroups.get_hl_attr("TabLineSel", "bg")
+				-- 聚焦时：
+				return buffer.is_focused and hlgroups.get_hl_attr("TabLineSel", "bg")
+					-- 未聚焦时：
+					or hlgroups.get_hl_attr("TabLine", "bg")
+			end,
+			bg = function(buffer)
+				local hlgroups = require("cokeline.hlgroups")
+				-- 聚焦时：
+				return buffer.is_focused and hlgroups.get_hl_attr("TabLineFill", "bg")
+					-- 未聚焦时：
 					or hlgroups.get_hl_attr("TabLineFill", "bg")
 			end,
 
-			bg = function()
-				local hlgroups = require("cokeline.hlgroups")
-				return hlgroups.get_hl_attr("TabLineFill", "bg")
-			end,
 		},
+		-- {
+		-- 	text = function(buffer)
+		-- 		 -- 如果当前 Buffer 是第一个 Buffer
+		-- 		if buffer.index == 1 then
+		-- 			return " "
+		-- 		end
+
+		-- 		return ""
+		-- 	end,
+
+		-- 	fg = function(buffer)
+		-- 		local hlgroups = require("cokeline.hlgroups")
+
+		-- 		return buffer.is_focused
+		-- 			and hlgroups.get_hl_attr("TabLineSel", "bg")
+		-- 			or hlgroups.get_hl_attr("TabLineFill", "bg")
+		-- 	end,
+
+		-- 	bg = function()
+		-- 		local hlgroups = require("cokeline.hlgroups")
+		-- 		return hlgroups.get_hl_attr("TabLineFill", "bg")
+		-- 	end,
+		-- },
 
 		-- -- ① 左侧分隔符
 		-- {
@@ -233,7 +252,7 @@ require("cokeline").setup({
 				-- 聚焦时：
 				return buffer.is_focused and hlgroups.get_hl_attr("TabLineSel", "bg")
 					-- 未聚焦时：
-					or hlgroups.get_hl_attr("TabLineFill", "bg")
+					or hlgroups.get_hl_attr("TabLine", "bg")
 			end,
 			bg = function(buffer)
 				local hlgroups = require("cokeline.hlgroups")

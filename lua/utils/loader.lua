@@ -1,3 +1,4 @@
+local vim = vim
 local M = {}
 
 ---加载指定目录下的所有 lua 模块

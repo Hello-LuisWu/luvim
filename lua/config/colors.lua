@@ -1,3 +1,5 @@
+local vim = vim
+
 vim.g.cls_gui = ({
 	black       = "#262626",
 	gray_darker = "#2c313a", -- 次级背景/边框
@@ -151,13 +153,16 @@ vim.g.cls_cterm = ({
 })
 
 vim.g.cls = ({
-	bg      = "#413252",
+	bg1      = "#39383b",
+	bg2      = "#8d89a3",
+	bg3      = "#e4e3e5",
+	bg4      = "#cbcbcf",
 	fg      = "",
 	error   = "",
 	warn    = "",
 	info    = "",
 	hint    = "",
-	link    = "#7548a5",
+	link    = "#952fc9",
 	keyword = "",
 
 })

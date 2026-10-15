@@ -1,8 +1,10 @@
+local vim  = vim
+local hl = vim.api.nvim_set_hl
+
 -- ============================================================================
 -- onedark 风格高亮配置（Neovim Lua）
 -- ============================================================================
 
-local hl = vim.api.nvim_set_hl
 
 -- ----------------------------------------------------------------------------
 -- 基础界面与光标
@@ -62,8 +64,8 @@ hl(0, "MsgSeparator", { fg = vim.g.cls_gui.gray_dark, ctermfg = vim.g.cls_cterm.
 -- ----------------------------------------------------------------------------
 -- 弹出菜单与补全
 -- ----------------------------------------------------------------------------
-hl(0, "Pmenu", { fg = vim.g.cls_gui.white, bg = vim.g.cls_gui.gray20, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.gray20, })                      -- 弹出菜单：普通项
-hl(0, "PmenuSel", { fg = vim.g.cls_gui.gray_darker, bg = vim.g.cls_gui.lightred, ctermfg = vim.g.cls_cterm.gray_darker, ctermbg = vim.g.cls_cterm.lightred, }) -- 弹出菜单：选中项
+hl(0, "Pmenu", { fg = vim.g.cls_gui.gray60, bg = vim.g.cls_gui.gray10, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.gray20, })                      -- 弹出菜单：普通项
+hl(0, "PmenuSel", { fg = vim.g.cls_gui.white, bg = vim.g.cls.link, ctermfg = vim.g.cls_cterm.gray_darker, ctermbg = vim.g.cls_cterm.lightred, }) -- 弹出菜单：选中项
 hl(0, "PmenuKind", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", })                  -- 弹出菜单：普通项的 kind
 hl(0, "PmenuKindSel", { fg = vim.g.cls_gui.gray_darker, bg = vim.g.cls_gui.darkyellow, ctermfg = vim.g.cls_cterm.gray_darker, ctermbg = vim.g.cls_cterm.darkyellow, })               -- 弹出菜单：选中项的 kind
 hl(0, "PmenuExtra", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_darker, ctermfg = vim.g.cls_cterm.gray, ctermbg = vim.g.cls_cterm.gray_darker, })                 -- 弹出菜单：普通项的额外文本
@@ -92,9 +94,9 @@ hl(0, "StatusLineTerm", { fg = vim.g.cls_gui.white, bg = vim.g.cls_gui.gray_dark
 hl(0, "StatusLineTermNC", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_darker, ctermfg = vim.g.cls_cterm.gray, ctermbg = vim.g.cls_cterm.gray_darker, })            -- 非当前终端窗口的状态行
 hl(0, "VertSplit", { fg = vim.g.cls_gui.gray_dark, bg = "NONE", ctermfg = vim.g.cls_cterm.gray_dark, ctermbg = "NONE", })                      -- 垂直分割窗口的分隔列（旧名）
 hl(0, "WinSeparator", { fg = vim.g.cls_gui.gray_dark, bg = "NONE", ctermfg = vim.g.cls_cterm.gray_dark, ctermbg = "NONE", })                   -- 窗口分隔符（Neovim 新名）
-hl(0, "TabLineFill", { fg = vim.g.cls_gui.gray90, bg = vim.g.cls.bg, ctermfg = vim.g.cls_cterm.gray90, ctermbg = vim.g.cls_cterm.gray10, bold = true, })       -- 标签页行：没有标签的地方
-hl(0, "TabLine", { fg = vim.g.cls_gui.gray80, bg = vim.g.cls_gui.gray20, ctermfg = vim.g.cls_cterm.gray50, ctermbg = vim.g.cls_cterm.gray20, })                        -- 标签页行：非活动标签页标签
-hl(0, "TabLineSel", { fg = vim.g.cls_gui.white, bg = vim.g.cls.link, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.link, bold = true, })     -- 标签页行：活动标签页标签
+hl(0, "TabLineFill", { fg = vim.g.cls_gui.gray90, bg = vim.g.cls_gui.black, ctermfg = vim.g.cls_cterm.gray90, ctermbg = vim.g.cls_cterm.gray10, bold = true, })       -- 标签页行：没有标签的地方
+hl(0, "TabLine", { fg = vim.g.cls_gui.gray0, bg = vim.g.cls_gui.gray40, ctermfg = vim.g.cls_cterm.gray50, ctermbg = vim.g.cls_cterm.gray20, })                        -- 标签页行：非活动标签页标签
+hl(0, "TabLineSel", { fg = vim.g.cls_gui.black, bg = vim.g.cls_gui.gray70, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.link, bold = true, })     -- 标签页行：活动标签页标签
 hl(0, "TabPanel", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_dark, ctermfg = vim.g.cls_cterm.gray, ctermbg = vim.g.cls_cterm.gray_dark, })                    -- TabPanel：非活动标签页标签
 hl(0, "TabPanelFill", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_darker, ctermfg = vim.g.cls_cterm.gray, ctermbg = vim.g.cls_cterm.gray_darker, })                -- TabPanel：没有标签的地方
 hl(0, "TabPanelSel", { fg = vim.g.cls_gui.white, bg = vim.g.cls_gui.gray_dark, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.gray_dark, bold = true, })    -- TabPanel：活动标签页标签

@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
 			-- for _, section in ipairs({ "c", "x" }) do
 				-- tm[mode][section] = { bg = "#1a1a1a", fg = vim.g.cls_gui.link }
-				tm[mode][section] = { bg = vim.g.cls.bg, fg = vim.g.cls_gui.lightpink }
+				tm[mode][section] = { bg = vim.g.cls.bg1, fg = vim.g.cls_gui.lightpink }
 			end
 		end
 

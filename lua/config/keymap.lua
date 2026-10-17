@@ -12,9 +12,6 @@ local map = vim.keymap.set
 local ns = { noremap = true, silent = true }
 local nsf = { noremap = true, silent = false }
 
-map("i", "<c-enter>", "<C-[>o")
-map("i", "<S-enter>", "<C-[>o")
-
 -- 基础键位
 map("i", "jj", "<C-[>", ns)
 map("i", "<C-k>", "<C-[>O", ns)
@@ -25,7 +22,7 @@ map("n", "-", "<C-x>", nsf)
 map("n", "+", "<C-a>", nsf)
 map("n", "<BS>", ":set hlsearch!<CR>", ns)
 map("n", "<leader><CR>", ":set wrap!<CR>", { desc = "换行按钮", noremap = true, silent = true })
-map({ "n", "x" }, "<leader>j", "J", { desc = "向下融合", noremap = true, silent = true })
+map("n", "U", "<C-r>", ns)
 
 map("n", "<C-t>", function()
     vim.cmd("botright split | terminal")
@@ -130,10 +127,10 @@ map("v", "<tab>", ">gv", ns)
 map("v", "<C-h>", "<gv", ns)
 map("v", "<C-l>", ">gv", ns)
 
--- map({ "i", "n", "v" }, "<Left>", "<Nop>", ns)
--- map({ "i", "n", "v" }, "<Right>", "<Nop>", ns)
 map({ "i", "n", "v" }, "<Up>", "<Nop>", ns)
 map({ "i", "n", "v" }, "<Down>", "<Nop>", ns)
+map({ "i", "n", "v" }, "<left>", "<Nop>", ns)
+map({ "i", "n", "v" }, "<right>", "<Nop>", ns)
 map("i", "<Esc>", "<Nop>", ns)
 map({ "n", "v" }, "q:", "<Nop>", { desc = "Disable command-line window", noremap = true })
 map({ "n", "v" }, "q", "<Nop>", { desc = "Disable command-line window", noremap = true })
@@ -200,14 +197,6 @@ map('v', '<Leader>hH', '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "全局�
 map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]],
     { desc = "查找高亮当前单词", noremap = true })
 
--- 13. 透明背景切换（适配你的高亮配置）
-map("n", "<leader>bt", ":lua ToggleTransparency()<CR>", {noremap = true, desc = "窗口背景透明"})
-function ToggleTransparency()
-    local hl = vim.api.nvim_set_hl
-    hl(0, "Normal", { fg = "#aaffbb", bg = "NONE" })
-    hl(0, "NormalNC", { bg = "NONE" })
-end
-
 local function show_date()
     -- 中文星期映射表
     local weekday_map = { "日", "一", "二", "三", "四", "五", "六" }
@@ -258,11 +247,11 @@ local function show_date()
 end
 
 
--- map("n", "|", function()
---         print(" " .. show_date())
---     end,
---     { desc = "显示日期", noremap = true }
--- )
+map("n", "<leader><Bar>", function()
+        print(" " .. show_date())
+    end,
+    { desc = "显示日期", noremap = true }
+)
 
 
 map({ "n", "v", "x" }, "<leader>uu", "gu", { desc = "转换小写", noremap = true, silent = true })
@@ -272,18 +261,6 @@ map({ "n", "v", "x" }, "<leader>ut", "~", { desc = "大小写转换", noremap = 
 map({ "n", "v", "x" }, "gu", "<Nop>", { desc = "no", noremap = true, silent = true })
 map({ "n", "v", "x" }, "gU", "<Nop>", { desc = "no", noremap = true, silent = true })
 map({ "n", "v", "x" }, "~", "<Nop>", { desc = "no", noremap = true, silent = true })
-
--- 窗口间的跳转
-map("n", "<C-h>", "<C-w>h", ns)
-map("n", "<C-j>", "<C-w>j", ns)
-map("n", "<C-k>", "<C-w>k", ns)
-map("n", "<C-l>", "<C-w>l", ns)
-
--- 窗口移动
-map("n", "<leader>wh", "<C-w>H", { desc = "将窗口移到最左边", noremap = true, silent = true })
-map("n", "<leader>wl", "<C-w>L", { desc = "将窗口移到最右边", noremap = true, silent = true })
-map("n", "<leader>wk", "<C-w>K", { desc = "将窗口移到最上边", noremap = true, silent = true })
-map("n", "<leader>wj", "<C-w>J", { desc = "将窗口移到最下边", noremap = true, silent = true })
 
 map("n", "<leader>ue", ":set fileencoding=UTF-8<CR>", { desc = "编码转为 UTF-8", noremap = true, silent = true })
 map('n', '<leader>uE', function()
@@ -314,51 +291,38 @@ map('n', '<Leader>uM', function()
     print("文件格式: " .. vim.bo.fileformat) -- vim.bo 表示当前缓冲区的选项
 end, { desc = '显示文件格式' })
 
--- 合并显示文件信息：格式 + 缩进 + 编码
-vim.keymap.set('n', '<leader><leader>', function()
-    -- 1. 文件格式
-    local fileformat = vim.bo.fileformat -- "unix", "dos", "mac"
+-- 窗口间的跳转
+map("n", "<C-h>", "<C-w>h", ns)
+map("n", "<C-j>", "<C-w>j", ns)
+map("n", "<C-k>", "<C-w>k", ns)
+map("n", "<C-l>", "<C-w>l", ns)
 
-    -- 2. 缩进宽度
-    local sw = vim.bo.shiftwidth
-    if sw == 0 then sw = vim.bo.tabstop end
-    -- local method = vim.bo.expandtab and "Spaces" or "Tabs"
+-- 窗口移动
+map("n", "<leader>wh", "<C-w>H", { desc = "将窗口移到最左边", noremap = true, silent = true })
+map("n", "<leader>wl", "<C-w>L", { desc = "将窗口移到最右边", noremap = true, silent = true })
+map("n", "<leader>wk", "<C-w>K", { desc = "将窗口移到最上边", noremap = true, silent = true })
+map("n", "<leader>wj", "<C-w>J", { desc = "将窗口移到最下边", noremap = true, silent = true })
 
-    -- 3. 文件编码
-    local encode = vim.bo.fileencoding
-    if encode == "" then encode = vim.o.encoding end
-
-    local ft = vim.bo.filetype
-
-    -- 拼接信息并打印
-    local info = string.format(
-        " %s >%d %s %s",
-        fileformat, sw, encode, ft
-    )
-    print(info)
-end, { desc = "显示文件格式、缩进、编码" })
-
+-- 窗口管理
 map("n", "<leader>wc", "<cmd>close<CR>", { desc = "关闭窗口", noremap = true, silent = true })
 map("n", "<leader>wo", "<cmd>only<CR>", { desc = "关闭其他窗口", noremap = true, silent = true })
 map("n", "<leader>ws", "<cmd>vsplit<CR>", { desc = "垂直分屏", noremap = true, silent = true })
 map("n", "<leader>wS", "<cmd>split<CR>", { desc = "水平分屏", noremap = true, silent = true })
 map("n", "<leader>wd", "<C-w>=", { desc = "窗口等宽高", noremap = true, silent = true })
 map("n", "<leader>wn", "<C-w>n", { desc = "新建空白窗口", noremap = true, silent = true })
--- map("n", "<leader>wc", "<cmd>cd %:p:h<CR><cmd>echo getcwd()<CR>", { desc = "进入当前文件所在目录", noremap = true, silent = true })
+map("n", "<leader>wp", "<cmd>cd %:p:h<CR><cmd>echo getcwd()<CR>", { desc = "进入当前文件所在目录", noremap = true, silent = true })
+map("n", "<leader>wt", ":lua ToggleTransparency()<CR>", {noremap = true, desc = "窗口背景透明"})
+function ToggleTransparency()
+    local hl = vim.api.nvim_set_hl
+    hl(0, "Normal", { fg = "#aaffbb", bg = "NONE" })
+    hl(0, "NormalNC", { bg = "NONE" })
+end
 
 -- 调整窗口大小（Shift + 方向键）
 map("n", "<S-left>", ":vertical resize -5<CR>", { desc = "向左调整窗口宽度", noremap = true, silent = true })
 map("n", "<S-right>", ":vertical resize +5<CR>", { desc = "向右调整窗口宽度", noremap = true, silent = true })
 map("n", "<S-up>", ":resize -5<CR>", { desc = "向上调整窗口高度", noremap = true, silent = true })
 map("n", "<S-down>", ":resize +5<CR>", { desc = "向下调整窗口高度", noremap = true, silent = true })
-
--- 复制粘贴
--- map({ "n", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "保存", noremap = true, silent = true })
--- map({ "v" }, "<C-c>", '"+y', { desc = "复制", noremap = true, silent = true })
--- map({ "v", "n" }, "<C-v>", '"+p', { desc = "粘贴", noremap = true, silent = true })
-map("i", "<C-v>", '<Esc>"+pa', { desc = "粘贴", noremap = true, silent = true })
-
-map("n", "U", "<C-r>", ns)
 
 -- markdown 相关映射
 vim.api.nvim_create_autocmd("FileType", {

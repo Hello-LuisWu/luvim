@@ -5,22 +5,6 @@ vim.pack.add({
 local get_hex = require('cokeline.hlgroups').get_hl_attr
 local vim = vim
 
--- vim.api.nvim_set_hl(0, "MyCokelineActive", {
--- 	fg = "#dadada",
--- 	bg = "#303030",
--- 	ctermfg = 253,
--- 	ctermbg = 240,
--- 	bold = true,
--- })
-
-
--- vim.api.nvim_set_hl(0, "MyCokelineInactive", {
--- 	fg = "#8a8a8a",
--- 	bg = "#444444",
--- 	ctermfg = 245,
--- 	ctermbg = 240,
--- })
-
 -- ------------------------------------------------------------
 -- 2. 加载插件
 -- ------------------------------------------------------------

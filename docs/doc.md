@@ -10,6 +10,7 @@
 
 1. [packer.nvim](https://github.com/wbthomason/packer.nvim)
 2. [lazy.nvim](https://github.com/folke/lazy.nvim)
+3. [vim.pack](https://neovim.io/doc/user/pack)
 
 ## 插件/主题
 

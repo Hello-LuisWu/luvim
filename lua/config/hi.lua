@@ -1,14 +1,10 @@
 local vim  = vim
 local hl = vim.api.nvim_set_hl
 
--- ============================================================================
--- onedark 风格高亮配置（Neovim Lua）
--- ============================================================================
-
 -- ----------------------------------------------------------------------------
 -- 基础界面与光标
 -- ----------------------------------------------------------------------------
-hl(0, "Normal", { fg = vim.g.cls_gui.gray70, bg = vim.g.cls_gui.black, ctermfg = vim.g.cls_cterm.gray70, ctermbg = vim.g.cls_cterm.black, }) -- 普通文本 
+hl(0, "Normal", { fg = vim.g.cls_gui.white, bg = vim.g.cls_gui.black, ctermfg = vim.g.cls_cterm.gray70, ctermbg = vim.g.cls_cterm.black, }) -- 普通文本 
 hl(0, "Cursor", { fg = vim.g.cls_gui.gray_darker, bg = vim.g.cls_gui.white, ctermfg = vim.g.cls_cterm.gray_darker, ctermbg = vim.g.cls_cterm.white, }) -- 光标下的字符 
 hl(0, "lCursor", { fg = vim.g.cls_gui.gray_darker, bg = vim.g.cls_gui.white, ctermfg = vim.g.cls_cterm.gray_darker, ctermbg = vim.g.cls_cterm.white, }) -- 语言映射时光标下的字符 
 hl(0, "CursorIM", { fg = vim.g.cls_gui.gray_darker, bg = vim.g.cls_gui.white, ctermfg = vim.g.cls_cterm.gray_darker, ctermbg = vim.g.cls_cterm.white, }) -- IME 模式下的光标 
@@ -94,8 +90,8 @@ hl(0, "StatusLineTermNC", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_dar
 hl(0, "VertSplit", { fg = vim.g.cls_gui.gray_dark, bg = "NONE", ctermfg = vim.g.cls_cterm.gray_dark, ctermbg = "NONE", })                      -- 垂直分割窗口的分隔列（旧名）
 hl(0, "WinSeparator", { fg = vim.g.cls_gui.gray_dark, bg = "NONE", ctermfg = vim.g.cls_cterm.gray_dark, ctermbg = "NONE", })                   -- 窗口分隔符（Neovim 新名）
 hl(0, "TabLineFill", { fg = vim.g.cls_gui.gray90, bg = vim.g.cls_gui.black, ctermfg = vim.g.cls_cterm.gray90, ctermbg = vim.g.cls_cterm.gray10, bold = true, })       -- 标签页行：没有标签的地方
-hl(0, "TabLine", { fg = vim.g.cls_gui.gray0, bg = vim.g.cls_gui.gray40, ctermfg = vim.g.cls_cterm.gray50, ctermbg = vim.g.cls_cterm.gray20, })                        -- 标签页行：非活动标签页标签
-hl(0, "TabLineSel", { fg = vim.g.cls_gui.black, bg = vim.g.cls_gui.gray70, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.link, bold = true, })     -- 标签页行：活动标签页标签
+hl(0, "TabLine", { fg = vim.g.cls_gui.gray60, bg = vim.g.cls_gui.gray30, ctermfg = vim.g.cls_cterm.gray50, ctermbg = vim.g.cls_cterm.gray20, })                        -- 标签页行：非活动标签页标签
+hl(0, "TabLineSel", { fg = vim.g.cls_gui.black, bg = vim.g.cls_gui.gray65, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.link, bold = true, })     -- 标签页行：活动标签页标签
 hl(0, "TabPanel", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_dark, ctermfg = vim.g.cls_cterm.gray, ctermbg = vim.g.cls_cterm.gray_dark, })                    -- TabPanel：非活动标签页标签
 hl(0, "TabPanelFill", { fg = vim.g.cls_gui.gray, bg = vim.g.cls_gui.gray_darker, ctermfg = vim.g.cls_cterm.gray, ctermbg = vim.g.cls_cterm.gray_darker, })                -- TabPanel：没有标签的地方
 hl(0, "TabPanelSel", { fg = vim.g.cls_gui.white, bg = vim.g.cls_gui.gray_dark, ctermfg = vim.g.cls_cterm.white, ctermbg = vim.g.cls_cterm.gray_dark, bold = true, })    -- TabPanel：活动标签页标签

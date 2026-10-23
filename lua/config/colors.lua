@@ -6,7 +6,7 @@ vim.g.cls_gui = ({
 	gray_dark   = "#3e4452", -- 非活动元素
 	gray        = "#5c6370", -- 注释/非活动文本
 	gray_light  = "#7f848e", -- 弱化文本
-	white       = "#f1f0f7", -- 主前景色
+	white       = "#e5e3ef", -- 主前景色
 
 	-- 灰度值
 	gray0       = "#000000",

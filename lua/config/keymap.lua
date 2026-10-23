@@ -13,7 +13,7 @@ local ns = { noremap = true, silent = true }
 local nsf = { noremap = true, silent = false }
 
 -- 基础键位
-map("i", "jj", "<C-[>", ns)
+map("i", "jj", "<ESC>", ns)
 map("i", "<C-k>", "<C-[>O", ns)
 map("i", "<C-j>", "<C-[>o", ns)
 map("n", "<Tab>", ":", nsf)
@@ -23,13 +23,14 @@ map("n", "+", "<C-a>", nsf)
 map("n", "<BS>", ":set hlsearch!<CR>", ns)
 map("n", "<leader><CR>", ":set wrap!<CR>", { desc = "换行按钮", noremap = true, silent = true })
 map("n", "U", "<C-r>", ns)
+map("n", "<leader>pv", vim.cmd.Ex)
 
 map("n", "<C-t>", function()
-    vim.cmd("botright split | terminal")
-    vim.cmd("resize 10")
-    vim.cmd("startinsert")
+	vim.cmd("botright split | terminal")
+	vim.cmd("resize 10")
+	vim.cmd("startinsert")
 end, {
-    desc = "Open terminal",
+	desc = "Open terminal",
 })
 
 map({ "n", "v" }, "gF", "gg=G", { desc = "自动缩进", noremap = true, silent = true })
@@ -58,14 +59,14 @@ map("n", "tt", "<Cmd>tabnext<CR>", { noremap = true, desc = "下一个标签页"
 map("n", "TT", "<Cmd>tabprevious<CR>", { noremap = true, desc = "上一个标签页" })
 
 -- Buffer 管理
-map("n", "<leader>bn", ":bnext<CR>", { noremap = true, desc = "切换到下一个 Buffer" })
-map("n", "<leader>bp", ":bprevious<CR>", { noremap = true, desc = "切换到上一个 Buffer" })
-map("n", "<leader>bf", ":bfirst<CR>", { noremap = true, desc = "切换到第一个 Buffer" })
-map("n", "<leader>bl", ":blast<CR>", { noremap = true, desc = "切换到最后一个 Buffer" })
-map("n", "<leader>bd", ":bdelete<CR>", { noremap = true, desc = "删除当前 Buffer" })
-map("n", "<leader>bw", ":bwipeout<CR>", { noremap = true, desc = "完全删除当前 Buffer" })
-map("n", "<leader>bD", ":bdelete!<CR>", { noremap = true, desc = "强制删除当前 Buffer" })
-map("n", "<leader>bW", ":bwipeout!<CR>", { noremap = true, desc = "强制完全删除当前 Buffer" })
+map("n", "<leader>bn", "<Cmd>bnext<CR>", { noremap = true, desc = "切换到下一个 Buffer" })
+map("n", "<leader>bp", "<Cmd>bprevious<CR>", { noremap = true, desc = "切换到上一个 Buffer" })
+map("n", "<leader>bf", "<Cmd>bfirst<CR>", { noremap = true, desc = "切换到第一个 Buffer" })
+map("n", "<leader>bl", "<Cmd>blast<CR>", { noremap = true, desc = "切换到最后一个 Buffer" })
+map("n", "<leader>bd", "<Cmd>bdelete<CR>", { noremap = true, desc = "删除当前 Buffer" })
+map("n", "<leader>bw", "<Cmd>bwipeout<CR>", { noremap = true, desc = "完全删除当前 Buffer" })
+map("n", "<leader>bD", "<Cmd>bdelete!<CR>", { noremap = true, desc = "强制删除当前 Buffer" })
+map("n", "<leader>bW", "<Cmd>bwipeout!<CR>", { noremap = true, desc = "强制完全删除当前 Buffer" })
 
 -- 5. 快速跳转
 map("n", "<C-f>", "<C-f>zz", ns) -- 向下翻页并居中
@@ -78,46 +79,46 @@ map({ "v", "x" }, "<C-j>", ":m '>+1<CR>gv=gv", ns)
 map({ "v", "x" }, "<C-k>", ":m '<-2<CR>gv=gv", ns)
 -- 解决 cmdheight = 0, Visual 模式下 C-h/j/k/l 移动 3 行以上代码失败的问题
 require("vim._core.ui2").enable({
-    enable = true,
-    msg = { -- 与消息模块（message module）相关的配置选项。
+	enable = true,
+	msg = { -- 与消息模块（message module）相关的配置选项。
 
-        ---@type 'cmd'|'msg'
-        ---默认消息显示目标：
-        ---'cmd' 表示显示在命令行区域；
-        ---'msg' 表示显示在独立的临时消息窗口中。
-        targets = 'cmd', -- 默认消息显示位置，当前设置为命令行区域。
+		---@type 'cmd'|'msg'
+		---默认消息显示目标：
+		---'cmd' 表示显示在命令行区域；
+		---'msg' 表示显示在独立的临时消息窗口中。
+		targets = 'cmd', -- 默认消息显示位置，当前设置为命令行区域。
 
-        ---@type string|table<string, 'cmd'|'msg'|'pager'>
-        ---默认消息目标，或者通过 table 根据消息类型和触发条件映射不同显示目标。
-        ---例如：
-        -- {
-        --   search_count = 'msg',
-        --   aconfirm = 'msg',
-        -- },
-        ---可以让不同类型消息显示在不同位置。
+		---@type string|table<string, 'cmd'|'msg'|'pager'>
+		---默认消息目标，或者通过 table 根据消息类型和触发条件映射不同显示目标。
+		---例如：
+		-- {
+		--   search_count = 'msg',
+		--   aconfirm = 'msg',
+		-- },
+		---可以让不同类型消息显示在不同位置。
 
-        cmd = {          -- 与命令行窗口（cmdline window）中的消息相关的配置。
+		cmd = { -- 与命令行窗口（cmdline window）中的消息相关的配置。
 
-            height = 0.5 -- 命令行区域展开显示消息时的最大高度，占编辑器高度的 50%。
-        },
+			height = 0.5 -- 命令行区域展开显示消息时的最大高度，占编辑器高度的 50%。
+		},
 
-        dialog = {        -- 与对话框窗口（dialog window）相关的配置。
+		dialog = { -- 与对话框窗口（dialog window）相关的配置。
 
-            height = 0.5, -- 对话框窗口的最大高度，占编辑器高度的 50%。
-        },
+			height = 0.5, -- 对话框窗口的最大高度，占编辑器高度的 50%。
+		},
 
-        msg = {             -- 与消息窗口（message window）相关的配置。
+		msg = {    -- 与消息窗口（message window）相关的配置。
 
-            height = 0.5,   -- 消息窗口最大高度，占编辑器高度的 50%。
+			height = 0.5, -- 消息窗口最大高度，占编辑器高度的 50%。
 
-            timeout = 4000, -- 消息显示时间，单位为毫秒（4000ms = 4秒）。
-        },
+			timeout = 4000, -- 消息显示时间，单位为毫秒（4000ms = 4秒）。
+		},
 
-        pager = {       -- 与分页消息窗口（pager window）相关的配置。
+		pager = { -- 与分页消息窗口（pager window）相关的配置。
 
-            height = 1, -- 分页窗口最大高度，占编辑器高度的 100%。
-        },
-    },
+			height = 1, -- 分页窗口最大高度，占编辑器高度的 100%。
+		},
+	},
 })
 
 map("v", "<", "<gv", ns)
@@ -145,41 +146,41 @@ map({ "i" }, "<C-d>", "<C-[>yypA", ns)
 map({ "n" }, "<C-d>", "<C-[>yyp", { desc = "再制", noremap = true, silent = true })
 
 map("n", "<leader>dh", function()
-    local path = vim.fn.expand("%:p")
-    local home = vim.fn.expand("~")
-    path = path:gsub("^" .. home, "~")
-    vim.fn.setreg("+", path)
+	local path = vim.fn.expand("%:p")
+	local home = vim.fn.expand("~")
+	path = path:gsub("^" .. home, "~")
+	vim.fn.setreg("+", path)
 end, { desc = "复制家目录相对路径" })
 
 -- 复制当前文件相对路径
 map("n", "<leader>dP", function()
-    vim.fn.setreg("+", vim.fn.expand("%"))
+	vim.fn.setreg("+", vim.fn.expand("%"))
 end, { desc = "复制文件相对路径" })
 
 map("n", "<leader>dp", function()
-    vim.fn.setreg("+", vim.fn.expand("%:p"))
+	vim.fn.setreg("+", vim.fn.expand("%:p"))
 end, { desc = "复制文件路径" })
 
 map("n", "<leader>dw", function()
-    vim.cmd("pwd")
+	vim.cmd("pwd")
 end, { desc = "打印当前工作目录" })
 
 map("n", "<leader>dW", function()
-    local cwd = vim.fn.getcwd()
-    local home = vim.fn.expand("~")
-    if cwd:sub(1, #home) == home then
-        cwd = "~" .. cwd:sub(#home + 1)
-    end
-    print(cwd)
+	local cwd = vim.fn.getcwd()
+	local home = vim.fn.expand("~")
+	if cwd:sub(1, #home) == home then
+		cwd = "~" .. cwd:sub(#home + 1)
+	end
+	print(cwd)
 end, { desc = "打印当前工作目录" })
 
 map("n", "<leader>dn", function()
-    vim.fn.setreg("+", vim.fn.expand("%:t"))
+	vim.fn.setreg("+", vim.fn.expand("%:t"))
 end, { desc = "复制文件名" })
 
 map("n", "<leader>dd", function()
-    vim.cmd("cd " .. vim.fn.expand("%:p:h"))
-    vim.cmd("pwd")
+	vim.cmd("cd " .. vim.fn.expand("%:p:h"))
+	vim.cmd("pwd")
 end, { desc = "切换文件目录为工作目录" })
 
 -- 在 normal 模式配置快捷键
@@ -195,62 +196,62 @@ map('v', '<leader>hh', '"hy:s/<C-r>h//<left>', { desc = "全局替换全部选�
 map('v', '<Leader>hH', '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "全局替换全部选中文本（带确认）", noremap = true })
 
 map('n', '<Leader>hw', [[:let @/ = '\<'.expand('<cword>').'\>'<bar>set hlsearch<CR>]],
-    { desc = "查找高亮当前单词", noremap = true })
+	{ desc = "查找高亮当前单词", noremap = true })
 
 local function show_date()
-    -- 中文星期映射表
-    local weekday_map = { "日", "一", "二", "三", "四", "五", "六" }
+	-- 中文星期映射表
+	local weekday_map = { "日", "一", "二", "三", "四", "五", "六" }
 
-    -- 时钟 Emoji 表（0~23 点）
-    local clock_emoji = {
-        -- 整点（0-11）
-        "🕛", "🕐", "🕑", "🕒", "🕓", "🕔",
-        "🕕", "🕖", "🕗", "🕘", "🕙", "🕚",
-        -- 半点（0.5-11.5）
-        "🕧", "🕜", "🕝", "🕞", "🕟", "🕠",
-        "🕡", "🕢", "🕣", "🕤", "🕥", "🕦"
-    }
+	-- 时钟 Emoji 表（0~23 点）
+	local clock_emoji = {
+		-- 整点（0-11）
+		"🕛", "🕐", "🕑", "🕒", "🕓", "🕔",
+		"🕕", "🕖", "🕗", "🕘", "🕙", "🕚",
+		-- 半点（0.5-11.5）
+		"🕧", "🕜", "🕝", "🕞", "🕟", "🕠",
+		"🕡", "🕢", "🕣", "🕤", "🕥", "🕦"
+	}
 
-    -- 十二时辰映射表
-    local shichen_map = {
-        "子", "丑", "寅", "卯", "辰", "巳",
-        "午", "未", "申", "酉", "戌", "亥"
-    }
+	-- 十二时辰映射表
+	local shichen_map = {
+		"子", "丑", "寅", "卯", "辰", "巳",
+		"午", "未", "申", "酉", "戌", "亥"
+	}
 
-    local time = os.date("*t")
-    local hour = time.hour
+	local time = os.date("*t")
+	local hour = time.hour
 
-    local min = time.min
+	local min = time.min
 
-    -- 计算时辰
-    local shichen_index = math.floor((hour + 1) % 24 / 2) + 1
-    local shichen = shichen_map[shichen_index]
+	-- 计算时辰
+	local shichen_index = math.floor((hour + 1) % 24 / 2) + 1
+	local shichen = shichen_map[shichen_index]
 
-    -- 判断整点 or 半点
-    local is_half = min >= 30 and 1 or 0
-    -- 计算 emoji 索引：0点开始，整点在前（0~11），半点加上12
-    local emoji_index = ((hour % 12) + (is_half * 12)) + 1
-    local emoji = clock_emoji[emoji_index]
+	-- 判断整点 or 半点
+	local is_half = min >= 30 and 1 or 0
+	-- 计算 emoji 索引：0点开始，整点在前（0~11），半点加上12
+	local emoji_index = ((hour % 12) + (is_half * 12)) + 1
+	local emoji = clock_emoji[emoji_index]
 
-    return string.format(
-    -- "%d/%d %s%s时 周%s",
-        "%d/%d %s:%s 周%s",
-        -- time.year,
-        time.month,
-        time.day,
-        time.hour,
-        time.min,
-        -- emoji,
-        -- shichen,
-        weekday_map[time.wday]
-    )
+	return string.format(
+	-- "%d/%d %s%s时 周%s",
+		"%d/%d %s:%s 周%s",
+		-- time.year,
+		time.month,
+		time.day,
+		time.hour,
+		time.min,
+		-- emoji,
+		-- shichen,
+		weekday_map[time.wday]
+	)
 end
 
 
 map("n", "<leader><Bar>", function()
-        print(" " .. show_date())
-    end,
-    { desc = "显示日期", noremap = true }
+		print(" " .. show_date())
+	end,
+	{ desc = "显示日期", noremap = true }
 )
 
 
@@ -264,31 +265,31 @@ map({ "n", "v", "x" }, "~", "<Nop>", { desc = "no", noremap = true, silent = tru
 
 map("n", "<leader>ue", ":set fileencoding=UTF-8<CR>", { desc = "编码转为 UTF-8", noremap = true, silent = true })
 map('n', '<leader>uE', function()
-    local encode = vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.o.encoding
-    print("文件编码: " .. encode)
+	local encode = vim.bo.fileencoding ~= "" and vim.bo.fileencoding or vim.o.encoding
+	print("文件编码: " .. encode)
 end, { desc = "显示文件编码" })
 
 vim.keymap.set('n', '<leader>uI', function()
-    -- 获取缩进宽度
-    local sw = vim.bo.shiftwidth
-    if sw == 0 then sw = vim.bo.tabstop end
-    -- 判断是空格还是 Tab
-    local method = vim.bo.expandtab and "Spaces" or "Tabs"
-    print(string.format("缩进宽度: %d (%s)", sw, method))
+	-- 获取缩进宽度
+	local sw = vim.bo.shiftwidth
+	if sw == 0 then sw = vim.bo.tabstop end
+	-- 判断是空格还是 Tab
+	local method = vim.bo.expandtab and "Spaces" or "Tabs"
+	print(string.format("缩进宽度: %d (%s)", sw, method))
 end, { desc = "显示缩进宽度" })
 vim.keymap.set("n", "<leader>ui", function()
-    local size = vim.bo.shiftwidth == 2 and 4 or 2
-    vim.bo.shiftwidth = size
-    vim.bo.tabstop = size
-    vim.bo.softtabstop = size
-    print(">" .. size)
+	local size = vim.bo.shiftwidth == 2 and 4 or 2
+	vim.bo.shiftwidth = size
+	vim.bo.tabstop = size
+	vim.bo.softtabstop = size
+	print(">" .. size)
 end, {
-    desc = "临时切换缩进 2/4"
+	desc = "临时切换缩进 2/4"
 })
 
 map("n", "<leader>um", ":set fileformat=unix<CR>", { desc = "格式转为 unix", noremap = true, silent = true })
 map('n', '<Leader>uM', function()
-    print("文件格式: " .. vim.bo.fileformat) -- vim.bo 表示当前缓冲区的选项
+	print("文件格式: " .. vim.bo.fileformat) -- vim.bo 表示当前缓冲区的选项
 end, { desc = '显示文件格式' })
 
 -- 窗口间的跳转
@@ -311,11 +312,13 @@ map("n", "<leader>wS", "<cmd>split<CR>", { desc = "水平分屏", noremap = true
 map("n", "<leader>wd", "<C-w>=", { desc = "窗口等宽高", noremap = true, silent = true })
 map("n", "<leader>wn", "<C-w>n", { desc = "新建空白窗口", noremap = true, silent = true })
 map("n", "<leader>wp", "<cmd>cd %:p:h<CR><cmd>echo getcwd()<CR>", { desc = "进入当前文件所在目录", noremap = true, silent = true })
-map("n", "<leader>wt", ":lua ToggleTransparency()<CR>", {noremap = true, desc = "窗口背景透明"})
+map("n", "<leader>wt", ":lua ToggleTransparency()<CR>", { noremap = true, desc = "窗口背景透明" })
 function ToggleTransparency()
-    local hl = vim.api.nvim_set_hl
-    hl(0, "Normal", { fg = "#aaffbb", bg = "NONE" })
-    hl(0, "NormalNC", { bg = "NONE" })
+	local hl = vim.api.nvim_set_hl
+	hl(0, "Normal", { bg = "NONE" })
+	hl(0, "NormalNC", { bg = "NONE" })
+	hl(0, "TabLineFill", { bg = "NONE" })
+	hl(0, "StatusLine", { bg = "NONE" })
 end
 
 -- 调整窗口大小（Shift + 方向键）
@@ -326,40 +329,40 @@ map("n", "<S-down>", ":resize +5<CR>", { desc = "向下调整窗口高度", nore
 
 -- markdown 相关映射
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        local map = vim.keymap.set
-        local opt = { noremap = true }
-        map("i", "\\\\", "<ESC>/<++><CR>:nohls<CR>c4l", { desc = '清除标记', noremap = true, silent = true }) -- jkej
-        -- map("i", "---", "<Enter>---<Enter><br/><Enter><Enter>", opt) -- 分割线
-        map("i", "BB", "**** <++><Esc>6hi", opt) -- 加粗
-        map("i", "DD", "****** <++><Esc>7hi", opt) -- 加粗并斜体
-        map("i", "II", "** <++><Esc>F*i", opt) -- 斜体
-        map("i", "SS", "~~~~ <++><esc>6hi", opt) -- 删除线
-        map("i", "UU", "<u></u> <++><Esc>2F<i", opt) -- 下划线
-         -- 展开列表
-        map(
-            "i",
-            "LS",
-            "<details><Enter><summary></summary><Enter><++><Enter></details><Enter><Enter><++><Esc>4k$F<i",
-            opt
-        )
-        -- 格式块
-        map(
-            "i",
-            "~~",
-            "~~~<Enter><Enter>~~~<Enter><++><Esc>2kA",
-            opt
-        )
-        -- 添加图片
-        -- map("i", "<C-i>", "![](<++>) <++><Esc>F[a", opt)
-        map("i", "<C-i>", "![Image](<++>) <++><Esc>FI", opt)
-        -- 添加链接
-        map("i", "<C-a>", "[](<++>) <++><Esc>F[a", opt)
+	pattern = "markdown",
+	callback = function()
+		local map = vim.keymap.set
+		local opt = { noremap = true }
+		map("i", "\\\\", "<ESC>/<++><CR>:nohls<CR>c4l", { desc = '清除标记', noremap = true, silent = true }) -- jkej
+		-- map("i", "---", "<Enter>---<Enter><br/><Enter><Enter>", opt) -- 分割线
+		map("i", "BB", "**** <++><Esc>6hi", opt) -- 加粗
+		map("i", "DD", "****** <++><Esc>7hi", opt) -- 加粗并斜体
+		map("i", "II", "** <++><Esc>F*i", opt) -- 斜体
+		map("i", "SS", "~~~~ <++><esc>6hi", opt) -- 删除线
+		map("i", "UU", "<u></u> <++><Esc>2F<i", opt) -- 下划线
+		-- 展开列表
+		map(
+			"i",
+			"LS",
+			"<details><Enter><summary></summary><Enter><++><Enter></details><Enter><Enter><++><Esc>4k$F<i",
+			opt
+		)
+		-- 格式块
+		map(
+			"i",
+			"~~",
+			"~~~<Enter><Enter>~~~<Enter><++><Esc>2kA",
+			opt
+		)
+		-- 添加图片
+		-- map("i", "<C-i>", "![](<++>) <++><Esc>F[a", opt)
+		map("i", "<C-i>", "![Image](<++>) <++><Esc>FI", opt)
+		-- 添加链接
+		map("i", "<C-a>", "[](<++>) <++><Esc>F[a", opt)
 
-        -- 2-4级标题
-        map("i", "@@", "##<Space>", opt)
-        map("i", "##", "###<Space>", opt)
-        map("i", "$$", "####<Space>", opt)
-    end,
+		-- 2-4级标题
+		map("i", "@@", "##<Space>", opt)
+		map("i", "##", "###<Space>", opt)
+		map("i", "$$", "####<Space>", opt)
+	end,
 })

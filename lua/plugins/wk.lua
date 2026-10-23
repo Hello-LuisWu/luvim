@@ -65,7 +65,7 @@ wk.setup({
 			winblend = 0, -- 弹窗背景0-100的不透明度，
 		},
 	},
-	
+
 	-- 在哪些模式下起作用
 	-- n Normal 普通模式
 	-- i Insert 插入模式
@@ -82,29 +82,30 @@ wk.setup({
 wk.add({
 	{
 		mode = { "n", "v" },
-		{ "<leader>a",     name = "文本对齐",       icon = "󱇂 " },
-		{ "<leader>A",     name = "预览对齐",       icon = "󱇂 " },
-		{ "<leader>\\",    name = "块注释",         icon = "󰆈" },
-		{ "<leader>c",     group = "注释",          icon = "󰆈 " },
-		{ "<leader>cj",    name = "向下注释",       icon = "󰆈 " },
-		{ "<leader>ck",    name = "向上注释",       icon = "󰆈 " },
-		{ "<leader>cl",    name = "行尾注释",       icon = "󰆈 " },
-		{ "<leader>ci",    name = "注释签名",       icon = "󰆈 " },
-		{ "<leader>cu",    name = "更新签名",       icon = "󰆈 " },
-		{ "<leader>f",     group = "查找",          icon = "󰮗 " }, -- group
-		{ "<leader>w",     group = "窗口",          icon = " " },
-		{ "<leader><tab>", group = "tab",           icon = " " },
-		{ "<leader>g",     group = "git",           icon = " " },
-		{ "<leader>b",     group = "buffer",        icon = " " },
-		{ "<leader>e",     name = "文件浏览",       icon = " " },
-		{ "<leader>k",     group = "添加括号",      icon = " ",   },
-		{ "<leader><CR>",  name = "换行开关",       icon = "󰌑 " },
-		{ "<leader>o",     group = "其他键位",      icon = " " },
-		{ "<leader>d",     group = "打印信息",      icon = " " },
-		{ "<leader>m",     group = "Markdown",      icon = " " },
-		{ "<leader>h",     group = "搜索与替换",    icon = " " },
-		{ "<leader>x",     group = "诊断信息",      icon = "󰨰 " },
-		{ "<leader>u",     group = "文件设置/显示", icon = " " },
+		{ "<leader>a", name = "文本对齐", icon = "󱇂 " },
+		{ "<leader>A", name = "预览对齐", icon = "󱇂 " },
+		{ "<leader>\\", name = "块注释", icon = "󰆈" },
+		{ "<leader>c", group = "注释", icon = "󰆈 " },
+		{ "<leader>cj", name = "向下注释", icon = "󰆈 " },
+		{ "<leader>ck", name = "向上注释", icon = "󰆈 " },
+		{ "<leader>cl", name = "行尾注释", icon = "󰆈 " },
+		{ "<leader>ci", name = "注释签名", icon = "󰆈 " },
+		{ "<leader>cu", name = "更新签名", icon = "󰆈 " },
+		{ "<leader>f", group = "查找", icon = "󰮗 " },
+		{ "<leader>w", group = "窗口", icon = " " },
+		{ "<leader><tab>", group = "tab", icon = " " },
+		{ "<leader>g", group = "git", icon = " " },
+		{ "<leader>b", group = "buffer", icon = " " },
+		{ "<leader>e", name = "文件浏览", icon = " " },
+		{ "<leader>k", group = "添加括号", icon = "󰘦 " },
+		{ "<leader><CR>", name = "换行开关", icon = "󰌑 " },
+		{ "<leader>o", group = "其他键位", icon = " " },
+		{ "<leader>d", group = "打印信息", icon = " " },
+		{ "<leader>m", group = "Markdown", icon = " " },
+		{ "<leader>h", group = "搜索与替换", icon = " " },
+		{ "<leader>x", group = "诊断信息", icon = "󰨰 " },
+		{ "<leader>u", group = "文件设置/显示", icon = " " },
+		{ "<leader><Bar>", group = "显示日期", icon = "󰔟 " },
 		--
 	},
 	{

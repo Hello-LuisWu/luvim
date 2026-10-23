@@ -1,20 +1,20 @@
-# 目录
-
-- [nvim-pack-config](#nvim-pack-config)
-  - [所需外部依赖软件](#所需外部依赖软件)
-  - [install neovim](#install-neovim)
-    - [macOS](#macos)
-    - [Arch](#arch)
-    - [Ubuntu](#ubuntu)
-    - [Windows](#windows)
-  - [清除旧配置（重装建议）](#清除旧配置（重装建议）)
-    - [Unix 备份旧配置](#unix-备份旧配置)
-    - [Windows 备份旧配置](#windows-备份旧配置)
-  - [克隆配置文件](#克隆配置文件)
-  - [Nvim config files](#nvim-config-files)
-  - [启动与首次初始化](#启动与首次初始化)
-
 # nvim-pack-config
+
+1. [所需外部依赖软件](#所需外部依赖软件)
+2. [install neovim](#install-neovim)
+    1. [macOS](#macos)
+    2. [Arch](#arch)
+    3. [Ubuntu](#ubuntu)
+    4. [Windows](#windows)
+    5. [额外知识补充](#额外知识补充)
+3. [清除旧配置（重装建议）](#清除旧配置（重装建议）)
+    1. [Unix 备份旧配置](#unix-备份旧配置)
+    2. [Windows 备份旧配置](#windows-备份旧配置)
+4. [克隆配置文件](#克隆配置文件)
+5. [Nvim config files](#nvim-config-files)
+6. [启动与首次初始化](#启动与首次初始化)
+
+
 
 **高性能·模块化·开箱即用**:基于 neovim pack 原生插件管理器, 适用于开发者的 Neovim 配置，支持 LSP、自动补全、代码格式化、语法高亮、美化 UI 等功能。
 
@@ -30,7 +30,7 @@
 - 🔖 [ripgrep (rg)](https://github.com/BurntSushi/ripgrep):  被 fzf-lua 用于全局内容搜索。
 - 🌳 [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md): 生成、调试和管理语法解析器。
 - 🗜️ [gcc](https://github.com/Hello-LuisWu/DataBank/blob/main/01-%E8%AE%A1%E7%AE%97%E6%9C%BA/tools/gcc/gcc-install.md)：编译部分 C 的插件（如 Treesitter 语法解析器编译依赖）
-- 🛠️ [cl](https://visualstudio.microsoft.com/zh-hans/downloads/?utm_source=chatgpt.com#remote-tools-for-visual-studio-2026): Windows 下编译 C 的插件
+    - 🛠️ [cl](https://visualstudio.microsoft.com/zh-hans/downloads/?utm_source=chatgpt.com#remote-tools-for-visual-studio-2026): Windows 下编译 C 的插件
 - 🔩 [make](https://www.gnu.org/software/make/): 某些插件需要构建步骤
 - 🧵 [Node](https://nodejs.org/zh-cn/download): 安装 LSP/格式化/markdown 等与 js 相关的工具
 - 🌐 [curl](https://curl.se/download.html): 用于 blink.cmp 等插件下载/请求资源
@@ -38,18 +38,6 @@
     - Linux: [xclip](https://github.com/astrand/xclip) (x11) or  [wl-clipboard](https://github.com/bugaevc/wl-clipboard) (Wayland)
     - Windows: 没有要求
 - 🌀 [Nerd Font](https://www.nerdfonts.com/#home): 有图标的编程字体，用于美化界面。
-
-额外知识补充:
-
-Neovim 内置 Tree-sitter 负责“运行/调用已经存在的语法解析器（Parser）”；tree-sitter-cli 主要负责“生成、编译、测试和调试语法解析器”。
-
-查看有哪些 Parser:
-
-- 查看当前已安装的 Parser: `lua print(vim.inspect(vim.api.nvim_get_runtime_file("parser/*.so", true)))`
-    - 简洁查看: `:lua for _, v in ipairs(vim.api.nvim_get_runtime_file("parser/*.so", true)) do print(v) end`
-- 查看当前文件使用的 Parser: `:InspectTree`
-- 查看 Parser 是否正常: `:checkhealth vim.treesitter`
-
 
 ## install neovim
 
@@ -79,6 +67,21 @@ sudo snap install nvim --classic
 
 ### Windows
 
+直接下载安装软件:
+
+- [x86_64](https://github.com/neovim/neovim/releases/latest/download/nvim-win64.msi)
+- [arm64](https://github.com/neovim/neovim/releases/latest/download/nvim-win-arm64.msi)
+
+### 额外知识补充
+
+Neovim 内置 Tree-sitter 负责“运行/调用已经存在的语法解析器（Parser）”；tree-sitter-cli 主要负责“生成、编译、测试和调试语法解析器”。
+
+查看有哪些 Parser:
+
+- 查看当前已安装的 Parser: `lua print(vim.inspect(vim.api.nvim_get_runtime_file("parser/*.so", true)))`
+    - 简洁查看: `:lua for _, v in ipairs(vim.api.nvim_get_runtime_file("parser/*.so", true)) do print(v) end`
+- 查看当前文件使用的 Parser: `:InspectTree`
+- 查看 Parser 是否正常: `:checkhealth vim.treesitter`
 
 
 ## 清除旧配置（重装建议）
@@ -185,7 +188,12 @@ nvim
 
 如果报错，请根据提示排除，检查网络问题，或手动安装缺失依赖。
 
-> 你可以在这里查看所有的快捷键映射: ⌨️
-[keymaps](./docs/keymaps.md)
+## docs
+
+- 查看所有的快捷键映射: [Keymaps](./docs/keymaps.md)  
+- 查找可能用到的图标: [Icons](./docs/icons.md)
+- macOS 安装 nerdfonts:  [Fonts](./docs/fonts.md)
+- 学习资料 & 插件主题: [Documents](./docs/doc.md)
+
 
 🤓 欢迎提交 [issue](https://github.com/Hello-LuisWu/luvim/issues/new) 或联系作者优化配置：[Luis Wu](https://github.com/Hello-LuisWu) 

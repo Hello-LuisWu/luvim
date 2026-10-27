@@ -6,24 +6,24 @@ local vim = vim
 -- ----------------------------
 
 -- vim.cmd.colorscheme('catppuccin') -- 主题设置
-opt.relativenumber = true         -- 相对行号
-opt.number = true                 -- 显示行号
-opt.helplang = "cn"               -- 帮助文件所使用的语言
-opt.numberwidth = 4               -- 行号宽度设置为4个字符
-opt.termguicolors = true          -- 启用 24 bit 彩色模式
-opt.cursorline = true             -- 高亮光标所在行
-opt.cursorcolumn = false          -- 禁止高亮光标所在列
-opt.signcolumn = "no"             -- 始终显示左侧标记列,行号前面多出一列,用于插件提示
-opt.showmode = true               -- 是否在命令行显示当前模式
-opt.title = true                  -- 在终端标题栏显示当前文件名
-opt.wrap = false                  -- 不自动换行, 用 <leader>enter 切换
-opt.linebreak = true              -- 不在单词内部换行(需开启自动换行 ),
-opt.breakindent = true            -- 换行后的行保持缩进
-opt.scrolloff = 3                 -- 上下滚动时光标离窗口上下边界 3 行
-opt.sidescrolloff = 8             -- 左右移动时，光标距离窗口边缘保持 8 个字符
+opt.relativenumber = true -- 相对行号
+opt.number = true -- 显示行号
+opt.helplang = "cn" -- 帮助文件所使用的语言
+opt.numberwidth = 4 -- 行号宽度设置为4个字符
+opt.termguicolors = true -- 启用 24 bit 彩色模式
+opt.cursorline = true -- 高亮光标所在行
+opt.cursorcolumn = false -- 禁止高亮光标所在列
+opt.signcolumn = "yes" -- 始终显示左侧标记列,行号前面多出一列,用于插件提示
+opt.showmode = true -- 是否在命令行显示当前模式
+opt.title = true -- 在终端标题栏显示当前文件名
+opt.wrap = false -- 不自动换行, 用 <leader>enter 切换
+opt.linebreak = true -- 不在单词内部换行(需开启自动换行 ),
+opt.breakindent = true -- 换行后的行保持缩进
+opt.scrolloff = 3 -- 上下滚动时光标离窗口上下边界 3 行
+opt.sidescrolloff = 8 -- 左右移动时，光标距离窗口边缘保持 8 个字符
 opt.whichwrap = "b,s,<,>,[,],h,l" -- 左右键 h/l 可以跨行移动。
-opt.textwidth = 50
--- opt.colorcolumn = "33,22,11"        -- 右边添加参考线
+opt.textwidth = 80
+opt.colorcolumn = "80" -- 右边添加参考线
 opt.showmatch = true -- 匹配括号高亮
 opt.matchtime = 2 -- 匹配括号高亮持续时间（十分之一秒）
 opt.pumheight = 10 -- 弹出菜单最多显示10行
@@ -58,7 +58,7 @@ opt.listchars = { -- 设置不可见字符的显示方式
 
 -- 控制“Vim UI 中没有实际文本的空白区域、分隔线、折叠区域等”。
 opt.fillchars = {
-	-- stl = "=", -- 状态栏空白处填充, hl: StatusLine
+	stl = "‒", -- 状态栏空白处填充, hl: StatusLine
 	-- stlnc = " ", -- 非当前窗口 statusline 填充, hl: StatusLineNC
 	wbr = "_", -- WinBar 窗口栏填充, hl: WinBar / WinBarNC
 
@@ -92,7 +92,7 @@ opt.fillchars = {
 -- -- 编辑体验
 -- -- ----------------------------
 
--- -- 关于缩进
+-- 关于缩进
 local Itn = 4                                                  -- 缩进宽度
 opt.tabstop = Itn                                              -- 统一控制 Tab、自动缩进以及软 Tab 占几个空格
 opt.shiftwidth = Itn                                           -- >>、<< 以及自动缩进都会按照这个值进行 设为 0 时会取 indent 的值
@@ -100,6 +100,7 @@ opt.softtabstop = Itn                                          -- 插入模式�
 opt.shiftround = true                                          -- 缩进时将缩进量取整到 shiftwidth 的倍数
 opt.expandtab = false                                          -- 使用空格替代 tab , 将 Tab 转换为空格
 opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- 启用基于语法树的缩进（由 nvim-treesitter 提供）
+opt.nrformats:append { 'blank', 'alpha' }                      -- 在默认 nrformats（bin,hex）基础上追加 blank(根据负号前是否有空白判断数字的正负) 和 alpha(字母增减)
 -- opt.autoindent = true                                          -- 自动继承上一行的缩进,与 indentexpr 冲突
 -- opt.cindent = true                                             -- 启用C语言风格缩进, 与 indentexpr 冲突
 -- opt.smartindent = true                                       -- 开启新行时使用智能缩进（如 C 语言风格的代码块）, 与 indentexpr 冲突
@@ -124,6 +125,7 @@ end)
 opt.smoothscroll = true                            -- Neovim 0.10+ 平滑滚动
 opt.autochdir = false                              -- 自动切换当前目录为当前文件所在的目录
 opt.completeopt = "menu,menuone,noselect,noinsert" -- 补全菜单行为：显示菜单，即使只有一个选项，不自动选择
+opt.wildoptions:append { 'fuzzy' }                 -- 启用命令行补全的模糊匹配
 opt.wildmenu = true                                -- 命令行 Tab 补全时使用完整菜单
 opt.wildmode = "longest:full,full"                 -- 命令行补全模式
 opt.virtualedit = "block,onemore"                  -- 光标可以定位到最后一个字的后面
@@ -151,12 +153,13 @@ opt.smartcase = true                      -- 如果包含大写字母，则进�
 opt.inccommand = "split"                  -- 实时预览替换效果（输入 :%s/foo/bar 时）
 opt.grepprg = "rg --vimgrep --smart-case" -- 使用 ripgrep 作为 :grep 的搜索工具, 要安装 ripgrep
 opt.grepformat = "%f:%l:%c:%m"            -- 解析 rg --vimgrep 的输出格式
-opt.path:append({ "**" })                 -- :find xxx  会搜索子目录。
+opt.path:append({ "**" })                 -- :find xxx  会搜索到子目录。
 
 -- -- ----------------------------
 -- -- 文件与缓冲区
 -- -- ----------------------------
 opt.modifiable = true -- 确保缓冲区可修改
+opt.exrc = true       -- 启用项目级配置, 会从当前工作目录向父目录查找配置文件, 如: .nvim.lua 文件
 opt.hidden = true     -- 允许隐藏被修改的缓冲区（切换文件时不强制保存）
 opt.autoread = true   -- 当文件被外部程序修改时自动重新加载
 opt.autowrite = true  -- 在切换缓冲区或执行某些命令时自动保存

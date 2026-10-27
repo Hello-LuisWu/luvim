@@ -331,38 +331,36 @@ map("n", "<S-down>", ":resize +5<CR>", { desc = "向下调整窗口高度", nore
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
 	callback = function()
-		local map = vim.keymap.set
-		local opt = { noremap = true }
 		map("i", "\\\\", "<ESC>/<++><CR>:nohls<CR>c4l", { desc = '清除标记', noremap = true, silent = true }) -- jkej
 		-- map("i", "---", "<Enter>---<Enter><br/><Enter><Enter>", opt) -- 分割线
-		map("i", "BB", "**** <++><Esc>6hi", opt) -- 加粗
-		map("i", "DD", "****** <++><Esc>7hi", opt) -- 加粗并斜体
-		map("i", "II", "** <++><Esc>F*i", opt) -- 斜体
-		map("i", "SS", "~~~~ <++><esc>6hi", opt) -- 删除线
-		map("i", "UU", "<u></u> <++><Esc>2F<i", opt) -- 下划线
+		map("i", "BB", "**** <++><Esc>6hi", ns) -- 加粗
+		map("i", "DD", "****** <++><Esc>7hi", ns) -- 加粗并斜体
+		map("i", "II", "** <++><Esc>F*i", ns) -- 斜体
+		map("i", "SS", "~~~~ <++><esc>6hi", ns) -- 删除线
+		map("i", "UU", "<u></u> <++><Esc>2F<i", ns) -- 下划线
 		-- 展开列表
 		map(
 			"i",
 			"LS",
 			"<details><Enter><summary></summary><Enter><++><Enter></details><Enter><Enter><++><Esc>4k$F<i",
-			opt
+			ns
 		)
 		-- 格式块
 		map(
 			"i",
 			"~~",
 			"~~~<Enter><Enter>~~~<Enter><++><Esc>2kA",
-			opt
+			ns
 		)
 		-- 添加图片
-		-- map("i", "<C-i>", "![](<++>) <++><Esc>F[a", opt)
-		map("i", "<C-i>", "![Image](<++>) <++><Esc>FI", opt)
+		-- map("i", "<C-i>", "![](<++>) <++><Esc>F[a", ns)
+		map("i", "<C-s>", "![Image](<++>) <++><Esc>FI", ns)
 		-- 添加链接
-		map("i", "<C-a>", "[](<++>) <++><Esc>F[a", opt)
+		map("i", "<C-a>", "[](<++>) <++><Esc>F[a", ns)
 
 		-- 2-4级标题
-		map("i", "@@", "##<Space>", opt)
-		map("i", "##", "###<Space>", opt)
-		map("i", "$$", "####<Space>", opt)
+		map("i", "@@", "##<Space>", ns)
+		map("i", "##", "###<Space>", ns)
+		map("i", "$$", "####<Space>", ns)
 	end,
 })

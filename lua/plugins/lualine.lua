@@ -36,14 +36,16 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 		-- 	local index = math.ceil(line_ratio * #chars)
 		-- 	return chars[index]
 		-- end
-
+		local function sep()
+			return [[‒]]
+		end
 		local tm = {}
 		for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command", "inactive" }) do
 			tm[mode] = {}
 			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
-			-- for _, section in ipairs({ "c", "x" }) do
+				-- for _, section in ipairs({ "c", "x" }) do
 				-- tm[mode][section] = { bg = "#1a1a1a", fg = vim.g.cls_gui.link }
-				tm[mode][section] = { bg = vim.g.cls.bg1, fg = vim.g.cls_gui.lightpink }
+				tm[mode][section] = { bg = vim.g.cls_gui.black, fg = vim.g.cls_gui.lightpink }
 			end
 		end
 
@@ -86,6 +88,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 			sections = {
 				lualine_a = {
 					-- 'mode',
+					{
+						sep,
+						padding = 0
+					},
 				},
 				lualine_b = {
 				},
@@ -96,9 +102,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 						color = {
 							-- bg = "NOTE",
 							-- fg = "#E6E6E6",
-							gui = "bold"
+							-- gui = "bold"
 						},
 					},
+
 					{
 						'diagnostics',
 						symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
@@ -115,7 +122,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 				lualine_x = {
 					-- {
 					-- 	'lsp_status',
-					-- 	separator = {  right = "|"}, -- 分隔符
+					-- separator = {  right = "|"}, -- 分隔符
 					-- 	-- padding = 1,
 					-- 	-- icon = '', -- f013
 					-- 	icon = '', -- f013
@@ -143,6 +150,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 					},
 
 					{
+						sep,
+						padding = { right = 0 }
+					},
+					{
 						'encoding',
 						-- padding = { left = 0, right = 1 },
 
@@ -150,6 +161,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 							-- bg = vim.g.cls_gui.link,
 							-- fg = vim.g.cls_gui.black,
 						},
+						-- padding = 0,
+					},
+					{
+						sep,
+						padding = { left = 0 }
 					},
 					{
 						'fileformat',
@@ -162,16 +178,25 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 							unix = 'unix', -- e712
 							dos = 'dos', -- e70f
 							mac = 'mac', -- e711
-						}
+						},
+						padding = { left = 1, right = 0 },
+					},
+					{
+						sep,
+						padding = { left = 1 }
 					},
 					{
 						"filetype",
-						-- padding = { left = 1, right = 0 },
+						padding = { left = 1, right = 0 },
 						icons_enabled = false,
 						-- color = {
 						-- 	bg = vim.g.cls_gui.link,
 						-- 	fg = vim.g.cls_gui.black,
 						-- },
+					},
+					{
+						sep,
+						padding = 1
 					},
 				},
 				lualine_y = {

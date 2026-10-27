@@ -1,5 +1,9 @@
 local vim  = vim
 local hl = vim.api.nvim_set_hl
+local gui = vim.g.cls_gui
+local cterm = vim.g.cls_cterm
+
+
 
 -- ----------------------------------------------------------------------------
 -- 基础界面与光标
@@ -169,60 +173,138 @@ hl(0, "User7", { fg = vim.g.cls_gui.white, bg = "NONE", ctermfg = vim.g.cls_cter
 hl(0, "User8", { fg = vim.g.cls_gui.error, bg = "NONE", ctermfg = vim.g.cls_cterm.error, ctermbg = "NONE", })
 hl(0, "User9", { fg = vim.g.cls_gui.hint, bg = "NONE", ctermfg = vim.g.cls_cterm.hint, ctermbg = "NONE", })
 
--- which-key highlight
--- 弹窗主体
-hl(0, "WhichKeyNormal", {
-    fg = "#d4be98",
-    bg = vim.g.cls_gui.black,
-})
+-- Markdown 标题：一级到六级
 
--- 弹窗边框
-hl(0, "WhichKeyBorder", {
-    fg = "#665c54",
-    bg = vim.g.cls_gui.black,
-})
+-- ============================================================
+-- Markdown Tree-sitter Highlights
+-- Style: OneDark-inspired
+-- Colors: vim.g.cls_gui / vim.g.cls_cterm
+-- ============================================================
 
--- 弹窗标题
-hl(0, "WhichKeyTitle", {
-    fg = vim.g.cls_gui.gray70,
-    bg = vim.g.cls_gui.black,
-	bold = true,
-})
+-- ------------------------------------------------------------
+-- 通用高亮设置函数
+-- 同时配置 GUI 与终端颜色
+-- ------------------------------------------------------------
 
--- 快捷键
-hl(0, "WhichKey", {
-    fg = "#83a598",
-    bg = "NONE",
-    bold = true,
-})
+local function set_hl(group, opts)
+    hl(0, group, opts)
+end
 
--- 快捷键描述
-hl(0, "WhichKeyDesc", {
-    fg = vim.g.cls_gui.gray50,
-    bg = "NONE",
-})
+local function set_color(group, fg, opts)
+    opts = opts or {}
 
--- 分组名称
-hl(0, "WhichKeyGroup", {
-    fg = vim.g.cls_gui.gray50,
-    bg = "NONE",
-    bold = true,
-})
+    if fg then
+        opts.fg = gui[fg]
+        opts.ctermfg = cterm[fg]
+    end
 
--- 快捷键与描述之间的分隔符
-hl(0, "WhichKeySeparator", {
-    fg = "#665c54",
-    bg = "NONE",
-})
+    set_hl(group, opts)
+end
 
--- 插件显示的值，例如寄存器内容
-hl(0, "WhichKeyValue", {
-    fg = "#a89984",
-    bg = "NONE",
-})
+local function set_bg(group, fg, bg, opts)
+    opts = opts or {}
 
--- 图标
-hl(0, "WhichKeyIcon", {
-    fg = vim.g.cls_gui.gray50,
-    bg = "NONE",
-})
+    if fg then
+        opts.fg = gui[fg]
+        opts.ctermfg = cterm[fg]
+    end
+
+    if bg then
+        opts.bg = gui[bg]
+        opts.ctermbg = cterm[bg]
+    end
+
+    set_hl(group, opts)
+end
+
+
+-- ============================================================
+-- 1. 标题
+-- ============================================================
+
+hl(0, "@markup.heading", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true }) -- 通用标题：作为未指定层级时的回退样式
+hl(0, "@markup.heading.1", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true})
+hl(0, "@markup.heading.2", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true})
+hl(0, "@markup.heading.3", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true})
+hl(0, "@markup.heading.4", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true})
+hl(0, "@markup.heading.5", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true})
+hl(0, "@markup.heading.6", { fg = vim.g.cls_gui.link, bg = "NONE", ctermfg = vim.g.cls_cterm.link, ctermbg = "NONE", bold = true})
+-- set_color("@markup.heading", "white", { bold = true })
+-- set_color("@markup.heading.1", "white", { bold = true })
+-- set_color("@markup.heading.2", "white", { bold = true })
+-- set_color("@markup.heading.3", "white", { bold = true })
+-- set_color("@markup.heading.4", "white", { bold = true })
+-- set_color("@markup.heading.5", "white", { bold = true })
+-- set_color("@markup.heading.6", "white", { bold = true })
+
+-- ============================================================
+-- 2. 文本格式
+-- ============================================================
+hl(0, "@markup.strong", { fg = vim.g.cls_gui.white, bg = "NONE", ctermfg = vim.g.cls_cterm.white, ctermbg = "NONE", bold = true}) -- 粗体
+hl(0, "@markup.italic", { fg = vim.g.cls_gui.white, bg = "NONE", ctermfg = vim.g.cls_cterm.white, ctermbg = "NONE", italic = true}) -- 斜体
+hl(0, "@markup.strikethrough", { fg = vim.g.cls_gui.white, bg = "NONE", ctermfg = vim.g.cls_cterm.white, ctermbg = "NONE", strikethrough = true}) -- 删除线
+hl(0, "@markup.underline", { fg = vim.g.cls_gui.white, bg = "NONE", ctermfg = vim.g.cls_cterm.white, ctermbg = "NONE", underline = true}) -- 下划线
+-- set_color("@markup.strong", "white", { bold = true })  -- 粗体
+-- set_color("@markup.italic", "lightblue", { italic = true })  -- 斜体
+-- set_color("@markup.strikethrough", "gray", { strikethrough = true }) 
+-- set_color("@markup.underline", "link", { underline = true }) -- 下划线
+
+-- ============================================================
+-- 3. 行内代码与代码块
+-- ============================================================
+hl(0, "@markup.raw", { fg = vim.g.cls_gui.gray60, ctermfg = vim.g.cls_cterm.gray60, bold = false}) -- 行内原始文本 / 行内代码
+hl(0, "@markup.raw.block", { fg = vim.g.cls_gui.link, ctermfg = vim.g.cls_cterm.link, bold = false})  -- 围栏代码块
+hl(0, "@markup.math", { fg = vim.g.cls_gui.lightpurple, ctermfg = vim.g.cls_cterm.lightpurple, italic = true})  -- 数学公式
+
+-- set_bg("@markup.raw", "hint", "gray_darker", { bold = false }) -- 行内原始文本 / 行内代码
+-- set_bg("@markup.raw.block", "white", "black", { bold = false }) -- 围栏代码块
+-- set_color("@markup.math", "lightpurple", { italic = true }) -- 数学公式
+
+-- ============================================================
+-- 4. 链接
+-- ============================================================
+hl(0, "@markup.link", { fg = vim.g.cls_gui.link, ctermfg = vim.g.cls_cterm.link })   -- 通用链接
+hl(0, "@markup.link.label", { fg = vim.g.cls_gui.link, ctermfg = vim.g.cls_cterm.link })  -- 链接标签 / 引用标签
+hl(0, "@markup.link.url", { fg = vim.g.cls_gui.info, ctermfg = vim.g.cls_cterm.info, underline = true})    -- URL 地址
+hl(0, "@markup.link.title", { fg = vim.g.cls_gui.hint, ctermfg = vim.g.cls_cterm.hint, italic = true})    -- 链接标题
+
+-- set_color("@markup.link", "link", {}) -- 通用链接
+-- set_color("@markup.link.label", "link", {}) -- 链接标签 / 引用标签
+-- set_color("@markup.link.url", "info", { underline = true }) -- URL 地址
+-- set_color("@markup.link.title", "hint", { italic = true }) -- 链接标题
+
+-- ============================================================
+-- 5. 引用与列表
+-- ============================================================
+hl(0, "@markup.quote", { fg = vim.g.cls_gui.hint, ctermfg = vim.g.cls_cterm.hint, italic = true }) -- 引用块
+hl(0, "@markup.list", { fg = vim.g.cls_gui.hint, ctermfg = vim.g.cls_cterm.hint, bold = true }) -- 列表标记
+hl(0, "@markup.list.checked", { fg = vim.g.cls_gui.hint, ctermfg = vim.g.cls_cterm.hint, bold = true }) -- 已勾选任务
+hl(0, "@markup.list.unchecked", { fg = vim.g.cls_gui.hint, ctermfg = vim.g.cls_cterm.hint }) -- 未勾选任务
+
+-- set_color("@markup.quote", "gray_light", { italic = true }) -- 引用块
+-- set_color("@markup.list", "orange", { bold = true }) -- 列表标记
+-- set_color("@markup.list.checked", "hint", { bold = true }) -- 已勾选任务
+-- set_color("@markup.list.unchecked", "gray", {}) -- 未勾选任务
+
+-- ============================================================
+-- 6. 标点符号
+-- ============================================================
+set_color("@punctuation.special", "gray_light", {}) -- 特殊标点：例如部分 Markdown 语法标记
+set_color("@punctuation.delimiter", "gray", {}) -- 普通分隔符
+
+-- ============================================================
+-- 7. 代码围栏标签 / 元数据 / 转义
+-- ============================================================
+set_color("@label", "cyan", { bold = true }) -- 语言标识等标签
+set_color("@keyword.directive", "keyword", { bold = true }) -- YAML 元数据指令
+set_color("@string.escape", "orange", { bold = true }) -- 转义序列
+
+-- ============================================================
+-- 8. 拼写检查
+-- ============================================================
+-- 拼写检查文本不强制覆盖前景色，
+-- 保留底层文字颜色，仅设置拼写提示下划线样式。
+-- set_hl("@spell", {
+--     undercurl = true,
+--     sp = gui.warn,
+-- })

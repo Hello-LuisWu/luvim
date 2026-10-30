@@ -3,108 +3,115 @@
 -- 创建一个自动命令组
 -- 使用固定名称可以避免重复创建自动命令时产生多个相同配置
 local group = vim.api.nvim_create_augroup("setupAlign", { clear = true })
+local loaded = false
 
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-    group = group,
-    -- once = true,
-    callback = function(args)
-        local buf = args.buf
+	group = group,
+	-- once = true,
+	callback = function(args)
+		local buf = args.buf
 
-        -- 防止重复加载
-        if package.loaded["mini.align"] then
-            vim.api.nvim_del_augroup_by_id(group)
-            return
-        end
+		-- 1. 防止重复加载
+		if loaded or package.loaded["mini.align"] then
+			loaded = true
+			vim.api.nvim_del_augroup_by_id(group)
+			return
+		end
 
-        -- 只处理普通、可写文件
-        if vim.bo[buf].buftype ~= ""
-            or not vim.bo[buf].modifiable
-            or vim.bo[buf].readonly
-        then
-            return
-        end
+		-- 只处理普通、可写文件
+		if vim.bo[buf].buftype ~= ""
+			or not vim.bo[buf].modifiable
+			or vim.bo[buf].readonly
+		then
+			return
+		end
 
-        ---------------------------------------------------------------------
-        -- 内容区:
-        vim.pack.add({
-            { src = "https://github.com/nvim-mini/mini.align", version = 'stable', },
-        })
+		---------------------------------------------------------------------
+		-- 内容区:
+		vim.pack.add({
+			{ src = "https://github.com/nvim-mini/mini.align", version = 'stable', },
+		})
 
-        require("mini.align").setup({
-            -- Module mappings. Use `''` (empty string) to disable one.
-            mappings = {
-                start = '<leader>a',
-                start_with_preview = '<leader>A',
-            },
+		require("mini.align").setup({
+			-- Module mappings. Use `''` (empty string) to disable one.
+			mappings = {
+				start = '<leader>a',
+				start_with_preview = '<leader>A',
+			},
 
-            -- Modifiers changing alignment steps and/or options
-            modifiers = {
-                -- 【主功能修饰符】
-                -- s: 手动输入自定义分割正则，复杂分割场景使用
-                ['s'] = nil,
-                -- j: 切换对齐方向 left(左对齐)/right(右对齐)/center(居中)
-                ['j'] = nil,
-                -- m: 自定义合并分隔符，对齐后用该符号拼接文本片段
-                ['m'] = nil,
+			-- Modifiers changing alignment steps and/or options
+			modifiers = {
+				-- 【主功能修饰符】
+				-- s: 手动输入自定义分割正则，复杂分割场景使用
+				['s'] = nil,
+				-- j: 切换对齐方向 left(左对齐)/right(右对齐)/center(居中)
+				['j'] = nil,
+				-- m: 自定义合并分隔符，对齐后用该符号拼接文本片段
+				['m'] = nil,
 
-                -- 【预处理修饰符：分割前先处理文本】
-                -- f: Lua表达式过滤分割片段，只保留符合条件内容再对齐
-                ['f'] = nil,
-                -- i: 忽略部分分割匹配点，跳过指定位置不分割
-                ['i'] = nil,
-                -- p: 片段配对对齐，适合括号、键值成对场景
-                ['p'] = nil,
-                -- t: 自动修剪每段文本前后多余空格再对齐
-                ['t'] = nil,
+				-- 【预处理修饰符：分割前先处理文本】
+				-- f: Lua表达式过滤分割片段，只保留符合条件内容再对齐
+				['f'] = nil,
+				-- i: 忽略部分分割匹配点，跳过指定位置不分割
+				['i'] = nil,
+				-- p: 片段配对对齐，适合括号、键值成对场景
+				['p'] = nil,
+				-- t: 自动修剪每段文本前后多余空格再对齐
+				['t'] = nil,
 
-                -- 退格键：撤销上一步添加的预处理规则
-                ['<BS>'] = nil,
+				-- 退格键：撤销上一步添加的预处理规则
+				['<BS>'] = nil,
 
-                -- 【常用符号一键增强预设】输入符号直接套用成熟对齐规则
-                -- = 等号对齐（代码赋值语句）
-                ['='] = nil,
-                -- , 逗号对齐（函数参数、数组列表）
-                [','] = nil,
-                -- | 竖线对齐（Markdown 表格）
-                ['|'] = nil,
-                -- 空格 多空格分列对齐
-                [' '] = nil,
-            },
-
-
-            -- 默认对齐选项
-            options = {
-                -- 默认不指定分隔符
-                split_pattern   = "",
-
-                -- 左对齐（最常用）
-                justify_side    = "left",
-
-                -- 保持原来的分隔符
-                merge_delimiter = "",
-            },
+				-- 【常用符号一键增强预设】输入符号直接套用成熟对齐规则
+				-- = 等号对齐（代码赋值语句）
+				['='] = nil,
+				-- , 逗号对齐（函数参数、数组列表）
+				[','] = nil,
+				-- | 竖线对齐（Markdown 表格）
+				['|'] = nil,
+				-- 空格 多空格分列对齐
+				[' '] = nil,
+			},
 
 
+			-- 默认对齐选项
+			options = {
+				-- 默认不指定分隔符
+				split_pattern   = "",
 
-            -- 对齐步骤（一般不用动，使用默认即可）
-            steps = {
-                pre_split   = {},
-                split       = nil,
-                pre_justify = {},
-                justify     = nil,
-                pre_merge   = {},
-                merge       = nil,
-            },
+				-- 左对齐（最常用）
+				justify_side    = "left",
+
+				-- 保持原来的分隔符
+				merge_delimiter = "",
+			},
 
 
-            -- 是否禁用非错误消息（如帮助提示）
-            silent = false, -- false 表示显示提示信息，便于学习
 
-        })
+			-- 对齐步骤（一般不用动，使用默认即可）
+			steps = {
+				pre_split   = {},
+				split       = nil,
+				pre_justify = {},
+				justify     = nil,
+				pre_merge   = {},
+				merge       = nil,
+			},
 
-        --------------------------------------------------------------------------------------------
-        -- 优化点 3：加载成功后立即清除当前自动命令组
-        -- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
-        vim.api.nvim_del_augroup_by_id(group)
-    end,
+
+			-- 是否禁用非错误消息（如帮助提示）
+			silent = false, -- false 表示显示提示信息，便于学习
+
+		})
+
+
+		--------------------------------------------------------------------------------------------
+
+		-- 标记加载完成
+		loaded = true
+
+		-- 优化点 3：加载成功后立即清除当前自动命令组
+		-- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
+		vim.api.nvim_del_augroup_by_id(group)
+	end,
 })

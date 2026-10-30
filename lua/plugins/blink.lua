@@ -1,16 +1,15 @@
 -- NOTE: p: 自动补全
 
+local loaded = false
 local group = vim.api.nvim_create_augroup("setupBlinkCmp", { clear = true })
-
 vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
     group = group,
     -- once = true,
     callback = function(args)
-        -- 【优化 1：防止重复加载】
-        if package.loaded["blink.cmp"] then
-            vim.api.nvim_del_augroup_by_id(group)
-            return
-        end
+
+		if loaded then
+			return
+		end
 
         -- 如果是命令行触发 (CmdlineEnter)，则直接放行
         if vim.v.event.event == "InsertEnter" then
@@ -94,7 +93,8 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
             },
 
         })
-
+		
+		loaded =true
         --------------------------------------------------------------------------------------
         -- 既然补全引擎已经启动，就没必要再监听 InsertEnter 或 CmdlineEnter 了
         -- 删除监听组，释放系统资源，确保零持续开销

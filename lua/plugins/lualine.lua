@@ -1,14 +1,12 @@
-local vim = vim
-
+local loaded = false
 local group = vim.api.nvim_create_augroup("SetupLualine", { clear = true })
-
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+vim.api.nvim_create_autocmd('UIEnter', {
 	group = group,
 	-- once = true,
 	callback = function()
+
 		-- 已加载则跳过
-		if package.loaded["lualine"] then
-			vim.api.nvim_del_augroup_by_id(group)
+		if loaded then
 			return
 		end
 
@@ -36,26 +34,25 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 		-- 	local index = math.ceil(line_ratio * #chars)
 		-- 	return chars[index]
 		-- end
-		local function sep()
-			return [[‒]]
-		end
+		-- local function sep()
+		-- 	return [[ ]]
+		-- 	-- return [[‒▁]]
+		-- end
 		local tm = {}
 		for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command", "inactive" }) do
 			tm[mode] = {}
 			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
-				-- for _, section in ipairs({ "c", "x" }) do
-				-- tm[mode][section] = { bg = "#1a1a1a", fg = vim.g.cls_gui.link }
-				tm[mode][section] = { bg = vim.g.cls_gui.black, fg = vim.g.cls_gui.lightpink }
+				tm[mode][section] = { bg = vim.g.cls_gui.dark.bg2, fg = vim.g.cls_gui.dark.red }
 			end
 		end
 
 		require('lualine').setup({
 			options = {
 				icons_enabled = true,
-				theme = tm,
-				-- theme = "auto",
+				-- theme = tm,
+				theme = "auto",
 
-				component_separators = { left = '', right = '' },
+				component_separators = { left = '─', right = '─' },
 				section_separators = { left = "", right = "" },
 
 				disabled_filetypes = {
@@ -87,11 +84,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 			},
 			sections = {
 				lualine_a = {
-					-- 'mode',
-					{
-						sep,
-						padding = 0
-					},
+					'mode',
+					-- {
+					-- 	sep,
+					-- 	padding = 0
+					-- },
 				},
 				lualine_b = {
 				},
@@ -120,27 +117,30 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 					},
 				},
 				lualine_x = {
+					{
+						'lsp_status',
+						-- separator = { right = "|" }, -- 分隔符
+						padding = { right = 2 },
+						-- icon = '', -- f013
+						icon = '', -- f013
+						symbols = {
+							-- Standard unicode symbols to cycle through for LSP progress:
+							spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+							-- spinner = { '|', '/', '-', '\\', '|', '/', '-', '\\', '|', '/' },
+							-- Standard unicode symbol for when LSP is done:
+							done = "✓",
+							-- Delimiter inserted between LSP names:
+							separator = ' ',
+						},
+						-- List of LSP names to ignore (e.g., `null-ls`):
+						ignore_lsp = {},
+						-- Display the LSP name
+						show_name = true,
+					},
 					-- {
-					-- 	'lsp_status',
-					-- separator = {  right = "|"}, -- 分隔符
-					-- 	-- padding = 1,
-					-- 	-- icon = '', -- f013
-					-- 	icon = '', -- f013
-					-- 	symbols = {
-					-- 		-- Standard unicode symbols to cycle through for LSP progress:
-					-- 		-- spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
-					-- 		spinner = { '|', '/', '-', '\\', '|', '/', '-', '\\', '|', '/' },
-					-- 		-- Standard unicode symbol for when LSP is done:
-					-- 		done = "o",
-					-- 		-- Delimiter inserted between LSP names:
-					-- 		-- separator = '|',
-					-- 	},
-					-- 	-- List of LSP names to ignore (e.g., `null-ls`):
-					-- 	ignore_lsp = { "ba" },
-					-- 	-- Display the LSP name
-					-- 	show_name = true,
+					-- 	sep,
+					-- 	padding = { right = 0 }
 					-- },
-
 					{
 						get_indent,
 						cond = function()
@@ -149,10 +149,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 						-- padding = { left = 0, right = 1 },
 					},
 
-					{
-						sep,
-						padding = { right = 0 }
-					},
+					-- {
+					-- 	sep,
+					-- 	padding = { right = 0 }
+					-- },
 					{
 						'encoding',
 						-- padding = { left = 0, right = 1 },
@@ -163,10 +163,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 						},
 						-- padding = 0,
 					},
-					{
-						sep,
-						padding = { left = 0 }
-					},
+					-- {
+					-- 	sep,
+					-- 	padding = { left = 0 }
+					-- },
 					{
 						'fileformat',
 						-- padding = { left = 0, right = 1 },
@@ -179,25 +179,31 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 							dos = 'dos', -- e70f
 							mac = 'mac', -- e711
 						},
-						padding = { left = 1, right = 0 },
+						-- padding = { left = 1, right = 0 },
 					},
-					{
-						sep,
-						padding = { left = 1 }
-					},
+					-- {
+					-- 	sep,
+					-- 	padding = { left = 1 }
+					-- },
 					{
 						"filetype",
-						padding = { left = 1, right = 0 },
+						padding = { left = 1, right = 1 },
 						icons_enabled = false,
 						-- color = {
 						-- 	bg = vim.g.cls_gui.link,
 						-- 	fg = vim.g.cls_gui.black,
 						-- },
 					},
-					{
-						sep,
-						padding = 1
-					},
+					-- {
+					-- 	sep,
+					-- 	padding = 1
+					-- },
+					-- {
+					-- 	'datetime',
+					-- 	-- options: default, us, uk, iso, or your own format string ("%H:%M", etc..)
+					-- 	-- style = '%Y.%m.%d %H:%M'
+					-- 	style = '%y.%m.%d %H:%M %w'
+					-- },
 				},
 				lualine_y = {
 					-- progress,
@@ -274,6 +280,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 			},
 		})
 
+		loaded = true
 		vim.api.nvim_del_augroup_by_id(group)
 	end,
 })

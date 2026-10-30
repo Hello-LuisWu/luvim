@@ -23,7 +23,7 @@ opt.scrolloff = 3 -- 上下滚动时光标离窗口上下边界 3 行
 opt.sidescrolloff = 8 -- 左右移动时，光标距离窗口边缘保持 8 个字符
 opt.whichwrap = "b,s,<,>,[,],h,l" -- 左右键 h/l 可以跨行移动。
 opt.textwidth = 80
-opt.colorcolumn = "80" -- 右边添加参考线
+-- opt.colorcolumn = "80" -- 右边添加参考线
 opt.showmatch = true -- 匹配括号高亮
 opt.matchtime = 2 -- 匹配括号高亮持续时间（十分之一秒）
 opt.pumheight = 10 -- 弹出菜单最多显示10行
@@ -58,8 +58,8 @@ opt.listchars = { -- 设置不可见字符的显示方式
 
 -- 控制“Vim UI 中没有实际文本的空白区域、分隔线、折叠区域等”。
 opt.fillchars = {
-	stl = "‒", -- 状态栏空白处填充, hl: StatusLine
-	-- stlnc = " ", -- 非当前窗口 statusline 填充, hl: StatusLineNC
+	stl = "─", -- 状态栏空白处填充, hl: StatusLine
+	stlnc = "─", -- 非当前窗口 statusline 填充, hl: StatusLineNC
 	wbr = "_", -- WinBar 窗口栏填充, hl: WinBar / WinBarNC
 
 	-- hl: WinSeparator
@@ -79,18 +79,19 @@ opt.fillchars = {
 
 	diff = "⣿", -- `diff` 模式下的填充字符 hl: DiffDelete
 
-	-- msgsep = "‾", -- 消息分隔线, hl: MsgSeparator
-	msgsep = "-", -- 消息分隔线, hl: MsgSeparator
+	-- msgsep = "▁", -- 消息分隔线, hl: MsgSeparator
+	msgsep = "─", -- 消息分隔线, hl: MsgSeparator
 	eob = " ", -- 文件末尾空白行的提示符（默认是 "~"）, hl: EndOfBuffer
 	lastline = "@", -- display=lastline 时，最后一行被截断的标记, hl: NonText
 
 	trunc = "›", -- 补全菜单文字过长时, hl: PmenuSel 等 Popup 高亮
 	truncrl = "<", -- rightleft 模式下补全菜单截断标记, hl: 同 trunc
+
 }
 
--- -- ----------------------------
--- -- 编辑体验
--- -- ----------------------------
+-- ----------------------------
+-- 编辑体验
+-- ----------------------------
 
 -- 关于缩进
 local Itn = 4                                                  -- 缩进宽度

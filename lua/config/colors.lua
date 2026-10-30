@@ -1,12 +1,12 @@
 local vim = vim
-
 vim.g.cls_gui = ({
+
 	black       = "#262626",
-	gray_darker = "#2c313a", -- 次级背景/边框
-	gray_dark   = "#3e4452", -- 非活动元素
-	gray        = "#5c6370", -- 注释/非活动文本
-	gray_light  = "#7f848e", -- 弱化文本
-	white       = "#e5e3ef", -- 主前景色
+	bg1 = "#2c313a", -- 次级背景/边框
+	bg2   = "#3e4452", -- 非活动元素
+	bg3        = "#5c6370", -- 注释/非活动文本
+	bg4  = "#7f848e", -- 弱化文本
+	fg       = "#e5e3ef", -- 主前景色
 
 	-- 灰度值
 	gray0       = "#000000",
@@ -43,14 +43,42 @@ vim.g.cls_gui = ({
 
 	-- 浅色系
 	lightred    = "#fd8989",
-	lightpink   = "#FFB6C1",
 	lightorange = "#FFDAB9",
 	lightyellow = "#FFFACD",
 	lightgreen  = "#90EE90",
 	lightcyan   = "#E0FFFF",
 	lightblue   = "#ADD8E6",
 	lightpurple = "#D8BFD8",
+	lightpink   = "#FFB6C1",
+	light       = {
+		black       = "#101012",
+		bg0         = "#fafafa",
+		bg1         = "#f0f0f0",
+		bg2         = "#e6e6e6",
+		bg3         = "#dcdcdc",
+		fg          = "#383a42",
 
+		red         = "#e45649",
+		orange      = "#c18401",
+		yellow      = "#986801",
+		green       = "#50a14f",
+		cyan        = "#0184bc",
+		blue        = "#4078f2",
+		purple      = "#a626a4",
+		pink        = "#FF79C6",
+		grey        = "#a0a1a7",
+		light_grey  = "#818387",
+
+		dark_cyan   = "#2b5d63",
+		dark_red    = "#833b3b",
+		dark_yellow = "#7c5c20",
+		dark_purple = "#79428a",
+
+		diff_add    = "#e2fbe4",
+		diff_delete = "#fce2e5",
+		diff_change = "#e2ecfb",
+		diff_text   = "#cad3e0",
+	},
 	-- 深色系
 	darkred     = "#8B0000",
 	darkorange  = "#FF8C00",
@@ -60,7 +88,39 @@ vim.g.cls_gui = ({
 	darkblue    = "#00008B",
 	darkpurple  = "#4B0082",
 	darkpink    = "#c84294",
+	dark        = {
+		black       = "#181a1f",
+		bg0         = "#282c34",
+		bg1         = "#31353f",
+		bg2         = "#393f4a",
+		bg3         = "#3b3f4c",
+		fg          = "#abb2bf",
 
+		red         = "#e86671",
+		orange      = "#d19a66",
+		yellow      = "#e5c07b",
+		green       = "#98c379",
+		cyan        = "#56b6c2",
+		blue        = "#61afef",
+		purple      = "#c678dd",
+		pink        = "#8B3A62",
+		grey        = "#5c6370",
+		light_grey  = "#848b98",
+
+		dark_cyan   = "#2b6f77",
+		dark_red    = "#993939",
+		dark_yellow = "#93691d",
+		dark_purple = "#8a3fa0",
+
+		diff_add    = "#31392b",
+		diff_delete = "#382b2c",
+		diff_change = "#1c3448",
+		diff_text   = "#2c5372",
+	},
+
+	-- ----------------------------
+	-- 语义色
+	-- ----------------------------
 	error       = "#f25151", -- 错误 / 删除 / 危险操作（柔和玫红，不刺眼）
 	warn        = "#f4f65b", -- 警告 / 提示 / 待办事项（麦黄，醒目但不焦躁）
 	info        = "#7dcfff", -- 信息 / 水色元素 / 状态提示（天青，清爽冷静）
@@ -117,29 +177,81 @@ vim.g.cls_cterm = ({
 	purple      = 5, -- #800080
 	pink        = 212, -- #FF87D7
 
-	-- ----------------------------
 	-- 浅色系
-	-- ----------------------------
-	lightred    = 210, -- #FF8787
-	lightpink   = 217, -- #FFAFAF
-	lightorange = 223, -- #FFD7AF
-	lightyellow = 230, -- #FFFFD7
-	lightgreen  = 120, -- #87FF87
-	lightcyan   = 195, -- #D7FFFF
-	lightblue   = 152, -- #AFD7D7
-	lightpurple = 182, -- #D7AFD7
+	lightred    = 210, -- #FD8989  亮红色
+	lightorange = 223, -- #FFDAB9  浅橙色
+	lightyellow = 230, -- #FFFACD  浅黄色
+	lightgreen  = 120, -- #90EE90  浅绿色
+	lightcyan   = 195, -- #E0FFFF  浅青色
+	lightblue   = 152, -- #ADD8E6  浅蓝色
+	lightpurple = 182, -- #D8BFD8  浅紫色
+	lightpink   = 217, -- #FFB6C1  浅粉色
+	light       = {
+		black       = 233, -- #101012
+		bg0         = 231, -- #fafafa
+		bg1         = 255, -- #f0f0f0
+		bg2         = 254, -- #e6e6e6
+		bg3         = 253, -- #dcdcdc
+		fg          = 237, -- #383a42
 
-	-- ----------------------------
-	-- 深色系
-	-- ----------------------------
-	darkred     = 88, -- #870000
-	darkorange  = 208, -- #FF8700
-	darkyellow  = 185, -- #D7D75F
-	darkgreen   = 22, -- #005F00
-	darkcyan    = 30, -- #008787
-	darkblue    = 18, -- #000087
-	darkpurple  = 54, -- #5F0087
-	darkpink    = 168, -- #D75F87
+		red         = 167, -- #e45649
+		orange      = 136, -- #c18401
+		yellow      = 136, -- #986801
+		green       = 71, -- #50a14f
+		cyan        = 31, -- #0184bc
+		blue        = 69, -- #4078f2
+		purple      = 133, -- #a626a4
+		pink        = 212, -- #FF79C6
+		grey        = 247, -- #a0a1a7
+		light_grey  = 245, -- #818387
+
+		dark_cyan   = 23, -- #2b5d63
+		dark_red    = 88, -- #833b3b
+		dark_yellow = 94, -- #7c5c20
+		dark_purple = 97, -- #79428a
+
+		diff_add    = 194, -- #e2fbe4
+		diff_delete = 224, -- #fce2e5
+		diff_change = 189, -- #e2ecfb
+		diff_text   = 188, -- #cad3e0
+	},
+
+	darkred     = 88, -- #8B0000 深红色
+	darkorange  = 208, -- #FF8C00 深橙色
+	darkyellow  = 184, -- #e1df43 深黄色
+	darkgreen   = 22, -- #006400 深绿色
+	darkcyan    = 30, -- #008B8B 深青色
+	darkblue    = 18, -- #00008B 深蓝色
+	darkpurple  = 54, -- #4B0082 深紫色
+	darkpink    = 168, -- #c84294 深粉色
+	dark        = {
+		black       = 234, -- #181a1f
+		bg0         = 235, -- #282c34
+		bg1         = 236, -- #31353f
+		bg2         = 237, -- #393f4a
+		bg3         = 237, -- #3b3f4c
+		fg          = 249, -- #abb2bf
+
+		red         = 203, -- #e86671
+		orange      = 173, -- #d19a66
+		yellow      = 180, -- #e5c07b
+		green       = 108, -- #98c379
+		cyan        = 73, -- #56b6c2
+		blue        = 75, -- #61afef
+		purple      = 176, -- #c678dd
+		pink        = 168, -- #c84294
+		grey        = 241, -- #5c6370
+
+		dark_cyan   = 30, -- #2b6f77
+		dark_red    = 88, -- #993939
+		dark_yellow = 94, -- #93691d
+		dark_purple = 97, -- #8a3fa0
+
+		diff_add    = 237, -- #31392b
+		diff_delete = 235, -- #382b2c
+		diff_change = 23, -- #1c3448
+		diff_text   = 24, -- #2c5372
+	},
 
 	-- ----------------------------
 	-- 语义色
@@ -150,19 +262,4 @@ vim.g.cls_cterm = ({
 	hint        = 149, -- #AFD75F
 	link        = 111, -- #87AFFF
 	keyword     = 141, -- #AF87FF
-})
-
-vim.g.cls = ({
-	bg1      = "#39383b",
-	bg2      = "#8d89a3",
-	bg3      = "#e4e3e5",
-	bg4      = "#cbcbcf",
-	fg      = "",
-	error   = "",
-	warn    = "",
-	info    = "",
-	hint    = "",
-	link    = "#952fc9",
-	keyword = "",
-
 })

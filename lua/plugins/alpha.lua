@@ -1,38 +1,62 @@
--- NOTE: p: 首页
+local vim = vim
 
-vim.pack.add({
-    "https://github.com/goolord/alpha-nvim",
+local group = vim.api.nvim_create_augroup("setupAlpha", {
+	clear = true,
 })
 
--- 获取 Lazy.nvim 启动时间
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
-alpha.setup(require 'alpha.themes.dashboard'.config)
+local loaded = false
 
--- 自定义 ASCII 艺术 Logo
-local logo = [[
-Luis Wu
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = group,
+	once = true,
+
+	callback = function()
+		-- 防止重复加载
+		if loaded then
+			return
+		end
+
+
+		-- 安装插件
+		vim.pack.add({
+			"https://github.com/goolord/alpha-nvim",
+		})
+
+		-- 加载 Alpha
+		local alpha = require("alpha")
+		local dashboard = require("alpha.themes.dashboard")
+
+		-- 自定义 ASCII Logo
+		local logo = [[
+██╗     ██╗   ██╗██╗███████╗
+██║     ██║   ██║██║██╔════╝
+██║     ██║   ██║██║███████╗
+██║     ██║   ██║██║╚════██║
+███████╗╚██████╔╝██║███████║
+╚══════╝ ╚═════╝ ╚═╝╚══════╝
 ]]
 
--- local fzf = require("fzf-lua")
+		-- Dashboard 配置
+		dashboard.section.header.val = vim.split(logo, "\n")
 
--- Dashboard 配置
-dashboard.section.header.val = vim.split(logo, "\n")
-dashboard.section.buttons.val = {
-    dashboard.button("o", " 历史文件", "<cmd>lua require('fzf-lua').oldfiles()<CR>"),
-    dashboard.button("f", " 查找文件", "<cmd>lua require('fzf-lua').files()<CR>"),
-    dashboard.button("e", " 新建文件", "<cmd>ene <BAR> startinsert <CR>"),
-    dashboard.button("g", " 查找文本", "<cmd>lua require('fzf-lua').live_grep()<CR>"),
-    dashboard.button("l", " 设置面板", "<cmd>e $MYVIMRC<CR>"),
-    dashboard.button("c", " 配置文件", "<cmd>lua require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })<CR>"),
-    dashboard.button("q", " 退出 NVIM", "<cmd>qa<CR>"),
+		dashboard.section.buttons.val = {
+			dashboard.button("o", " 历史文件", "<cmd>lua require('fzf-lua').oldfiles()<cr>"),
+			dashboard.button("f", " 查找文件", "<cmd>lua require('fzf-lua').files()<cr>"),
+			dashboard.button("e", " 新建文件", "<cmd>ene <bar> startinsert <cr>"),
+			dashboard.button("g", " 查找文本", "<cmd>lua require('fzf-lua').live_grep()<cr>"),
+			dashboard.button("l", " 设置面板", "<cmd>e $myvimrc<cr>"),
+			dashboard.button("c", " 配置文件", "<cmd>lua require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })<cr>"),
+			dashboard.button("q", " 退出 nvim", "<cmd>qa<cr>"),
+		}
 
-    -- dashboard.button("o", "  历史文件", ":lua require('telescope.builtin').oldfiles() <CR>"),
-    -- dashboard.button("f", "󰈞  查找文件", ":lua require('telescope.builtin').find_files() <CR>"),
-    -- dashboard.button("e", "  新建文件", ":ene <BAR> startinsert <CR>"),
-    -- dashboard.button("g", "  查找文本", ":lua require('telescope.builtin').live_grep() <CR>"),
-    -- dashboard.button('l', '  设置面板', ':e $MYVIMRC<CR>'),
-    -- dashboard.button('c', '  配置文件', ':Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>'), -- 新增
-    -- dashboard.button("q", "󰅚  推出 NVIM", ":qa<CR>"),
+		-- 注册 Alpha 配置
+		alpha.setup(dashboard.config)
 
-}
+		-- 手动启动 Dashboard
+		alpha.start(true, dashboard.config)
+
+		loaded = true
+		-- 清理自动命令组
+		vim.api.nvim_del_augroup_by_id(group)
+	end,
+})

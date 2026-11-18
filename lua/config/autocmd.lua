@@ -1,3 +1,4 @@
+local vim = vim
 -- 禁用 mini.indentscope 的文件类型列表
 local disable_ft = {
     "help",
@@ -6,10 +7,12 @@ local disable_ft = {
     "Trouble",
     "lazy",
     "mason",
+	"lua",
     "notify",
     "toggleterm",
     "lspinfo",
     "txt",
+	"markdown",
 }
 -- 创建自动命令，在指定文件类型中禁用 mini.indentscope
 vim.api.nvim_create_autocmd("FileType", {
@@ -23,7 +26,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*.md',
     callback = function()
-        vim.b.completion = false
+        -- vim.b.completion = false
     end,
 })
 
@@ -45,44 +48,36 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- 插入模式显示绝对行号，
-vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-    pattern = { "*" },
-    callback = function()
-        vim.opt.relativenumber = false
-        vim.opt.cursorline = false
-        vim.opt.number = true
-    end,
-})
--- 离开插入模式显示相对行号
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-    pattern = { "*" },
-    callback = function()
-        vim.opt.relativenumber = true
-        vim.opt.cursorline = true
+-- 插入模式显示绝对行号，离开插入模式显示相对行号
+vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+    callback = function(args)
+        local insert = args.event == "InsertEnter"
+        vim.opt.relativenumber = not insert
+        vim.opt.cursorline = not insert
         vim.opt.number = true
     end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "markdown", "tex" },       -- 针对 Markdown 和 LaTeX 文件
-    callback = function()
-        vim.opt_local.wrap = true          -- 自动折行
+-- 已移植到 md.lua 插件文件
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = { "markdown", "tex" },       -- 针对 Markdown 和 LaTeX 文件
+--     callback = function()
+        -- vim.opt_local.wrap = true          -- 自动折行
         -- vim.opt_local.spell = true         -- 启用拼写检查
-        vim.opt_local.spelllang = { "en" } -- 设置拼写检查语言
-        vim.opt_local.conceallevel = 2
+        -- vim.opt_local.spelllang = { "en" } -- 设置拼写检查语言
+        -- vim.opt_local.conceallevel = 2
         -- 0	不隐藏任何字符	                            **粗体**
         -- 1	隐藏字符，但显示替代符号,默认用空格替换	    **粗体** → ▸粗体（取决于插件）
         -- 2	隐藏字符，并隐藏替代符号	                **粗体** → 粗体
         -- 3	隐藏字符，并隐藏所有可隐藏标记	            **粗体** → 粗体（最彻底）
 
-        vim.opt_local.concealcursor = ""
+        -- vim.opt_local.concealcursor = ""
         -- n Normal	隐藏
         -- v Visual	隐藏
         -- c Command-line	隐藏
         -- i Insert	不隐藏
-    end,
-})
+--     end,
+-- })
 
 
 -- vim Options

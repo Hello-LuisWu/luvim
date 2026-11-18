@@ -30,7 +30,7 @@ opt.pumheight = 10 -- 弹出菜单最多显示10行
 opt.cmdheight = 0 -- 命令行高度
 
 opt.ruler = true -- 右下角显示光标行列位置（默认 true）
-opt.showbreak = "↳ " -- 自动换行时的行首符号
+opt.showbreak = "L " -- 自动换行时的行首符号
 opt.shortmess:append("I") -- 关闭启动画面
 opt.shortmess:append("c") -- 减少显示补全提示信息, 使用 blink.cmp，这个属于可选项。
 opt.more = false -- 关掉分页提示 "More"
@@ -52,7 +52,7 @@ opt.listchars = { -- 设置不可见字符的显示方式
 	trail = "·", -- 行尾空格显示字符，覆盖 space / multispace
 	extends = "›", -- extends / precedes 用于提示一行内容在窗口左右还有隐藏内容。
 	precedes = "‹",
-	conceal = "-", -- conceallevel=1 时替代隐藏文本，省略为空格
+	conceal = "'", -- conceallevel=1 时替代隐藏文本，省略为空格
 	nbsp = "␣", -- 不换行空格 0xA0 和 U+202F 的显示字符，省略为空白
 }
 
@@ -88,6 +88,9 @@ opt.fillchars = {
 	truncrl = "<", -- rightleft 模式下补全菜单截断标记, hl: 同 trunc
 
 }
+
+vim.cmd("syntax enable")
+vim.cmd("filetype plugin indent on")
 
 -- ----------------------------
 -- 编辑体验

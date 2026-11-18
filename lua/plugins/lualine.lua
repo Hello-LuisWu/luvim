@@ -4,16 +4,10 @@ vim.api.nvim_create_autocmd('UIEnter', {
 	group = group,
 	-- once = true,
 	callback = function()
-
 		-- 已加载则跳过
 		if loaded then
 			return
 		end
-
-		-- NOTE: 不区分只读文件
-
-		---------------------------------------------------------------------
-		-- 内容区:
 
 		vim.pack.add({
 			"https://github.com/nvim-lualine/lualine.nvim"
@@ -34,23 +28,72 @@ vim.api.nvim_create_autocmd('UIEnter', {
 		-- 	local index = math.ceil(line_ratio * #chars)
 		-- 	return chars[index]
 		-- end
+
 		-- local function sep()
 		-- 	return [[ ]]
 		-- 	-- return [[‒▁]]
 		-- end
-		local tm = {}
-		for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command", "inactive" }) do
-			tm[mode] = {}
-			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
-				tm[mode][section] = { bg = vim.g.cls_gui.dark.bg2, fg = vim.g.cls_gui.dark.red }
+
+		-- local tm = {}
+		-- for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command", "inactive" }) do
+		-- 	tm[mode] = {}
+		-- 	for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
+		-- 		tm[mode][section] = { bg = vim.g.cls_gui.dark.bg2, fg = vim.g.cls_gui.dark.red }
+		-- 	end
+		-- end
+
+		-- 获取原生 StatusLine 颜色
+		local function get_hl_color(name)
+			local color = vim.api.nvim_get_hl(0, {
+				name = name,
+				link = false,
+			})
+
+			local function hex(value)
+				return value and string.format("#%06x", value) or nil
 			end
+
+			return {
+				fg = hex(color.fg),
+				bg = hex(color.bg),
+			}
+		end
+
+		-- 活动状态栏
+		local active = get_hl_color("StatusLine")
+
+		-- 非活动状态栏
+		local inactive = get_hl_color("StatusLineNC")
+
+		-- Lualine 主题
+		local tm = {}
+
+		for _, mode in ipairs({
+			"normal",
+			"insert",
+			"visual",
+			"replace",
+			"command",
+		}) do
+			tm[mode] = {}
+
+			for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
+				tm[mode][section] = vim.deepcopy(active)
+			end
+		end
+
+		-- 非活动窗口
+		tm.inactive = {}
+
+		for _, section in ipairs({ "a", "b", "c", "x", "y", "z" }) do
+			tm.inactive[section] = vim.deepcopy(inactive)
 		end
 
 		require('lualine').setup({
 			options = {
 				icons_enabled = true,
-				-- theme = tm,
-				theme = "auto",
+				theme = tm,
+				-- theme = "auto",
 
 				component_separators = { left = '─', right = '─' },
 				section_separators = { left = "", right = "" },
@@ -84,7 +127,6 @@ vim.api.nvim_create_autocmd('UIEnter', {
 			},
 			sections = {
 				lualine_a = {
-					'mode',
 					-- {
 					-- 	sep,
 					-- 	padding = 0
@@ -93,6 +135,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
 				lualine_b = {
 				},
 				lualine_c = {
+					'mode',
 					{
 						'filename',
 

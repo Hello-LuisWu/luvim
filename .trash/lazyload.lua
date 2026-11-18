@@ -1,14 +1,13 @@
 -- 创建一个自动命令组
 -- 使用固定名称可以避免重复创建自动命令时产生多个相同配置
-local group = vim.api.nvim_create_augroup("setupAlign", { clear = true })
-
+local group = vim.api.nvim_create_augroup("setupAlign", { 
+	clear = true -- 创建时清除该组中之前存在的自动命令
+})
 local loaded = false
-
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 	group = group,
 	-- once = true,
-	callback = function(args)
-		local buf = args.buf
+	callback = function()
 
 		-- 1. 防止重复加载
 		if loaded or package.loaded["mini.align"] then
@@ -28,14 +27,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 		-- 	return
 		-- end
 
-
-		-- 只处理普通、可写文件 (可选)
-		if vim.bo[buf].buftype ~= ""
-			or not vim.bo[buf].modifiable
-			or vim.bo[buf].readonly
-		then
-			return
-		end
 
 		------------------------- start
 

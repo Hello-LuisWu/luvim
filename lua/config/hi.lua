@@ -1129,6 +1129,19 @@ hl(0, "Delimiter", {
 -- 1. 标题
 -- ============================================================
 
+-- Markdown 代码块高亮
+vim.api.nvim_set_hl(0, "markdownCodeBlock", {
+    fg = "#abb2bf",
+    bg = "#111333",
+})
+
+-- 代码块分隔符
+vim.api.nvim_set_hl(0, "markdownCodeDelimiter", {
+    fg = "#e5c07b",
+    bg = "#111333",
+    bold = true,
+})
+
 hl(0, "@markup.heading", { fg = gui.link, bg = "NONE", ctermfg = cterm.link, ctermbg = "NONE", bold = true }) -- 通用标题：作为未指定层级时的回退样式
 hl(0, "@markup.heading.1", { fg = gui.link, bg = "NONE", ctermfg = cterm.link, ctermbg = "NONE", bold = true })
 hl(0, "@markup.heading.2", { fg = gui.link, bg = "NONE", ctermfg = cterm.link, ctermbg = "NONE", bold = true })
@@ -1191,3 +1204,21 @@ hl(0, "@string.escape", { fg = gui.cyan, ctermfg = cterm.cyan })           -- �
 --     undercurl = true,
 --     sp = gui.warn,
 -- })
+
+
+vim.g.markdown_fenced_languages = {
+    "lua",
+    "vim",
+    "vimdoc",
+    "python",
+    "bash=sh",
+    "json",
+    "javascript",
+    "typescript",
+    "html",
+    "css",
+    "c",
+    "cpp",
+    "rust",
+    "go",
+}

@@ -1,23 +1,15 @@
 local vim = vim
-
-local group = vim.api.nvim_create_augroup("setupAlpha", {
-	clear = true,
-})
-
+local group = vim.api.nvim_create_augroup("setupAlpha", { clear = true })
 local loaded = false
-
 vim.api.nvim_create_autocmd("VimEnter", {
 	group = group,
 	once = true,
-
 	callback = function()
-		-- 防止重复加载
+
 		if loaded then
 			return
 		end
 
-
-		-- 安装插件
 		vim.pack.add({
 			"https://github.com/goolord/alpha-nvim",
 		})
@@ -28,12 +20,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 		-- 自定义 ASCII Logo
 		local logo = [[
-██╗     ██╗   ██╗██╗███████╗
-██║     ██║   ██║██║██╔════╝
-██║     ██║   ██║██║███████╗
-██║     ██║   ██║██║╚════██║
-███████╗╚██████╔╝██║███████║
-╚══════╝ ╚═════╝ ╚═╝╚══════╝
+██╗  ██╗ ██╗██╗██████╗
+██║  ██║ ██║██║██╔═══╝
+██║  ██║ ██║██║██████╗
+██║  ██║ ██║██║╚═══██║
+████╗╚████╔╝██║██████║
+╚═══╝ ╚═══╝ ╚═╝╚═════╝
 ]]
 
 		-- Dashboard 配置
@@ -56,7 +48,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		alpha.start(true, dashboard.config)
 
 		loaded = true
-		-- 清理自动命令组
 		vim.api.nvim_del_augroup_by_id(group)
 	end,
 })

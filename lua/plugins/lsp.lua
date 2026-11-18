@@ -1,18 +1,16 @@
 -- 创建一个自动命令组
 -- 使用固定名称可以避免重复创建自动命令时产生多个相同配置
+local vim = vim
 local group = vim.api.nvim_create_augroup("setupLsp", { clear = true, })
-vim.api.nvim_create_autocmd("VimEnter", {
+local loaded = false
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 	group = group,
-	-- once = true,
 	callback = function()
-		-- 已加载则跳过
-		if package.loaded["lspconfig"] then
-			vim.api.nvim_del_augroup_by_id(group)
+		-- 1. 防止重复加载
+		if loaded then
 			return
 		end
 
-		---------------------------------------------------------------------
-		-- 内容区:
 		vim.pack.add({
 			"https://github.com/neovim/nvim-lspconfig",
 			"https://github.com/mason-org/mason.nvim",
@@ -34,7 +32,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 		vim.lsp.config.bashls = {
 			cmd = { 'bash-language-server', 'start' },
-			filetypes = { 'bash', 'sh','zsh' }
+			filetypes = { 'bash', 'sh', 'zsh' }
 		}
 
 		vim.lsp.enable({
@@ -171,8 +169,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			},
 		})
 
-		--------------------------------------------------------------------------------------------
-		-- 确保整个插件生命周期内，这段逻辑只运行一次成功加载过程
+		loaded = true
 		vim.api.nvim_del_augroup_by_id(group)
 	end,
 })

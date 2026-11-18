@@ -28,25 +28,30 @@
 --     desc = "nvim 内部预览 md",
 -- })
 
+local vim = vim
 
 local loaded = false
 local group = vim.api.nvim_create_augroup("SetupMD", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = group,
 	pattern = { "markdown" },
-	callback = function(args)
-		local buf = args.buf
-		
+	callback = function()
+        -- vim.opt_local.wrap = true          -- 自动折行
+        vim.opt_local.spell = false         -- 禁用拼写检查
+        vim.opt_local.spelllang = { "en" } -- 设置拼写检查语言
+        vim.opt_local.conceallevel = 2
+        -- 0	不隐藏任何字符	                            **粗体**
+        -- 1	隐藏字符，但显示替代符号,默认用空格替换	    **粗体** → ▸粗体（取决于插件）
+        -- 2	隐藏字符，并隐藏替代符号	                **粗体** → 粗体
+        -- 3	隐藏字符，并隐藏所有可隐藏标记	            **粗体** → 粗体（最彻底）
+
+        vim.opt_local.concealcursor = ""
+        -- n Normal	隐藏
+        -- v Visual	隐藏
+        -- c Command-line	隐藏
+        -- i Insert	不隐藏
+
 		if loaded then
-			return
-		end
-
-
-		-- 只处理普通、可写文件 (可选)
-		if vim.bo[buf].buftype ~= ""
-			or not vim.bo[buf].modifiable
-			or vim.bo[buf].readonly
-		then
 			return
 		end
 
@@ -56,6 +61,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			"https://github.com/HakonHarnes/img-clip.nvim",
 			"https://github.com/Kicamon/markdown-table-mode.nvim",
 			"https://github.com/richardbizik/nvim-toc",
+			"https://github.com/Hello-LuisWu/markdown-table.nvim"
 			-- "https://github.com/MeanderingProgrammer/render-markdown.nvim"
 		})
 
@@ -80,7 +86,24 @@ vim.api.nvim_create_autocmd("FileType", {
 		-- )
 
 		-- ---------------------------------------------------------------------
-		-- 2. nvim-toc (目录生成)
+		--  粘贴网页复制的表格
+		-- ---------------------------------------------------------------------
+		require("markdown_table").setup({
+			mappings = {
+				convert = "<leader>mt",
+				html = "<leader>mh",
+				format = "<leader>mf",
+			},
+			clipboard = {
+				prefer_html = true,
+			},
+			default_alignment = "right", -- left | center | right
+			min_column_width = 3,
+			notify = true,
+		})
+
+		-- ---------------------------------------------------------------------
+		--  nvim-toc (目录生成)
 		-- ---------------------------------------------------------------------
 		require("nvim-toc").setup({
 			toc_header = "目录"
@@ -100,7 +123,7 @@ vim.api.nvim_create_autocmd("FileType", {
 				alig_style = 'default', -- default, left, center, right
 			},
 		})
-		vim.keymap.set("n", "<leader>mt", "<cmd>Mtm<cr>")
+		vim.keymap.set("n", "<leader>mb", "<cmd>Mtm<cr>")
 
 		-- ---------------------------------------------------------------------
 		-- 4. img-clip (剪贴板粘贴图片)
@@ -129,7 +152,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		-- ---------------------------------------------------------------------
 		vim.g.mkdp_filetypes = { "markdown" }
 		vim.g.mkdp_auto_close = true
-		vim.g.mkdp_port = "8888"
+		vim.g.mkdp_port = "3535"
 
 		-- 2. 安装依赖
 		-- vim.fn["mkdp#util#install"]()
